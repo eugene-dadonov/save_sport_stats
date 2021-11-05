@@ -34,7 +34,7 @@ class MatchCard extends StatelessWidget {
       borderRadius: borderRadius,
       cardColor: Colors.white,
       splashColor: AppColors.background,
-      shadowColor: AppColors.backgroundDark.withOpacity(0.5),
+      shadowColor: AppColors.secondary.withOpacity(0.5),
     );
   }
 }

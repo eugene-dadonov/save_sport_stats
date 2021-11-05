@@ -58,7 +58,7 @@ class _MatchPageState extends State<MatchPage> {
       backgroundColor: AppColors.background,
       title: Text(
         "Sport\nStats\nLive",
-        style: GoogleFonts.russoOne(fontSize: 10, color: AppColors.blueDark),
+        style: GoogleFonts.russoOne(fontSize: 10, color: AppColors.main),
       ),
     );
   }

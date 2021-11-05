@@ -18,17 +18,20 @@ enum HostStatus {
 }
 
 enum TeamColor {
+  redDark,
   red,
-  lightRed,
-  blue,
-  lightGreen,
-  yellow,
   orange,
-  pink,
-  lightBlue,
-  darkBlue,
+  yellow,
   green,
-  black,
+  greenLight,
+  cyan,
+  azure,
+  blue,
   purple,
+  raspberry,
+  pink,
+  greyLight,
   grey,
+  greyDark,
+  black,
 }

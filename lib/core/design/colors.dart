@@ -1,61 +1,67 @@
 import 'package:flutter/cupertino.dart';
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 
+import 'colors_light.dart';
+
 class AppColors {
-  // Todo: переделать все цвета!
+  static const Color redDark = Color(0xFF840622);
+  static const Color red = Color(0xFFD02929);
+  static const Color orange = Color(0xFFF2994A);
+  static const Color yellow = Color(0xFFFFD25F);
+  static const Color green = Color(0xFF219653);
+  static const Color greenLight = Color(0xFF11D063);
+  static const Color cyan = Color(0xFF0BB7B7);
+  static const Color azure = Color(0xFF578DD4);
+  static const Color blue = Color(0xFF235190);
+  static const Color purple = Color(0xFF9B51E0);
+  static const Color raspberry = Color(0xFFB91678);
+  static const Color pink = Color(0xFFEF5DA8);
+  static const Color greyLight = Color(0xFFA7A7A7);
+  static const Color grey = Color(0xFF5F5F5F);
+  static const Color greyDark = Color(0xFF383737);
+  static const Color black = Color(0xFF151515);
+
   static const Color background = Color(0xFFE0E8F2);
-  static const Color backgroundDark = Color(0xFF6C89AF);
-
-  static const Color red = Color(0xFF9E203C);
-  static const Color green = Color(0xFF3A7D0E);
-  static const Color lightGreen = Color(0xFF71B641);
-  static const Color black = Color(0xFF000000);
-  static const Color grey = Color(0xFF686868);
-  static const Color yellow = Color(0xFFBB890C);
-  static const Color blue = Color(0xFF1B5BCD);
-  static const Color blueLight = Color(0xFF457CDE);
-  static const Color blueDark = Color(0xFF2F3D50);
-  static const Color orange = Color(0xFFA75D0D);
-  static const Color purple = Color(0xFF5D0F87);
-  static const Color pink = Color(0xFF880992);
-
-  static const List<Color> teamColors = [
-    red,
-    blue,
-    blueDark,
-    green,
-    yellow,
-    orange,
-    black,
-  ];
+  static const Color main = Color(0xFF2F3D50);
+  static const Color secondary = Color(0xFF6C89AF);
+  static const Color cancel = Color(0xFF9E203C);
+  static const Color ok = Color(0xFF1A7943);
+  static const Color card = Color(0xFFFFFFFF);
 
   static Color getColorByTeamColor(TeamColor teamColor) {
-    if (teamColor == TeamColor.red) {
-      return red;
-    } else if (teamColor == TeamColor.orange) {
-      return orange;
-    } else if (teamColor == TeamColor.yellow) {
-      return yellow;
-    } else if (teamColor == TeamColor.grey) {
-      return grey;
-    } else if (teamColor == TeamColor.green) {
-      return green;
-    } else if (teamColor == TeamColor.lightBlue) {
-      return blueLight;
-    } else if (teamColor == TeamColor.darkBlue) {
-      return blueDark;
-    } else if (teamColor == TeamColor.blue) {
-      return blue;
-    } else if (teamColor == TeamColor.lightGreen) {
-      return lightGreen;
-    } else if (teamColor == TeamColor.black) {
-      return black;
-    } else if (teamColor == TeamColor.pink) {
-      return pink;
-    } else if (teamColor == TeamColor.purple) {
-      return purple;
-    } else {
-      return black;
+    switch (teamColor) {
+      case TeamColor.redDark:
+        return ColorsLight.redDark;
+      case TeamColor.red:
+        return ColorsLight.red;
+      case TeamColor.orange:
+        return ColorsLight.orange;
+      case TeamColor.yellow:
+        return ColorsLight.yellow;
+      case TeamColor.green:
+        return ColorsLight.green;
+      case TeamColor.greenLight:
+        return ColorsLight.greenLight;
+      case TeamColor.cyan:
+        return ColorsLight.cyan;
+      case TeamColor.azure:
+        return ColorsLight.azure;
+      case TeamColor.blue:
+        return ColorsLight.blue;
+      case TeamColor.purple:
+        return ColorsLight.purple;
+      case TeamColor.raspberry:
+        return ColorsLight.raspberry;
+      case TeamColor.pink:
+        return ColorsLight.pink;
+      case TeamColor.greyLight:
+        return ColorsLight.greyLight;
+      case TeamColor.grey:
+        return ColorsLight.grey;
+      case TeamColor.greyDark:
+        return ColorsLight.greyDark;
+      case TeamColor.black:
+        return ColorsLight.black;
     }
   }
 }

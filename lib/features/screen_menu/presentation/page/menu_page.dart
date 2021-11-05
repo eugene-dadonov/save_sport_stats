@@ -67,21 +67,21 @@ class _MenuPageState extends State<MenuPage> {
       children: [
         _buildPreparedButton(
           title: 'Новый матч!'.toUpperCase(),
-          color: AppColors.blueDark,
+          color: AppColors.main,
           onTap: () {
             context.read<MenuBloc>().add(OnNewMatch());
           },
         ),
         _buildPreparedButton(
           title: 'Загрузить матч'.toUpperCase(),
-          color: AppColors.blueDark,
+          color: AppColors.main,
           onTap: () {
             context.read<MenuBloc>().add(OnMatchList());
           },
         ),
         _buildPreparedButton(
           title: 'Сменить тему'.toUpperCase(),
-          color: AppColors.blueDark,
+          color: AppColors.main,
           onTap: () {
             context.read<MenuBloc>().add(OnTheme());
           },

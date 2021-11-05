@@ -38,7 +38,7 @@ class HiveMatchStorage extends MatchStorage {
     final team1 = Team(
         uid: const Uuid().v1(),
         name: "ФК Волна",
-        teamColor: TeamColor.lightBlue,
+        teamColor: TeamColor.blue,
         city: "Тверь");
     final team2 = Team(
         uid: const Uuid().v1(),

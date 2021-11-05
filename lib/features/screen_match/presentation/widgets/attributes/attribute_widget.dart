@@ -155,7 +155,7 @@ class _AttributeWidgetState extends State<AttributeWidget> {
         maxLines: 2,
         textAlign: TextAlign.center,
         overflow: TextOverflow.ellipsis,
-        style: GoogleFonts.russoOne(fontSize: 18, color: AppColors.blueDark),
+        style: GoogleFonts.russoOne(fontSize: 18, color: AppColors.main),
       ),
     );
   }

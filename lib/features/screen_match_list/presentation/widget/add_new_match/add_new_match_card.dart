@@ -11,7 +11,7 @@ class AddNewMatchWidget extends StatelessWidget {
   const AddNewMatchWidget({
     Key? key,
     required this.text,
-    this.color = AppColors.backgroundDark,
+    this.color = AppColors.secondary,
     required this.onPress,
   }) : super(key: key);
 

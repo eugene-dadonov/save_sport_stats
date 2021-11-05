@@ -84,7 +84,7 @@ class _MatchListPageState extends State<MatchListPage> {
         'Список матчей',
         style: GoogleFonts.russoOne(
           fontSize: 18,
-          color: AppColors.blueDark,
+          color: AppColors.main,
         ),
       ),
       actions: [
@@ -92,7 +92,7 @@ class _MatchListPageState extends State<MatchListPage> {
           onPressed: () {
             context.read<MatchListBloc>().add(OnSearchWithString(""));
           },
-          icon: const Icon(Icons.search_rounded, color: AppColors.blueDark),
+          icon: const Icon(Icons.search_rounded, color: AppColors.main),
         ),
       ],
     );
@@ -108,17 +108,17 @@ class _MatchListPageState extends State<MatchListPage> {
           decoration: InputDecoration(
             hintText: 'Команда или город',
             hintStyle: GoogleFonts.russoOne(
-              color: AppColors.backgroundDark,
+              color: AppColors.secondary,
               fontSize: 14,
             ),
           ),
-          style: GoogleFonts.russoOne(fontSize: 14, color: AppColors.blueDark)),
+          style: GoogleFonts.russoOne(fontSize: 14, color: AppColors.main)),
       actions: [
         IconButton(
           onPressed: () {
             context.read<MatchListBloc>().add(OnStopSearch());
           },
-          icon: const Icon(Icons.close_sharp, color: AppColors.blueDark),
+          icon: const Icon(Icons.close_sharp, color: AppColors.main),
         ),
       ],
     );
