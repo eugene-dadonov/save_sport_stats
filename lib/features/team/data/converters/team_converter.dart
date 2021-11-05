@@ -1,5 +1,4 @@
 import 'package:sport_stats_live/core/design/logos/logos.dart';
-import 'package:sport_stats_live/features/match/data/storage/models/team_shot_model.dart';
 import 'package:sport_stats_live/features/team/data/model/team_model.dart';
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 import 'package:collection/collection.dart';

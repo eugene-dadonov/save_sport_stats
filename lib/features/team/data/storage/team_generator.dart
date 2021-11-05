@@ -27,7 +27,7 @@ class TeamGenerator {
           uid: const Uuid().v1(),
           name: "ФК Урожай",
           logo: Logo.shield2,
-          teamColor: TeamColor.greenLight,
+          teamColor: TeamColor.orange,
           city: "Мирный"),
       Team(
           uid: const Uuid().v1(),
@@ -47,6 +47,18 @@ class TeamGenerator {
           logo: Logo.round,
           teamColor: TeamColor.yellow,
           city: "Осташков"),
+      Team(
+          uid: const Uuid().v1(),
+          name: "ФК Редкино",
+          logo: Logo.round,
+          teamColor: TeamColor.red,
+          city: "Редкино"),
+      Team(
+          uid: const Uuid().v1(),
+          name: "ФК Волочанин",
+          logo: Logo.shield3,
+          teamColor: TeamColor.yellow,
+          city: "В. Волочек"),
     ];
   }
 }

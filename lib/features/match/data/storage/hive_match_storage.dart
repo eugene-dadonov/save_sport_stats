@@ -1,14 +1,9 @@
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:collection/collection.dart';
 import 'package:sport_stats_live/features/configuration/data/model/configuration_model.dart';
 import 'package:sport_stats_live/features/configuration/data/model/parameter_model.dart';
-import 'package:sport_stats_live/features/configuration/domain/parameter.dart';
 import 'package:sport_stats_live/features/match/data/converters/match_converter.dart';
 import 'package:sport_stats_live/features/match/data/storage/models/team_shot_model.dart';
-import 'package:sport_stats_live/features/match/domain/entity/attribute.dart';
 import 'package:sport_stats_live/features/match/domain/entity/match.dart';
-import 'package:sport_stats_live/features/team/domain/entity/team.dart';
-import 'package:uuid/uuid.dart';
 import 'match_generator.dart';
 import 'match_storage.dart';
 import 'models/match_model.dart';
@@ -23,7 +18,6 @@ class HiveMatchStorage extends MatchStorage {
   static const activeMatchKey = 'activeMatchKey';
 
   Future<void> init() async {
-    await Hive.initFlutter();
     Hive.registerAdapter<MatchModel>(MatchModelAdapter());
     Hive.registerAdapter<AttributeModel>(AttributeModelAdapter());
     Hive.registerAdapter<TeamShotModel>(TeamShotModelAdapter());
@@ -80,7 +74,7 @@ class HiveMatchStorage extends MatchStorage {
   @override
   Future<Match?> getMatch(String id) async {
     final box = Hive.box<MatchModel>(boxMatchStorage);
-    final matchModel = box.values.firstWhereOrNull((match) => match.id == id);
+    final matchModel = box.get(id);
     if (matchModel == null) {
       return null;
     } else {
