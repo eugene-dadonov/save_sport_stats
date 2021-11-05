@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sport_stats_live/core/design/colors.dart';
+import 'package:sport_stats_live/core/design/logos/logos.dart';
+import 'package:sport_stats_live/core/widgets/logo/logo.dart';
 import 'package:sport_stats_live/features/match/data/repository/match_repository.dart';
 import 'package:sport_stats_live/features/match/domain/entity/match.dart';
 import 'package:sport_stats_live/features/screen_match/presentation/pages/match_page.dart';
@@ -61,19 +64,37 @@ class _MenuPageState extends State<MenuPage> {
   }
 
   Widget _buildButtons(BuildContext context, Match? lastMatch) {
+    const String assetName = 'assets/graphics/app_logo/app_logo.svg';
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        SizedBox(
+          width: 120,
+          height: 120,
+          child: SvgPicture.asset(assetName, color: AppColors.redDark),
+        ),
+        const SizedBox(
+          height: 80,
+          width: 80,
+        ),
         _buildPreparedButton(
-          title: 'Новый матч!'.toUpperCase(),
+          title: 'Новый матч'.toUpperCase(),
           color: AppColors.main,
           onTap: () {
             context.read<MenuBloc>().add(OnNewMatch());
           },
         ),
         _buildPreparedButton(
-          title: 'Загрузить матч'.toUpperCase(),
+          title: 'Все матчи'.toUpperCase(),
+          color: AppColors.main,
+          onTap: () {
+            context.read<MenuBloc>().add(OnMatchList());
+          },
+        ),
+        _buildPreparedButton(
+          title: 'Список команд'.toUpperCase(),
           color: AppColors.main,
           onTap: () {
             context.read<MenuBloc>().add(OnMatchList());

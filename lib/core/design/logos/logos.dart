@@ -15,3 +15,9 @@ enum Logo {
   pentagon,
   hexagon,
 }
+
+extension ParseToString on Logo {
+  String toShortString() {
+    return toString().split('.').last;
+  }
+}
