@@ -9,8 +9,8 @@ import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 
 class MatchConverter {
   static Match fromModel(MatchModel matchModel) {
-    Team host = TeamConverter.fromModel(matchModel.host);
-    Team guest = TeamConverter.fromModel(matchModel.guest);
+    Team host = TeamShotConverter.fromModel(matchModel.host);
+    Team guest = TeamShotConverter.fromModel(matchModel.guest);
     List<Attribute> attributes = matchModel.attributes
         .map((param) => AttributeConverter.fromModel(param))
         .toList();

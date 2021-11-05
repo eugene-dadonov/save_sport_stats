@@ -1,12 +1,16 @@
+import 'package:sport_stats_live/core/design/logos/logos.dart';
+
 class Team {
   String uid;
   String name;
+  Logo logo;
   TeamColor teamColor;
   String city;
 
   Team({
     required this.uid,
     required this.name,
+    required this.logo,
     required this.teamColor,
     required this.city,
   });

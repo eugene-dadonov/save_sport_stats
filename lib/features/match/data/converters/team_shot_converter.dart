@@ -1,3 +1,4 @@
+import 'package:sport_stats_live/core/design/logos/logos.dart';
 import 'package:sport_stats_live/features/match/data/storage/models/team_shot_model.dart';
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 import 'package:collection/collection.dart';
@@ -10,6 +11,7 @@ class TeamShotConverter {
     return Team(
       uid: teamShotModel.id,
       name: teamShotModel.name,
+      logo: Logo.round, // TODO: НЕ РАБОТАЕТ ПОКА ЧТО! ПОЧИНИТЬ СРАЗУ ПОСЛЕ ЭКРАНА С КОМАНДАМИ!
       teamColor: teamColor ?? TeamColor.grey,
       city: teamShotModel.city,
     );

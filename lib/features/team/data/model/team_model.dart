@@ -11,14 +11,18 @@ class TeamModel extends HiveObject {
   final String name;
 
   @HiveField(2)
-  final String teamColor;
+  final String logo;
 
   @HiveField(3)
+  final String teamColor;
+
+  @HiveField(4)
   final String city;
 
   TeamModel({
     required this.id,
     required this.name,
+    required this.logo,
     required this.teamColor,
     required this.city,
   });
