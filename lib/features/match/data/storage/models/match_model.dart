@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 import 'attribute_model.dart';
-import 'team_model.dart';
+import 'team_shot_model.dart';
 
 part 'match_model.g.dart';
 
@@ -10,10 +10,10 @@ class MatchModel extends HiveObject {
   final String id;
 
   @HiveField(1)
-  final TeamModel host;
+  final TeamShotModel host;
 
   @HiveField(2)
-  final TeamModel guest;
+  final TeamShotModel guest;
 
   @HiveField(3)
   final List<AttributeModel> attributes;

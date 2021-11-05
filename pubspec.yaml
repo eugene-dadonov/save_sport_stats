@@ -14,15 +14,18 @@ dependencies:
 
   cupertino_icons: ^1.0.2
 
-  google_fonts: ^2.1.0
-  flutter_bloc: 7.3.0
+  # data dependencies
   uuid: ^3.0.5
   hive: ^2.0.4
   hive_flutter: ^1.0.0
-  sticky_grouped_list: ^2.0.0-nullsafety.2
+
+  # domain dependencies
+  flutter_bloc: 7.3.0
 
   # presentation dependencies:
   dotted_border: ^2.0.0+1
+  google_fonts: ^2.1.0
+
 
 dev_dependencies:
   flutter_test:

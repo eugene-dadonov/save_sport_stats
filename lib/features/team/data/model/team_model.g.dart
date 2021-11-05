@@ -1,47 +1,41 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'match_model.dart';
+part of 'team_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class MatchModelAdapter extends TypeAdapter<MatchModel> {
+class TeamModelAdapter extends TypeAdapter<TeamModel> {
   @override
-  final int typeId = 0;
+  final int typeId = 2;
 
   @override
-  MatchModel read(BinaryReader reader) {
+  TeamModel read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return MatchModel(
+    return TeamModel(
       id: fields[0] as String,
-      host: fields[1] as TeamShotModel,
-      guest: fields[2] as TeamShotModel,
-      attributes: (fields[3] as List).cast<AttributeModel>(),
-      dateTime: fields[4] as int,
-      status: fields[5] as String,
+      name: fields[1] as String,
+      teamColor: fields[2] as String,
+      city: fields[3] as String,
     );
   }
 
   @override
-  void write(BinaryWriter writer, MatchModel obj) {
+  void write(BinaryWriter writer, TeamModel obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.host)
+      ..write(obj.name)
       ..writeByte(2)
-      ..write(obj.guest)
+      ..write(obj.teamColor)
       ..writeByte(3)
-      ..write(obj.attributes)
-      ..writeByte(4)
-      ..write(obj.dateTime)
-      ..writeByte(5)
-      ..write(obj.status);
+      ..write(obj.city);
   }
 
   @override
@@ -50,7 +44,7 @@ class MatchModelAdapter extends TypeAdapter<MatchModel> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is MatchModelAdapter &&
+      other is TeamModelAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

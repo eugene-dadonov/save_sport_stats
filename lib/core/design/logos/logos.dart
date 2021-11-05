@@ -1,0 +1,17 @@
+enum Logo {
+  oval,
+  round,
+  shield1,
+  shield2,
+  shield3,
+  shield4,
+  shield5,
+  shield6,
+  rombus1,
+  square,
+  triangle1,
+  triangle2,
+  triangle3,
+  pentagon,
+  hexagon,
+}

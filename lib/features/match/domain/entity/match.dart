@@ -1,5 +1,5 @@
 import 'package:sport_stats_live/features/match/domain/entity/attribute.dart';
-import 'package:sport_stats_live/features/match/domain/entity/team.dart';
+import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 
 class Match {
   final String id;

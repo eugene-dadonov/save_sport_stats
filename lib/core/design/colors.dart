@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:sport_stats_live/features/match/domain/entity/team.dart';
+import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 
 class AppColors {
   // Todo: переделать все цвета!

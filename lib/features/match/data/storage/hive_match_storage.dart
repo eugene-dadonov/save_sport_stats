@@ -4,10 +4,10 @@ import 'package:sport_stats_live/features/configuration/data/model/configuration
 import 'package:sport_stats_live/features/configuration/data/model/parameter_model.dart';
 import 'package:sport_stats_live/features/configuration/domain/parameter.dart';
 import 'package:sport_stats_live/features/match/data/converters/match_converter.dart';
-import 'package:sport_stats_live/features/match/data/storage/models/team_model.dart';
+import 'package:sport_stats_live/features/match/data/storage/models/team_shot_model.dart';
 import 'package:sport_stats_live/features/match/domain/entity/attribute.dart';
 import 'package:sport_stats_live/features/match/domain/entity/match.dart';
-import 'package:sport_stats_live/features/match/domain/entity/team.dart';
+import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 import 'package:uuid/uuid.dart';
 import 'match_storage.dart';
 import 'models/match_model.dart';
@@ -25,7 +25,8 @@ class HiveMatchStorage extends MatchStorage {
     await Hive.initFlutter();
     Hive.registerAdapter<MatchModel>(MatchModelAdapter());
     Hive.registerAdapter<AttributeModel>(AttributeModelAdapter());
-    Hive.registerAdapter<TeamModel>(TeamModelAdapter());
+    Hive.registerAdapter<TeamShotModel>(TeamShotModelAdapter());
+
     Hive.registerAdapter<ParameterModel>(ParameterModelAdapter());
     Hive.registerAdapter<ConfigurationModel>(ConfigurationModelAdapter());
 
@@ -34,19 +35,33 @@ class HiveMatchStorage extends MatchStorage {
   }
 
   Future<void> createDemoMatches() async {
-    final team1 =
-        Team(name: "ФК Волна", teamColor: TeamColor.lightBlue, city: "Тверь");
-    final team2 =
-        Team(name: "ФК Метеор", teamColor: TeamColor.red, city: "Ярославль");
-    final team3 =
-        Team(name: "ФК Сталь", teamColor: TeamColor.grey, city: "Москва");
-    final team4 =
-        Team(name: "ФК Тролль", teamColor: TeamColor.green, city: "Москва");
+    final team1 = Team(
+        uid: const Uuid().v1(),
+        name: "ФК Волна",
+        teamColor: TeamColor.lightBlue,
+        city: "Тверь");
+    final team2 = Team(
+        uid: const Uuid().v1(),
+        name: "ФК Метеор",
+        teamColor: TeamColor.red,
+        city: "Ярославль");
+    final team3 = Team(
+        uid: const Uuid().v1(),
+        name: "ФК Сталь",
+        teamColor: TeamColor.grey,
+        city: "Москва");
+    final team4 = Team(
+        uid: const Uuid().v1(),
+        name: "ФК Тролль",
+        teamColor: TeamColor.green,
+        city: "Москва");
     final team5 = Team(
-        name: "ФК Шершень", teamColor: TeamColor.orange, city: "Екатеринбург");
+        uid: const Uuid().v1(),
+        name: "ФК Шершень",
+        teamColor: TeamColor.orange,
+        city: "Екатеринбург");
 
-    final par1 =
-        Parameter(id: const Uuid().v1(), name: "Голы", isDeletable: false);
+    final par1 = Parameter(id: const Uuid().v1(), name: "Голы", isDeletable: false);
     final par2 = Parameter(id: const Uuid().v1(), name: "Удары");
     final par3 = Parameter(id: const Uuid().v1(), name: "Удары в створ");
     final par4 = Parameter(id: const Uuid().v1(), name: "Фолы");
@@ -262,7 +277,6 @@ class HiveMatchStorage extends MatchStorage {
 
     final matchBox = Hive.box<MatchModel>(boxMatchStorage);
     final matchModel = matchBox.get(activeMatchId);
-
 
     if (matchModel == null) {
       print("HiveMatchStorage: getActiveMatch: matchModel == null");
