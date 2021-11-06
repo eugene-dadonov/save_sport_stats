@@ -57,7 +57,7 @@ class TeamGenerator {
           uid: const Uuid().v1(),
           name: "ФК Волочанин",
           logo: Logo.shield3,
-          teamColor: TeamColor.yellow,
+          teamColor: TeamColor.purple,
           city: "В. Волочек"),
     ];
   }

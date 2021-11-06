@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sport_stats_live/core/design/colors.dart';
+import 'package:sport_stats_live/core/widgets/stroke_flat_button/stroke_flat_button.dart';
 import 'package:sport_stats_live/features/match/data/repository/match_repository.dart';
 import 'package:sport_stats_live/features/match/domain/entity/match.dart';
 import 'package:sport_stats_live/features/screen_match/presentation/pages/match_page.dart';
 import 'package:sport_stats_live/features/screen_match_list/domain/bloc.dart';
 import 'package:sport_stats_live/features/screen_match_list/domain/event.dart';
 import 'package:sport_stats_live/features/screen_match_list/domain/state.dart';
-import 'package:sport_stats_live/features/screen_match_list/presentation/widget/add_new_match/add_new_match_card.dart';
 import 'package:sport_stats_live/features/screen_match_list/presentation/widget/match_card/match_card.dart';
 
 class MatchListPage extends StatefulWidget {
@@ -128,9 +128,10 @@ class _MatchListPageState extends State<MatchListPage> {
     return SliverToBoxAdapter(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        child: AddNewMatchWidget(
+        child: StrokeFlatButton(
           text: 'Начать новый матч',
           onPress: () {},
+          height: 100,
         ),
       ),
     );

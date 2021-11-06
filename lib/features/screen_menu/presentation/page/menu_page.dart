@@ -14,6 +14,7 @@ import 'package:sport_stats_live/features/screen_menu/domain/bloc/bloc.dart';
 import 'package:sport_stats_live/features/screen_menu/domain/bloc/event.dart';
 import 'package:sport_stats_live/features/screen_menu/domain/bloc/state.dart';
 import 'package:sport_stats_live/features/screen_menu/presentation/widget/menu_button.dart';
+import 'package:sport_stats_live/features/screen_teams_list/presentation/page/team_list_page.dart';
 
 class MenuPage extends StatefulWidget {
   const MenuPage({
@@ -43,6 +44,8 @@ class _MenuPageState extends State<MenuPage> {
                 navigateTo(context, const MatchListPage());
               } else if (state.route == PageItem.lastMatch) {
                 navigateTo(context, const MatchPage());
+              } else if (state.route == PageItem.teamsList) {
+                navigateTo(context, const TeamsPage());
               }
             }
           },
@@ -97,7 +100,7 @@ class _MenuPageState extends State<MenuPage> {
           title: 'Список команд'.toUpperCase(),
           color: AppColors.main,
           onTap: () {
-            context.read<MenuBloc>().add(OnMatchList());
+            context.read<MenuBloc>().add(OnTeamsList());
           },
         ),
         _buildPreparedButton(

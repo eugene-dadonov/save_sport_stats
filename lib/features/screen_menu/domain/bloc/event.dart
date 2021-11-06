@@ -6,6 +6,8 @@ class OnNewMatch extends MenuEvent {}
 
 class OnMatchList extends MenuEvent {}
 
+class OnTeamsList extends MenuEvent {}
+
 class OnTheme extends MenuEvent {}
 
 class OnLastMatch extends MenuEvent {}

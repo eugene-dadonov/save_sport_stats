@@ -3,16 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sport_stats_live/core/design/colors.dart';
 
-class AddNewMatchWidget extends StatelessWidget {
+class StrokeFlatButton extends StatelessWidget {
   final String text;
   final VoidCallback onPress;
   final Color color;
+  final double height;
 
-  const AddNewMatchWidget({
+  const StrokeFlatButton({
     Key? key,
     required this.text,
     this.color = AppColors.secondary,
     required this.onPress,
+    required this.height,
   }) : super(key: key);
 
   @override
@@ -28,10 +30,10 @@ class AddNewMatchWidget extends StatelessWidget {
           strokeWidth: 2,
           strokeCap: StrokeCap.round,
           color: color,
-          dashPattern: [6, 6],
+          dashPattern: const [6, 6],
           radius: const Radius.circular(10),
-          child: Container(
-            height: 100,
+          child: SizedBox(
+            height: height,
             child: Center(
               child: Text(
                 text.toUpperCase(),

@@ -6,6 +6,7 @@ import 'package:sport_stats_live/app.dart';
 
 import 'features/match/data/repository/match_repository.dart';
 import 'features/match/data/storage/hive_match_storage.dart';
+import 'features/team/data/repository/team_repository_impl.dart';
 import 'features/team/data/storage/hive_team_storage.dart';
 
 void main() async {
@@ -22,8 +23,12 @@ void main() async {
   hiveMatchStorage.showMatches();
   hiveTeamStorage.showTeams();
 
-  runApp(RepositoryProvider(
-      create: (BuildContext context) =>
-          MatchRepositoryImpl(matchStorage: hiveMatchStorage),
-      child: const MyApp()));
+  runApp(MultiRepositoryProvider(providers: [
+    RepositoryProvider(
+        create: (BuildContext context) =>
+            MatchRepositoryImpl(matchStorage: hiveMatchStorage)),
+    RepositoryProvider(
+        create: (BuildContext context) =>
+            TeamRepositoryImpl(matchStorage: hiveTeamStorage))
+  ], child: const MyApp()));
 }

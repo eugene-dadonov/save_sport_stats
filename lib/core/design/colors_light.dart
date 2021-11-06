@@ -4,7 +4,7 @@ class ColorsLight {
   static const Color redDark = Color(0xFF840622);
   static const Color red = Color(0xFFD02929);
   static const Color orange = Color(0xFFF2994A);
-  static const Color yellow = Color(0xFFFFD25F);
+  static const Color yellow = Color(0xFFEBB732);
   static const Color green = Color(0xFF219653);
   static const Color greenLight = Color(0xFF11D063);
   static const Color cyan = Color(0xFF0BB7B7);
