@@ -37,6 +37,8 @@ class TeamsListBloc extends Bloc<team_list_event.TeamListEvent, TeamListState> {
       yield OpenTeam(id: event.id);
     } else if (event is team_list_event.OpenTeamContextMenu) {
       yield OpenTeamContextMenu(event.id);
+    } else if (event is team_list_event.OnNewTeam) {
+      yield OnNewTeam();
     }
   }
 

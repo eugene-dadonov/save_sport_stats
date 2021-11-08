@@ -49,3 +49,5 @@ class OpenTeamContextMenu extends TeamListState {
 
   OpenTeamContextMenu(this.id);
 }
+
+class OnNewTeam extends TeamListState {}

@@ -11,12 +11,14 @@ class ChamferClipPath extends CustomClipper<Path> {
 
     path
       ..moveTo(radius, 0)
-      ..lineTo(size.width - size.height / 4, 0)..lineTo(
-        size.width, size.height)..lineTo(radius, size.height)
+      ..lineTo(size.width - size.height / 4, 0)
+      ..lineTo(size.width, size.height)
+      ..lineTo(radius, size.height)
       ..relativeArcToPoint(Offset(-radius, -radius),
           radius: Radius.circular(radius))
       ..lineTo(0, radius)
-    ..relativeArcToPoint(Offset(radius, -radius), radius: Radius.circular(radius));
+      ..relativeArcToPoint(Offset(radius, -radius),
+          radius: Radius.circular(radius));
 
     return path;
   }

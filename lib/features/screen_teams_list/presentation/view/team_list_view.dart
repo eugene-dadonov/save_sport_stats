@@ -9,11 +9,11 @@ class TeamListView extends StatelessWidget {
   const TeamListView({
     Key? key,
     required this.teams,
-    this.onNewTeamClicked,
+    required this.onNewTeamClicked,
   }) : super(key: key);
 
   final List<Team> teams;
-  final VoidCallback? onNewTeamClicked;
+  final VoidCallback onNewTeamClicked;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class TeamListView extends StatelessWidget {
         child: StrokeFlatButton(
           text: 'Добавить новую команду',
           onPress: () {
-            onNewTeamClicked?.call();
+            onNewTeamClicked.call();
           },
           height: 60,
         ),
@@ -58,10 +58,11 @@ class TeamListView extends StatelessWidget {
   Widget _buildTeamList(BuildContext context, List<Team> teams) {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
-        (context, index) => Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-          child: TeamCard(team: teams[index]),
-        ),
+            (context, index) =>
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+              child: TeamCard(team: teams[index]),
+            ),
         childCount: teams.length,
       ),
     );
