@@ -15,7 +15,9 @@ class NoActiveMatch extends MatchException {
 class NoSuchMatch extends MatchException {
   NoSuchMatch({
     String cause = defaultCause,
+    required this.id,
   }) : super(cause);
+  final String id;
 
   static const String defaultCause = "No such match!";
 }

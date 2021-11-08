@@ -4,6 +4,7 @@ import 'package:sport_stats_live/features/configuration/data/model/parameter_mod
 import 'package:sport_stats_live/features/match/data/converters/match_converter.dart';
 import 'package:sport_stats_live/features/match/data/storage/models/team_shot_model.dart';
 import 'package:sport_stats_live/features/match/domain/entity/match.dart';
+import 'package:sport_stats_live/features/match/domain/exception/exception.dart';
 import 'match_generator.dart';
 import 'match_storage.dart';
 import 'models/match_model.dart';
@@ -87,18 +88,14 @@ class HiveMatchStorage extends MatchStorage {
     final activeMatchBox = Hive.box<String>(boxActiveMatch);
     final String? activeMatchId = activeMatchBox.get(activeMatchKey);
     if (activeMatchId == null) {
-      print("HiveMatchStorage: getActiveMatch: activeMatchId == null");
-      return null;
+      throw NoActiveMatch();
     }
-    print("HiveMatchStorage: getActiveMatch: $activeMatchId");
 
     final matchBox = Hive.box<MatchModel>(boxMatchStorage);
     final matchModel = matchBox.get(activeMatchId);
 
     if (matchModel == null) {
-      print("HiveMatchStorage: getActiveMatch: matchModel == null");
-
-      return null;
+      throw NoSuchMatch(id: activeMatchId);
     } else {
       return MatchConverter.fromModel(matchModel);
     }
@@ -109,5 +106,26 @@ class HiveMatchStorage extends MatchStorage {
     final box = Hive.box<String>(boxActiveMatch);
     await box.put(activeMatchKey, id);
     print("updateActiveMatchWithId: Active match id: $id");
+  }
+
+  @override
+  Future<bool> deleteMatch(String id) async {
+    final matchesBox = Hive.box<MatchModel>(boxMatchStorage);
+    final matchModel = matchesBox.get(id);
+
+    final activeMatchBox = Hive.box<String>(boxActiveMatch);
+    final String? activeMatchId = activeMatchBox.get(activeMatchKey);
+
+    if (matchModel != null) {
+      matchesBox.delete(matchModel.id);
+
+      if (matchModel.id == activeMatchId) {
+        activeMatchBox.delete(activeMatchKey);
+      }
+
+      return true;
+    } else {
+      return false;
+    }
   }
 }

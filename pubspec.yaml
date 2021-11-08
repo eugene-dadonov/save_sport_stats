@@ -21,6 +21,7 @@ dependencies:
 
   # domain dependencies
   flutter_bloc: 7.3.0
+  equatable: ^2.0.3
 
   # presentation dependencies:
   dotted_border: ^2.0.0+1

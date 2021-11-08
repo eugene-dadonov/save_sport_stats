@@ -8,7 +8,6 @@ class MatchListBloc extends Bloc<MatchListEvent, MatchListState> {
   final MatchRepository matchRepository;
 
   late List<Match> _matches;
-  String? expandedMatchId;
   bool isSearch = false;
 
   MatchListBloc({required this.matchRepository}) : super(Loading());

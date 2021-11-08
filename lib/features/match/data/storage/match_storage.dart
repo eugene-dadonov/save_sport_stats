@@ -9,5 +9,7 @@ abstract class MatchStorage {
 
   Future<Match?> getActiveMatch();
 
+  Future<bool> deleteMatch(String id);
+
   Future<void> updateActiveMatchWithId(String id);
 }

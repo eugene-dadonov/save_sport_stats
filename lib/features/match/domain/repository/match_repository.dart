@@ -7,7 +7,8 @@ abstract class MatchRepository {
 
   Future<void> updateMatch(Match match);
 
-  /// Active match can't be open before creating;
+  Future<bool> deleteMatch(String id);
+
   Future<Match> getActiveMatch();
 
   Future<void> updateActiveMatchWithId(String id);

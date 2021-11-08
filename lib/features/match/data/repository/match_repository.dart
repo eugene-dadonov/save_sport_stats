@@ -38,4 +38,8 @@ class MatchRepositoryImpl implements MatchRepository {
   @override
   Future<void> updateActiveMatchWithId(String id) async =>
       await matchStorage.updateActiveMatchWithId(id);
+
+  @override
+  Future<bool> deleteMatch(String id) async =>
+      await matchStorage.deleteMatch(id);
 }
