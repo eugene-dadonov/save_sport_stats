@@ -6,7 +6,9 @@ import 'package:sport_stats_live/core/widgets/stroke_flat_button/stroke_flat_but
 import 'package:sport_stats_live/features/screen_teams_list/domain/bloc/bloc.dart';
 
 class EmptyTeamListView extends StatelessWidget {
-  const EmptyTeamListView({Key? key}) : super(key: key);
+  const EmptyTeamListView({Key? key, this.onNewTeamClicked}) : super(key: key);
+
+  final VoidCallback? onNewTeamClicked;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,7 @@ class EmptyTeamListView extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         child: StrokeFlatButton(
           text: 'Добавить новую команду',
-          onPress: () => BlocProvider.of<TeamsListBloc>(context),
+          onPress: () => onNewTeamClicked,
           height: 60,
         ),
       ),

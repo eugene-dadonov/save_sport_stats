@@ -6,9 +6,14 @@ import 'package:sport_stats_live/features/screen_teams_list/presentation/widget/
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 
 class TeamListView extends StatelessWidget {
-  const TeamListView({Key? key, required this.teams}) : super(key: key);
+  const TeamListView({
+    Key? key,
+    required this.teams,
+    this.onNewTeamClicked,
+  }) : super(key: key);
 
   final List<Team> teams;
+  final VoidCallback? onNewTeamClicked;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +46,9 @@ class TeamListView extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         child: StrokeFlatButton(
           text: 'Добавить новую команду',
-          onPress: () {},
+          onPress: () {
+            onNewTeamClicked?.call();
+          },
           height: 60,
         ),
       ),

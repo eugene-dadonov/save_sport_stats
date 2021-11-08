@@ -13,3 +13,5 @@ class OnOpenTeam extends TeamListEvent {
 
   OnOpenTeam(this.id);
 }
+
+class OnNewTeam extends TeamListEvent {}

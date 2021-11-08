@@ -19,7 +19,7 @@ void main() async {
 
   final hiveTeamStorage = HiveTeamStorage();
   await hiveTeamStorage.init();
-  // await hiveTeamStorage.createDemoTeams();
+  await hiveTeamStorage.createDemoTeams();
 
   hiveMatchStorage.showMatches();
   hiveTeamStorage.showTeams();

@@ -4,13 +4,22 @@ import 'package:sport_stats_live/core/design/styles.dart';
 import 'package:sport_stats_live/core/widgets/clickable_card/clickable_card.dart';
 import 'package:sport_stats_live/core/widgets/logo/logo.dart';
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
-
 import 'chamfer_clip_path.dart';
 
-class TeamCard extends StatelessWidget {
-  final Team team;
+typedef TeamCallback = void Function(Team);
+typedef IdCallback = void Function(String);
 
-  const TeamCard({Key? key, required this.team}) : super(key: key);
+class TeamCard extends StatelessWidget {
+  const TeamCard({
+    Key? key,
+    required this.team,
+    this.onCardClick,
+    this.onContextMenuClick,
+  }) : super(key: key);
+
+  final Team team;
+  final TeamCallback? onCardClick;
+  final IdCallback? onContextMenuClick;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +29,9 @@ class TeamCard extends StatelessWidget {
       splashColor: AppColors.greyLight.withOpacity(0.1),
       shadowColor: AppColors.main.withOpacity(0.2),
       borderRadius: const BorderRadius.all(Radius.circular(radius)),
-      onTap: () {},
+      onTap: () {
+        onCardClick?.call(team);
+      },
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -57,7 +68,9 @@ class TeamCard extends StatelessWidget {
             ),
           ),
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                onContextMenuClick?.call(team.uid);
+              },
               color: AppColors.main,
               splashRadius: 30,
               splashColor: AppColors.main.withOpacity(0.5),

@@ -37,20 +37,19 @@ class TeamsListPage extends StatelessWidget {
             )..add(Init());
           },
           child: BlocConsumer<TeamsListBloc, TeamListState>(
+            buildWhen: (_, newState) => newState is TeamList,
             builder: (BuildContext context, state) {
               if (state is TeamList) {
                 switch (state.status) {
                   case TeamListStatus.loading:
-                    print("TeamListStatus.loading");
                     return const LoadingTeamListView();
                   case TeamListStatus.success:
-                    print("TeamListStatus.success");
                     return TeamListView(teams: state.teams);
                   case TeamListStatus.empty:
-                    print("TeamListStatus.empty");
-                    return const EmptyTeamListView();
+                    return EmptyTeamListView(onNewTeamClicked: () {
+                      context.read<TeamsListBloc>().add(OnNewTeam());
+                    });
                   case TeamListStatus.error:
-                    print("TeamListStatus.error");
                     return Container(
                       color: Colors.red,
                     );
