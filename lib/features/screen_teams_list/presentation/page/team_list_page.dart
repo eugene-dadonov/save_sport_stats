@@ -2,25 +2,29 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_stats_live/core/design/colors.dart';
-import 'package:sport_stats_live/core/design/styles.dart';
-import 'package:sport_stats_live/core/widgets/stroke_flat_button/stroke_flat_button.dart';
 import 'package:sport_stats_live/features/screen_teams_list/domain/bloc/bloc.dart';
 import 'package:sport_stats_live/features/screen_teams_list/domain/bloc/event.dart';
 import 'package:sport_stats_live/features/screen_teams_list/domain/bloc/state.dart';
-import 'package:sport_stats_live/features/screen_teams_list/presentation/widget/team_card.dart';
+import 'package:sport_stats_live/features/screen_teams_list/presentation/view/empty_view.dart';
+import 'package:sport_stats_live/features/screen_teams_list/presentation/view/loading_view.dart';
+import 'package:sport_stats_live/features/screen_teams_list/presentation/view/team_list_view.dart';
 import 'package:sport_stats_live/features/team/data/repository/team_repository_impl.dart';
-import 'package:sport_stats_live/features/team/domain/entity/team.dart';
+import 'package:sport_stats_live/features/team/domain/bloc/bloc.dart';
 
-class TeamsPage extends StatefulWidget {
-  const TeamsPage({
+class TeamsListPage extends StatelessWidget {
+  const TeamsListPage({
     Key? key,
   }) : super(key: key);
 
-  @override
-  State<TeamsPage> createState() => _TeamsPageState();
-}
+  static Route route(TeamsBloc teamsBloc) {
+    return MaterialPageRoute<void>(
+      builder: (_) => BlocProvider.value(
+        value: teamsBloc,
+        child: const TeamsListPage(),
+      ),
+    );
+  }
 
-class _TeamsPageState extends State<TeamsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,66 +32,37 @@ class _TeamsPageState extends State<TeamsPage> {
       body: BlocProvider(
           create: (BuildContext context) {
             return TeamsListBloc(
-                teamRepository: context.read<TeamRepositoryImpl>())
-              ..add(OnStart());
+              teamRepository: context.read<TeamRepositoryImpl>(),
+              teamsBloc: context.read<TeamsBloc>(),
+            )..add(Init());
           },
           child: BlocConsumer<TeamsListBloc, TeamListState>(
             builder: (BuildContext context, state) {
-              if (state is OnTeams) {
-                return _buildTeamsScreen(context, state.teams);
+              if (state is TeamList) {
+                switch (state.status) {
+                  case TeamListStatus.loading:
+                    print("TeamListStatus.loading");
+                    return const LoadingTeamListView();
+                  case TeamListStatus.success:
+                    print("TeamListStatus.success");
+                    return TeamListView(teams: state.teams);
+                  case TeamListStatus.empty:
+                    print("TeamListStatus.empty");
+                    return const EmptyTeamListView();
+                  case TeamListStatus.error:
+                    print("TeamListStatus.error");
+                    return Container(
+                      color: Colors.red,
+                    );
+                }
               } else {
                 return Container(
-                  color: Colors.red,
+                  color: Colors.black12,
                 );
               }
             },
             listener: (BuildContext context, Object? state) {},
           )),
-    );
-  }
-
-  Widget _buildTeamsScreen(BuildContext context, List<Team> teams) {
-    return CustomScrollView(
-      slivers: [
-        _buildSliverAppBar(),
-        _buildNewTeamButton(context),
-        _buildTeamList(context, teams),
-      ],
-    );
-  }
-
-  Widget _buildSliverAppBar() {
-    return SliverAppBar(
-      backgroundColor: AppColors.background,
-      title: Text(
-        "Список команд",
-        style: AppStyle.h1(size: 18),
-      ),
-    );
-  }
-
-  Widget _buildNewTeamButton(BuildContext context) {
-    return SliverToBoxAdapter(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        child: StrokeFlatButton(
-          text: 'Добавить новую команду',
-          onPress: () {},
-          height: 60,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildTeamList(BuildContext context, List<Team> teams) {
-    return SliverList(
-      delegate: SliverChildBuilderDelegate(
-        (context, index) => Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-          child: TeamCard(team: teams[index]),
-        ),
-        childCount: teams.length,
-      ),
     );
   }
 }

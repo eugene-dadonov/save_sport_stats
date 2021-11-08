@@ -14,7 +14,9 @@ import 'package:sport_stats_live/features/screen_menu/domain/bloc/bloc.dart';
 import 'package:sport_stats_live/features/screen_menu/domain/bloc/event.dart';
 import 'package:sport_stats_live/features/screen_menu/domain/bloc/state.dart';
 import 'package:sport_stats_live/features/screen_menu/presentation/widget/menu_button.dart';
+import 'package:sport_stats_live/features/screen_teams_list/domain/bloc/state.dart';
 import 'package:sport_stats_live/features/screen_teams_list/presentation/page/team_list_page.dart';
+import 'package:sport_stats_live/features/team/domain/bloc/bloc.dart';
 
 class MenuPage extends StatefulWidget {
   const MenuPage({
@@ -41,18 +43,17 @@ class _MenuPageState extends State<MenuPage> {
             // Todo: не особо нравится такое решение. Лучше выделить это все в отдельный класс навигатор;
             if (state is NavigateTo) {
               if (state.route == PageItem.matchList) {
-                navigateTo(context, const MatchListPage());
+                Navigator.of(context)
+                    .push(TeamsListPage.route(context.read<TeamsBloc>()));
               } else if (state.route == PageItem.lastMatch) {
                 navigateTo(context, const MatchPage());
               } else if (state.route == PageItem.teamsList) {
-                navigateTo(context, const TeamsPage());
+                navigateTo(context, const TeamsListPage());
               }
             }
           },
           buildWhen: (_, newState) => newState is! NavigateTo,
           builder: (BuildContext context, state) {
-            print("Builder: ${state.toString()}");
-
             if (state is OnLoaded) {
               return _buildButtons(context, state.lastMatch);
             } else {

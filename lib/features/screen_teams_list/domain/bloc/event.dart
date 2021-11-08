@@ -1,17 +1,11 @@
 abstract class TeamListEvent {}
 
-class OnStart extends TeamListEvent {}
+class Init extends TeamListEvent {}
 
-class OnDeleteTeam extends TeamListEvent {
+class OpenTeamContextMenu extends TeamListEvent {
   final String id;
 
-  OnDeleteTeam(this.id);
-}
-
-class OnModifyTeam extends TeamListEvent {
-  final String id;
-
-  OnModifyTeam(this.id);
+  OpenTeamContextMenu(this.id);
 }
 
 class OnOpenTeam extends TeamListEvent {
