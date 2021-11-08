@@ -64,4 +64,10 @@ class HiveTeamStorage extends TeamStorage {
     final box = Hive.box<TeamModel>(boxTeamStorage);
     box.put(teamModel.id, teamModel);
   }
+
+  @override
+  void deleteTeam(String id) {
+    final box = Hive.box<TeamModel>(boxTeamStorage);
+    box.delete(id);
+  }
 }

@@ -6,4 +6,6 @@ abstract class TeamStorage {
   Future<void> saveTeam(Team team);
 
   Future<List<Team>> getTeams();
+
+  deleteTeam(String id);
 }

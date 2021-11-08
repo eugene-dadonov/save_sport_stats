@@ -29,6 +29,6 @@ void main() async {
             MatchRepositoryImpl(matchStorage: hiveMatchStorage)),
     RepositoryProvider(
         create: (BuildContext context) =>
-            TeamRepositoryImpl(matchStorage: hiveTeamStorage))
+            TeamRepositoryImpl(teamStorage: hiveTeamStorage))
   ], child: const MyApp()));
 }

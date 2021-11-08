@@ -3,16 +3,19 @@ import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 import 'package:sport_stats_live/features/team/domain/repository/team_repository.dart';
 
 class TeamRepositoryImpl extends TeamRepository {
-  final HiveTeamStorage matchStorage;
+  final HiveTeamStorage teamStorage;
 
-  TeamRepositoryImpl({required this.matchStorage});
-
-  @override
-  Future<Team> getTeamById(String id) async => await matchStorage.getTeam(id);
+  TeamRepositoryImpl({required this.teamStorage});
 
   @override
-  Future<List<Team>> getTeams() async => await matchStorage.getTeams();
+  Future<Team> getTeamById(String id) async => await teamStorage.getTeam(id);
 
   @override
-  Future<void> saveTeam(Team team) async => await matchStorage.saveTeam(team);
+  Future<List<Team>> getTeams() async => await teamStorage.getTeams();
+
+  @override
+  Future<void> saveTeam(Team team) async => await teamStorage.saveTeam(team);
+
+  @override
+  void delete(String id) => teamStorage.deleteTeam(id);
 }
