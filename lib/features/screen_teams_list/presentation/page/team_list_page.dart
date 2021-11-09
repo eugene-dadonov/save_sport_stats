@@ -41,9 +41,9 @@ class TeamsListPage extends StatelessWidget {
           )..add(event.Init());
         },
         child: BlocConsumer<TeamsListBloc, TeamListState>(
-          buildWhen: (_, newState) => newState is TeamList,
+          buildWhen: (_, newState) => newState is ListState,
           builder: (BuildContext context, state) {
-            if (state is TeamList) {
+            if (state is ListState) {
               switch (state.status) {
                 case TeamListStatus.loading:
                   return const LoadingTeamListView();
@@ -74,13 +74,13 @@ class TeamsListPage extends StatelessWidget {
             }
           },
           listenWhen: (_, newState) {
-            return newState is OnNewTeam || newState is OpenTeam;
+            return newState is NewTeamState || newState is OpenTeamState;
           },
           listener: (BuildContext context, Object? state) {
-            if (state is OpenTeam) {
+            if (state is OpenTeamState) {
               print("OpenTeam");
               openTeamEditDialog(context: context, team: state.team);
-            } else if (state is OnNewTeam) {
+            } else if (state is NewTeamState) {
               print("OnNewTeam");
               openTeamEditDialog(context: context, team: null);
             }

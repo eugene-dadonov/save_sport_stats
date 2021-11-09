@@ -4,7 +4,6 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:sport_stats_live/app.dart';
 import 'package:sport_stats_live/features/team/domain/bloc/bloc.dart';
-
 import 'features/match/data/repository/match_repository.dart';
 import 'features/match/data/storage/hive_match_storage.dart';
 import 'features/team/data/repository/team_repository_impl.dart';
@@ -15,11 +14,11 @@ void main() async {
 
   final hiveMatchStorage = HiveMatchStorage();
   await hiveMatchStorage.init();
-  await hiveMatchStorage.createDemoMatches();
+  // await hiveMatchStorage.createDemoMatches();
 
   final hiveTeamStorage = HiveTeamStorage();
   await hiveTeamStorage.init();
-  await hiveTeamStorage.createDemoTeams();
+  // await hiveTeamStorage.createDemoTeams();
 
   hiveMatchStorage.showMatches();
   hiveTeamStorage.showTeams();

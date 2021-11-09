@@ -12,14 +12,14 @@ class TeamsBloc extends Bloc<TeamsEvent, TeamsState> {
 
   @override
   Stream<TeamsState> mapEventToState(TeamsEvent event) async* {
-    if (event is TeamsEvent) {
-      _mapTeamsEventToTeamsState();
+    if (event is Teams) {
+      yield* _mapTeamsEventToTeamsState();
     } else if (event is NewTeam) {
-      _mapNewTeamToTeamsState(event.newTeam);
+      yield* _mapNewTeamToTeamsState(event.newTeam);
     } else if (event is UpdateTeam) {
-      _mapUpdateTeamToTeamsState(event.updatedTeam);
+      yield* _mapUpdateTeamToTeamsState(event.updatedTeam);
     } else if (event is DeleteTeam) {
-      _mapDeleteTeamToTeamsState(event.id);
+      yield* _mapDeleteTeamToTeamsState(event.id);
     }
   }
 

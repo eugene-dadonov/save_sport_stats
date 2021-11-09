@@ -1,16 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sport_stats_live/features/screen_teams_list/domain/bloc/event.dart'
-    as team_list_event;
+import 'package:sport_stats_live/features/screen_teams_list/domain/bloc/event.dart';
 import 'package:sport_stats_live/features/screen_teams_list/domain/bloc/state.dart';
 import 'package:sport_stats_live/features/team/domain/bloc/bloc.dart';
-import 'package:sport_stats_live/features/team/domain/bloc/event.dart'
-    as team_event;
+import 'package:sport_stats_live/features/team/domain/bloc/state.dart' as team_state;
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 import 'package:sport_stats_live/features/team/domain/repository/team_repository.dart';
 
-class TeamsListBloc extends Bloc<team_list_event.TeamListEvent, TeamListState> {
+class TeamsListBloc extends Bloc<TeamListEvent, TeamListState> {
   final TeamRepository teamRepository;
   final TeamsBloc teamsBloc;
   late StreamSubscription _streamSubscription;
@@ -18,42 +16,43 @@ class TeamsListBloc extends Bloc<team_list_event.TeamListEvent, TeamListState> {
   TeamsListBloc({
     required this.teamRepository,
     required this.teamsBloc,
-  }) : super(TeamList.loading()) {
+  }) : super(ListState.loading()) {
     _streamSubscription = teamsBloc.stream.listen((event) {
-      if (event is team_event.NewTeam ||
-          event is team_event.UpdateTeam ||
-          event is team_event.DeleteTeam) {
-        add(team_list_event.Init());
+      if (event is team_state.TeamsState) {
+        add(Init());
       }
     });
   }
 
   @override
   Stream<TeamListState> mapEventToState(
-      team_list_event.TeamListEvent event) async* {
-    if (event is team_list_event.Init) {
+      TeamListEvent event) async* {
+    if (event is Init) {
       yield* _mapInitToState();
-    } else if (event is team_list_event.OnOpenTeam) {
+    } else if (event is OnOpenTeam) {
       print("Open team");
-      yield OpenTeam(team: event.team);
-    } else if (event is team_list_event.OpenTeamContextMenu) {
-      yield OpenTeamContextMenu(event.id);
-    } else if (event is team_list_event.OnNewTeam) {
-      yield OnNewTeam();
+      yield OpenTeamState(team: event.team);
+    } else if (event is OpenTeamContextMenu) {
+      yield OpenTeamContextMenuState(event.id);
+    } else if (event is OnNewTeam) {
+      yield NewTeamState();
     }
   }
 
   Stream<TeamListState> _mapInitToState() async* {
     List<Team> teams = [];
     try {
+      print("TeamsListBloc._mapInitToState_1");
       teams = await teamRepository.getTeams();
       if (teams.isEmpty) {
-        yield TeamList.empty(null);
+        print("TeamsListBloc._mapInitToState_2");
+        yield ListState.empty(null);
       } else {
-        yield TeamList.success(teams);
+        print("TeamsListBloc._mapInitToState_3");
+        yield ListState.success(teams);
       }
     } catch (e) {
-      yield TeamList.error(null);
+      yield ListState.error(null);
     }
   }
 

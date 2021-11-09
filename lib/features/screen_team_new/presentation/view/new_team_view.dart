@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_stats_live/core/design/colors.dart';
 import 'package:sport_stats_live/core/design/logos/logos.dart';
 import 'package:sport_stats_live/core/design/styles.dart';
 import 'package:sport_stats_live/core/widgets/input_view/input_layout.dart';
+import 'package:sport_stats_live/features/screen_team_new/domain/bloc/bloc.dart';
+import 'package:sport_stats_live/features/screen_team_new/domain/bloc/event.dart';
 import 'package:sport_stats_live/features/screen_team_new/presentation/widgets/color_selector.dart';
 import 'package:sport_stats_live/features/screen_team_new/presentation/widgets/logo_selector.dart';
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
@@ -10,7 +13,10 @@ import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 class NewTeamView extends StatelessWidget {
   final Team? team;
 
-  const NewTeamView({Key? key, required this.team}) : super(key: key);
+  const NewTeamView({
+    Key? key,
+    required this.team,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,13 +34,17 @@ class NewTeamView extends StatelessWidget {
             _buildInputElement(
               hint: 'Введите название',
               text: team?.name,
-              onValueChanged: (value) {},
+              onValueChanged: (newName) {
+                BlocProvider.of<TeamEditBloc>(context).add(UpdateNameEvent(newName));
+              },
             ),
             _buildTitle("Город"),
             _buildInputElement(
               text: team?.city,
               hint: 'Введите город',
-              onValueChanged: (value) {},
+              onValueChanged: (newCity) {
+                BlocProvider.of<TeamEditBloc>(context).add(UpdateCityEvent(newCity));
+              },
             ),
             _buildTitle("Выберите эмблему"),
             _buildLogoSelector(
@@ -98,9 +108,7 @@ class NewTeamView extends StatelessWidget {
           child: LogoSelector(
             currentColor: teamColor.toColor(),
             selectedLogo: logo,
-            onLogoSelected: (logo) {
-              print(logo);
-            },
+            onLogoSelected: (logo) {},
           ),
         ),
       );
@@ -124,7 +132,9 @@ class NewTeamView extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 30),
           child: TextButton(
-            onPressed: () {},
+            onPressed: () {
+              BlocProvider.of<TeamEditBloc>(context).add(SaveTeamEvent());
+            },
             child: const Text('Сохранить'),
           ),
         ),

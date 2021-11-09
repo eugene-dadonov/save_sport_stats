@@ -6,7 +6,6 @@ import 'package:sport_stats_live/features/screen_team_new/domain/bloc/bloc.dart'
 import 'package:sport_stats_live/features/screen_team_new/domain/bloc/event.dart';
 import 'package:sport_stats_live/features/screen_team_new/domain/bloc/state.dart';
 import 'package:sport_stats_live/features/screen_team_new/presentation/view/new_team_view.dart';
-import 'package:sport_stats_live/features/team/data/repository/team_repository_impl.dart';
 import 'package:sport_stats_live/features/team/domain/bloc/bloc.dart';
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 
@@ -18,10 +17,10 @@ class NewTeamPage extends StatelessWidget {
       value: teamsBloc,
       child: BlocProvider(
         create: (BuildContext context) {
-          return NewTeamBloc(
+          return TeamEditBloc(
             team: team,
-            teamRepository: context.read<TeamRepositoryImpl>(),
-          )..add(Start());
+            teamsBloc: teamsBloc,
+          )..add(StartEvent());
         },
         child: const NewTeamPage(),
       ),
@@ -49,19 +48,15 @@ class NewTeamPage extends StatelessWidget {
           style: AppStyle.h1(size: 18),
         ),
       ),
-      body: BlocConsumer<NewTeamBloc, NewTeamState>(
-        listenWhen: (_, newState) => newState is OnTeamSaved,
+      body: BlocConsumer<TeamEditBloc, TeamEditState>(
+        listenWhen: (_, newState) => newState is TeamSavedState,
         listener: (BuildContext context, state) {
           Navigator.of(context).pop();
         },
-        buildWhen: (oldState, newState) =>
-            newState is OnTeamUpdated || newState is OnLoading,
         builder: (context, state) {
-          if (state is OnLoading) {
-            return Container(
-              color: AppColors.main,
-            );
-          } else if (state is OnTeamUpdated) {
+          if (state is LoadingState) {
+            return Container(color: AppColors.orange);
+          } else if (state is TeamState) {
             return NewTeamView(team: state.team);
           } else {
             return Container(

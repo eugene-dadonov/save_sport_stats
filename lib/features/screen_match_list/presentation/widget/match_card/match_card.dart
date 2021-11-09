@@ -23,8 +23,8 @@ class MatchCard extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TeamBlock(team: match.host, score: 3),
-            TeamBlock(team: match.guest, score: 1),
+            TeamView(team: match.host, score: 3),
+            TeamView(team: match.guest, score: 1),
           ],
         ),
       ),

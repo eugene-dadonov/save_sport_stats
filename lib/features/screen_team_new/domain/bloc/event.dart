@@ -1,32 +1,32 @@
 import 'package:sport_stats_live/core/design/logos/logos.dart';
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 
-abstract class NewTeamEvent {}
+abstract class TeamEditEvent {}
 
-class Start extends NewTeamEvent {}
+class StartEvent extends TeamEditEvent {}
 
-class UpdateName extends NewTeamEvent {
+class UpdateNameEvent extends TeamEditEvent {
   final String name;
 
-  UpdateName(this.name);
+  UpdateNameEvent(this.name);
 }
 
-class UpdateCity extends NewTeamEvent {
+class UpdateCityEvent extends TeamEditEvent {
   final String city;
 
-  UpdateCity(this.city);
+  UpdateCityEvent(this.city);
 }
 
-class UpdateColor extends NewTeamEvent {
+class UpdateColorEvent extends TeamEditEvent {
   final TeamColor color;
 
-  UpdateColor(this.color);
+  UpdateColorEvent(this.color);
 }
 
-class UpdateLogo extends NewTeamEvent {
+class UpdateLogoEvent extends TeamEditEvent {
   final Logo logo;
 
-  UpdateLogo(this.logo);
+  UpdateLogoEvent(this.logo);
 }
 
-class SaveTeam extends NewTeamEvent {}
+class SaveTeamEvent extends TeamEditEvent {}

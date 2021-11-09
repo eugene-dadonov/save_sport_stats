@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:sport_stats_live/core/design/colors.dart';
 import 'package:sport_stats_live/core/design/logos/logos.dart';
+import 'package:uuid/uuid.dart';
 
 class Team {
   String uid;
@@ -17,6 +18,13 @@ class Team {
     required this.teamColor,
     required this.city,
   });
+
+  Team.blank()
+      : uid = const Uuid().v1(),
+        name = "",
+        city = "",
+        teamColor = TeamColor.black,
+        logo = Logo.round;
 }
 
 enum HostStatus {

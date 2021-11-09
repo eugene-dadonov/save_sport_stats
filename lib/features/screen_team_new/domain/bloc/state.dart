@@ -1,13 +1,13 @@
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 
-abstract class NewTeamState {}
+abstract class TeamEditState {}
 
-class OnLoading extends NewTeamState {}
+class LoadingState extends TeamEditState {}
 
-class OnTeamUpdated extends NewTeamState {
-  final Team? team;
+class TeamState extends TeamEditState {
+  final Team team;
 
-  OnTeamUpdated(this.team);
+  TeamState(this.team);
 }
 
-class OnTeamSaved extends NewTeamState {}
+class TeamSavedState extends TeamEditState {}

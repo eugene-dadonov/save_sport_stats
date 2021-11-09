@@ -3,13 +3,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sport_stats_live/core/design/colors.dart';
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 
-class TeamBlock extends StatelessWidget {
+class TeamView extends StatelessWidget {
   final Team team;
   final int score;
 
   Color get color => AppColors.getColorByTeamColor(team.teamColor);
 
-  const TeamBlock({
+  const TeamView({
     Key? key,
     required this.team,
     required this.score,

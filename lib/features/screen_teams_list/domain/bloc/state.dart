@@ -9,45 +9,45 @@ enum TeamListStatus {
 
 abstract class TeamListState {}
 
-class TeamList extends TeamListState {
+class ListState extends TeamListState {
   final TeamListStatus status;
   final List<Team> teams;
   final String? message;
 
-  TeamList({
+  ListState({
     required this.status,
     required this.teams,
     required this.message,
   });
 
-  TeamList.loading()
+  ListState.loading()
       : teams = [],
         status = TeamListStatus.loading,
         message = null;
 
-  TeamList.success(this.teams)
+  ListState.success(this.teams)
       : status = TeamListStatus.success,
         message = null;
 
-  TeamList.error(this.message)
+  ListState.error(this.message)
       : teams = [],
         status = TeamListStatus.error;
 
-  TeamList.empty(this.message)
+  ListState.empty(this.message)
       : teams = [],
         status = TeamListStatus.empty;
 }
 
-class OpenTeam extends TeamListState {
+class OpenTeamState extends TeamListState {
   final Team team;
 
-  OpenTeam({required this.team});
+  OpenTeamState({required this.team});
 }
 
-class OpenTeamContextMenu extends TeamListState {
+class OpenTeamContextMenuState extends TeamListState {
   final String id;
 
-  OpenTeamContextMenu(this.id);
+  OpenTeamContextMenuState(this.id);
 }
 
-class OnNewTeam extends TeamListState {}
+class NewTeamState extends TeamListState {}
