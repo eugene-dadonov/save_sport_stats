@@ -1,3 +1,6 @@
+import 'dart:ui';
+
+import 'package:sport_stats_live/core/design/colors.dart';
 import 'package:sport_stats_live/core/design/logos/logos.dart';
 
 class Team {
@@ -38,4 +41,10 @@ enum TeamColor {
   grey,
   greyDark,
   black,
+}
+
+extension TeamColorX on TeamColor {
+  Color toColor() => AppColors.getColorByTeamColor(this);
+
+  bool isEqual(TeamColor color) => color.index == index;
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:sport_stats_live/core/design/colors.dart';
 import 'package:sport_stats_live/features/screen_team_new/presentation/page/new_team_page.dart';
 import 'package:sport_stats_live/features/screen_teams_list/domain/bloc/bloc.dart';
@@ -70,10 +71,14 @@ class TeamsListPage extends StatelessWidget {
             return newState is OnNewTeam;
           },
           listener: (BuildContext context, Object? state) {
-            if (state is OnNewTeam) {
-              Navigator.of(context).push(
-                  NewTeamPage.route(teamsBloc: context.read<TeamsBloc>()));
-            }
+            showCupertinoModalBottomSheet(
+              topRadius: const Radius.circular(30),
+              context: context,
+              expand: true,
+              builder: (BuildContext context) {
+                return NewTeamPage.route(teamsBloc: context.read<TeamsBloc>());
+              },
+            );
           },
         ),
       ),

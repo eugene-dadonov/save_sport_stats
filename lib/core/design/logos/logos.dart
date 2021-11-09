@@ -8,6 +8,7 @@ enum Logo {
   shield5,
   shield6,
   rombus1,
+  rombus2,
   square,
   triangle1,
   triangle2,
@@ -16,8 +17,10 @@ enum Logo {
   hexagon,
 }
 
-extension ParseToString on Logo {
+extension LogoExtensionX on Logo {
   String toShortString() {
     return toString().split('.').last;
   }
+
+  bool isEqualTo(Logo logo) => index == logo.index;
 }
