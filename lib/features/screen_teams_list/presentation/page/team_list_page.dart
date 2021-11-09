@@ -13,6 +13,7 @@ import 'package:sport_stats_live/features/screen_teams_list/presentation/view/lo
 import 'package:sport_stats_live/features/screen_teams_list/presentation/view/team_list_view.dart';
 import 'package:sport_stats_live/features/team/data/repository/team_repository_impl.dart';
 import 'package:sport_stats_live/features/team/domain/bloc/bloc.dart';
+import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 
 class TeamsListPage extends StatelessWidget {
   const TeamsListPage({
@@ -49,6 +50,11 @@ class TeamsListPage extends StatelessWidget {
                 case TeamListStatus.success:
                   return TeamListView(
                       teams: state.teams,
+                      onTeamClicked: (team) {
+                        context
+                            .read<TeamsListBloc>()
+                            .add(event.OnOpenTeam(team));
+                      },
                       onNewTeamClicked: () {
                         context.read<TeamsListBloc>().add(event.OnNewTeam());
                       });
@@ -68,20 +74,32 @@ class TeamsListPage extends StatelessWidget {
             }
           },
           listenWhen: (_, newState) {
-            return newState is OnNewTeam;
+            return newState is OnNewTeam || newState is OpenTeam;
           },
           listener: (BuildContext context, Object? state) {
-            showCupertinoModalBottomSheet(
-              topRadius: const Radius.circular(30),
-              context: context,
-              expand: true,
-              builder: (BuildContext context) {
-                return NewTeamPage.route(teamsBloc: context.read<TeamsBloc>());
-              },
-            );
+            if (state is OpenTeam) {
+              print("OpenTeam");
+              openTeamEditDialog(context: context, team: state.team);
+            } else if (state is OnNewTeam) {
+              print("OnNewTeam");
+              openTeamEditDialog(context: context, team: null);
+            }
           },
         ),
       ),
+    );
+  }
+
+  Future<T?> openTeamEditDialog<T>(
+      {required BuildContext context, Team? team}) {
+    return showCupertinoModalBottomSheet(
+      topRadius: const Radius.circular(30),
+      context: context,
+      expand: true,
+      builder: (BuildContext context) {
+        return NewTeamPage.page(
+            teamsBloc: context.read<TeamsBloc>(), team: team);
+      },
     );
   }
 }

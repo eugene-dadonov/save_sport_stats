@@ -39,9 +39,9 @@ class TeamList extends TeamListState {
 }
 
 class OpenTeam extends TeamListState {
-  final String id;
+  final Team team;
 
-  OpenTeam({required this.id});
+  OpenTeam({required this.team});
 }
 
 class OpenTeamContextMenu extends TeamListState {

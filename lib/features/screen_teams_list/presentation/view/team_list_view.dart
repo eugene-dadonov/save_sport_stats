@@ -10,10 +10,12 @@ class TeamListView extends StatelessWidget {
     Key? key,
     required this.teams,
     required this.onNewTeamClicked,
+    required this.onTeamClicked,
   }) : super(key: key);
 
   final List<Team> teams;
   final VoidCallback onNewTeamClicked;
+  final TeamCallback onTeamClicked;
 
   @override
   Widget build(BuildContext context) {
@@ -58,11 +60,13 @@ class TeamListView extends StatelessWidget {
   Widget _buildTeamList(BuildContext context, List<Team> teams) {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
-            (context, index) =>
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-              child: TeamCard(team: teams[index]),
-            ),
+        (context, index) => Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+          child: TeamCard(
+            team: teams[index],
+            onCardClick: onTeamClicked,
+          ),
+        ),
         childCount: teams.length,
       ),
     );

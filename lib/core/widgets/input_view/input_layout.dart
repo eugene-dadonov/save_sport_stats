@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:sport_stats_live/core/design/colors.dart';
 import 'package:sport_stats_live/core/design/styles.dart';
 
-class InputView extends StatelessWidget {
+class InputView extends StatefulWidget {
+  final String text;
   final String hint;
   final ValueChanged<String> onValueChanged;
   final FormFieldValidator<String>? validator;
@@ -13,6 +14,7 @@ class InputView extends StatelessWidget {
 
   const InputView({
     Key? key,
+    required this.text,
     required this.hint,
     required this.onValueChanged,
     this.validator,
@@ -23,23 +25,39 @@ class InputView extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<InputView> createState() => _InputViewState();
+}
+
+class _InputViewState extends State<InputView> {
+
+  late TextEditingController textController;
+
+  @override
+  void initState() {
+    textController = TextEditingController();
+    textController.text = widget.text;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return TextFormField(
-        style: AppStyle.h1(size: 18, color: textColor),
-        textAlign: TextAlign.center,
-        onChanged: onValueChanged,
-        validator: validator,
-        decoration: _buildDecoration());
+      controller: textController,
+      style: AppStyle.h1(size: 18, color: widget.textColor),
+      textAlign: TextAlign.center,
+      onChanged: widget.onValueChanged,
+      validator: widget.validator,
+      decoration: _buildDecoration(),
+    );
   }
 
   InputDecoration _buildDecoration() {
     return InputDecoration(
-      hintText: hint.toUpperCase(),
-      fillColor: fillColor,
+      hintText: widget.hint.toUpperCase(),
+      fillColor: widget.fillColor,
       focusColor: AppColors.background,
-      hintStyle: AppStyle.h1(size: 16, color: hintColor),
+      hintStyle: AppStyle.h1(size: 16, color: widget.hintColor),
       filled: true,
-      focusedBorder: _buildBorder(color: borderColor, width: 2),
+      focusedBorder: _buildBorder(color: widget.borderColor, width: 2),
       enabledBorder: _buildBorder(color: Colors.transparent, width: 2),
     );
   }

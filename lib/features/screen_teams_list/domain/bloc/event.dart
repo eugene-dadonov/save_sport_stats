@@ -1,3 +1,5 @@
+import 'package:sport_stats_live/features/team/domain/entity/team.dart';
+
 abstract class TeamListEvent {}
 
 class Init extends TeamListEvent {}
@@ -9,9 +11,9 @@ class OpenTeamContextMenu extends TeamListEvent {
 }
 
 class OnOpenTeam extends TeamListEvent {
-  final String id;
+  final Team team;
 
-  OnOpenTeam(this.id);
+  OnOpenTeam(this.team);
 }
 
 class OnNewTeam extends TeamListEvent {}

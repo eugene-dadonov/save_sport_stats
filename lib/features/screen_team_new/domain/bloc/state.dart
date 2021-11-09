@@ -4,10 +4,10 @@ abstract class NewTeamState {}
 
 class OnLoading extends NewTeamState {}
 
-class OnNewTeamLoaded extends NewTeamState {
+class OnTeamUpdated extends NewTeamState {
   final Team? team;
 
-  OnNewTeamLoaded(this.team);
+  OnTeamUpdated(this.team);
 }
 
 class OnTeamSaved extends NewTeamState {}

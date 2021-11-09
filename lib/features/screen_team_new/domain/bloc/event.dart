@@ -3,11 +3,7 @@ import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 
 abstract class NewTeamEvent {}
 
-class Start extends NewTeamEvent {
-  final Team? team;
-
-  Start(this.team);
-}
+class Start extends NewTeamEvent {}
 
 class UpdateName extends NewTeamEvent {
   final String name;
