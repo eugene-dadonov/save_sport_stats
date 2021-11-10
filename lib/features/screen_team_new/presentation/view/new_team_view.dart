@@ -9,7 +9,8 @@ import 'package:sport_stats_live/core/widgets/logo/logo.dart';
 import 'package:sport_stats_live/features/screen_menu/presentation/widget/menu_button.dart';
 import 'package:sport_stats_live/features/screen_team_new/domain/bloc/bloc.dart';
 import 'package:sport_stats_live/features/screen_team_new/domain/bloc/event.dart';
-import 'package:sport_stats_live/features/screen_team_new/presentation/dialog/dialog_logo.dart';
+import 'package:sport_stats_live/features/screen_team_new/presentation/dialog/selector_color_view.dart';
+import 'package:sport_stats_live/features/screen_team_new/presentation/dialog/selector_logo_view.dart';
 import 'package:sport_stats_live/features/screen_team_new/presentation/widgets/color_selector.dart';
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 
@@ -31,9 +32,14 @@ class TeamEditView extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: CustomScrollView(
-          physics: const ClampingScrollPhysics(),
+          shrinkWrap: true,
+          physics: const RangeMaintainingScrollPhysics(),
           slivers: [
-            _buildTitle("Название"),
+            const SliverToBoxAdapter(
+              child: _Title(
+                name: 'Название',
+              ),
+            ),
             _buildInputElement(
               hint: 'Введите название',
               text: team?.name,
@@ -42,7 +48,11 @@ class TeamEditView extends StatelessWidget {
                     .add(UpdateNameEvent(newName));
               },
             ),
-            _buildTitle("Город"),
+            const SliverToBoxAdapter(
+              child: _Title(
+                name: 'Город',
+              ),
+            ),
             _buildInputElement(
               text: team?.city,
               hint: 'Введите город',
@@ -51,7 +61,11 @@ class TeamEditView extends StatelessWidget {
                     .add(UpdateCityEvent(newCity));
               },
             ),
-            _buildTitle("Выберите эмблему"),
+            const SliverToBoxAdapter(
+              child: _Title(
+                name: 'Эмблема',
+              ),
+            ),
             SliverToBoxAdapter(
               child: _SelectLogoWidget(
                 selectedLogo: team?.logo ?? Logo.round,
@@ -59,24 +73,37 @@ class TeamEditView extends StatelessWidget {
                     team?.teamColor.toColor() ?? TeamColor.black.toColor(),
               ),
             ),
-            _buildTitle("Выберите цвет"),
-            _buildColorSelector(context, team?.teamColor ?? TeamColor.black),
-            _buildSaveButton(context),
+            const SliverToBoxAdapter(
+              child: _Title(
+                name: 'Цвет',
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: _SelectColorWidget(
+                  currentColor: team?.teamColor ?? TeamColor.black),
+            ),
+            SliverFillRemaining(
+              hasScrollBody: false,
+              fillOverscroll: false,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Flexible(
+                    child: Container(),
+                    fit: FlexFit.loose,
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 32, top: 16),
+                    child: _OperationButtons(),
+                  )
+                ],
+              ),
+            ),
           ],
         ),
       ),
     );
   }
-
-  SliverToBoxAdapter _buildTitle(String name) => SliverToBoxAdapter(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 10),
-          child: Text(
-            name.toUpperCase(),
-            style: AppStyle.h1(size: 14),
-          ),
-        ),
-      );
 
   SliverToBoxAdapter _buildInputElement({
     required String hint,
@@ -103,35 +130,26 @@ class TeamEditView extends StatelessWidget {
       ),
     );
   }
+}
 
-  SliverToBoxAdapter _buildColorSelector(
-          BuildContext context, TeamColor teamColor) =>
-      SliverToBoxAdapter(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 10),
-          child: ColorSelector(
-            selectedColor: teamColor,
-            onColorSelected: (color) {
-              BlocProvider.of<TeamEditBloc>(context)
-                  .add(UpdateColorEvent(color));
-            },
-          ),
-        ),
-      );
+class _Title extends StatelessWidget {
+  const _Title({
+    Key? key,
+    required this.name,
+  }) : super(key: key);
+  final String name;
 
-  SliverToBoxAdapter _buildSaveButton(BuildContext context) =>
-      SliverToBoxAdapter(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 30),
-          child: TextButton(
-            onPressed: () {
-              BlocProvider.of<TeamEditBloc>(context).add(SaveTeamEvent());
-              Navigator.of(context).pop();
-            },
-            child: const Text('Сохранить'),
-          ),
-        ),
-      );
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 16, bottom: 2),
+      child: Text(
+        name.toUpperCase(),
+        textAlign: TextAlign.center,
+        style: AppStyle.h1(size: 14),
+      ),
+    );
+  }
 }
 
 class _SelectLogoWidget extends StatelessWidget {
@@ -159,7 +177,7 @@ class _SelectLogoWidget extends StatelessWidget {
               context: context,
               builder: (builderContext) {
                 return AppDialog(
-                  child: LogoSelectorView(
+                  child: DialogLogoSelectorView(
                     selectedLogo: selectedLogo,
                     currentColor: currentColor,
                     onLogoSelected: (logo) {
@@ -173,11 +191,88 @@ class _SelectLogoWidget extends StatelessWidget {
             );
           },
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: LogoIcon(logo: selectedLogo, color: currentColor, height: 100),
+            padding: const EdgeInsets.all(8.0),
+            child:
+                LogoIcon(logo: selectedLogo, color: currentColor, height: 90),
           ),
         ),
       ),
+    );
+  }
+}
+
+class _SelectColorWidget extends StatelessWidget {
+  final TeamColor currentColor;
+
+  const _SelectColorWidget({
+    Key? key,
+    required this.currentColor,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 10),
+      child: Material(
+        color: AppColors.card,
+        child: InkWell(
+          customBorder: const CircleBorder(),
+          highlightColor: currentColor.toColor().withOpacity(0.2),
+          splashColor: currentColor.toColor().withOpacity(0.2),
+          onTap: () {
+            showDialog(
+              context: context,
+              builder: (builderContext) {
+                return AppDialog(
+                  child: DialogColorSelectorView(
+                    currentColor: currentColor,
+                    onColorSelected: (color) {
+                      BlocProvider.of<TeamEditBloc>(context)
+                          .add(UpdateColorEvent(color));
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                );
+              },
+            );
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: CircleAvatar(
+              radius: 35,
+              backgroundColor: currentColor.toColor(),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _OperationButtons extends StatelessWidget {
+  const _OperationButtons({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        MenuButton(
+            title: 'Сохранить'.toUpperCase(),
+            color: AppColors.main,
+            fontSize: 20,
+            onPress: () {
+              BlocProvider.of<TeamEditBloc>(context).add(SaveTeamEvent());
+              Navigator.of(context).pop();
+            }),
+        const SizedBox(height: 12),
+        MenuButton(
+            title: 'Отмена'.toUpperCase(),
+            color: AppColors.cancel,
+            fontSize: 20,
+            onPress: () {
+              Navigator.of(context).pop();
+            })
+      ],
     );
   }
 }

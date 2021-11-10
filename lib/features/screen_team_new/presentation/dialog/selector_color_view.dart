@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:sport_stats_live/core/design/colors.dart';
 import 'package:sport_stats_live/core/design/logos/logos.dart';
 import 'package:sport_stats_live/core/design/styles.dart';
+import 'package:sport_stats_live/features/screen_team_new/presentation/widgets/color_selector.dart';
 import 'package:sport_stats_live/features/screen_team_new/presentation/widgets/logo_selector.dart';
+import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 
-class LogoSelectorView extends StatelessWidget {
-  const LogoSelectorView({
+class DialogColorSelectorView extends StatelessWidget {
+  const DialogColorSelectorView({
     Key? key,
-    required this.selectedLogo,
-    this.onLogoSelected,
+    this.onColorSelected,
     required this.currentColor,
   }) : super(key: key);
 
-  final Logo selectedLogo;
-  final ValueChanged<Logo>? onLogoSelected;
-  final Color currentColor;
+  final ValueChanged<TeamColor>? onColorSelected;
+  final TeamColor currentColor;
 
   @override
   Widget build(BuildContext context) {
@@ -23,24 +23,21 @@ class LogoSelectorView extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(7)),
         color: AppColors.card,
       ),
-      child: _DialogView(
+      child: _ColorSelectorView(
         currentColor: currentColor,
-        selectedLogo: selectedLogo,
-        onLogoSelected: onLogoSelected,
+        onColorSelected: onColorSelected,
       ),
     );
   }
 }
 
-class _DialogView extends StatelessWidget {
-  final Logo selectedLogo;
-  final ValueChanged<Logo>? onLogoSelected;
-  final Color currentColor;
+class _ColorSelectorView extends StatelessWidget {
+  final ValueChanged<TeamColor>? onColorSelected;
+  final TeamColor currentColor;
 
-  const _DialogView({
+  const _ColorSelectorView({
     Key? key,
-    required this.selectedLogo,
-    this.onLogoSelected,
+    this.onColorSelected,
     required this.currentColor,
   }) : super(key: key);
 
@@ -60,10 +57,9 @@ class _DialogView extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: LogoSelector(
-            selectedLogo: selectedLogo,
-            currentColor: currentColor,
-            onLogoSelected: onLogoSelected,
+          child: ColorSelector(
+            selectedColor: currentColor,
+            onColorSelected: onColorSelected,
           ),
         ),
       ],
