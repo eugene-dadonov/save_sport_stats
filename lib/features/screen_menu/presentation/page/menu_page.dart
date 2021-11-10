@@ -4,6 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sport_stats_live/core/design/colors.dart';
 import 'package:sport_stats_live/core/design/logos/logos.dart';
+import 'package:sport_stats_live/core/theming/data/themes/themes.dart';
+import 'package:sport_stats_live/core/theming/domain/bloc/bloc.dart';
+import 'package:sport_stats_live/core/theming/domain/bloc/event.dart';
+import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 import 'package:sport_stats_live/core/widgets/logo/logo.dart';
 import 'package:sport_stats_live/features/match/data/repository/match_repository.dart';
 import 'package:sport_stats_live/features/match/domain/entity/match.dart';
@@ -31,7 +35,7 @@ class _MenuPageState extends State<MenuPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: ThemeHolder.of(context).background1,
       body: BlocProvider(
         create: (BuildContext context) {
           return MenuBloc(matchRepository: context.read<MatchRepositoryImpl>())
@@ -77,7 +81,7 @@ class _MenuPageState extends State<MenuPage> {
         SizedBox(
           width: 120,
           height: 120,
-          child: SvgPicture.asset(assetName, color: AppColors.redDark),
+          child: SvgPicture.asset(assetName, color: ThemeHolder.of(context).teamsColor.redDark),
         ),
         const SizedBox(
           height: 80,
@@ -85,30 +89,36 @@ class _MenuPageState extends State<MenuPage> {
         ),
         _buildPreparedButton(
           title: 'Новый матч'.toUpperCase(),
-          color: AppColors.main,
+          color: ThemeHolder.of(context).main,
           onTap: () {
             context.read<MenuBloc>().add(OnNewMatch());
           },
         ),
         _buildPreparedButton(
           title: 'Все матчи'.toUpperCase(),
-          color: AppColors.main,
+          color: ThemeHolder.of(context).main,
           onTap: () {
             context.read<MenuBloc>().add(OnMatchList());
           },
         ),
         _buildPreparedButton(
           title: 'Список команд'.toUpperCase(),
-          color: AppColors.main,
+          color: ThemeHolder.of(context).main,
           onTap: () {
             context.read<MenuBloc>().add(OnTeamsList());
           },
         ),
         _buildPreparedButton(
           title: 'Сменить тему'.toUpperCase(),
-          color: AppColors.main,
+          color: ThemeHolder.of(context).main,
           onTap: () {
-            context.read<MenuBloc>().add(OnTheme());
+            // TODO: Тестовый вариант
+            final currentTheme = ThemeHolder.of(context).themeData;
+            if (currentTheme == AppTheme.light) {
+              context.read<ThemeBloc>().add(ThemeEvent(AppTheme.dark));
+            } else {
+              context.read<ThemeBloc>().add(ThemeEvent(AppTheme.light));
+            }
           },
         ),
         if (lastMatch != null) _buildLastMatch(context, lastMatch)

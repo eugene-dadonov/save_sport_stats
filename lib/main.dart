@@ -5,6 +5,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:sport_stats_live/app.dart';
 import 'package:sport_stats_live/core/theming/data/themes/themes.dart';
 import 'package:sport_stats_live/core/theming/domain/bloc/state.dart';
+import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 import 'package:sport_stats_live/features/team/domain/bloc/bloc.dart';
 import 'core/theming/domain/bloc/bloc.dart';
 import 'features/match/data/repository/match_repository.dart';
@@ -32,7 +33,9 @@ void main() async {
       hiveTeamStorage: hiveTeamStorage,
       hiveMatchStorage: hiveMatchStorage,
       child: const _BaseBlocsProvider(
-        child: MyApp(),
+        child: ThemeBuilder(
+          child: MyApp(),
+        ),
       ),
     ),
   );
@@ -91,5 +94,21 @@ class _BaseBlocsProvider extends StatelessWidget {
       ],
       child: child,
     );
+  }
+}
+
+class ThemeBuilder extends StatelessWidget {
+  final Widget child;
+
+  const ThemeBuilder({
+    Key? key,
+    required this.child,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<ThemeBloc, ThemeState>(builder: (context, state) {
+      return ThemeHolder(child: child, theme: state.appThemeData);
+    });
   }
 }
