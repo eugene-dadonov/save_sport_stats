@@ -3,6 +3,7 @@ import 'package:sport_stats_live/core/design/colors.dart';
 import 'package:sport_stats_live/core/design/logos/logos.dart';
 import 'package:sport_stats_live/core/design/styles.dart';
 import 'package:sport_stats_live/core/theming/data/themes/app_theme_data.dart';
+import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 import 'package:sport_stats_live/features/screen_team_new/presentation/widgets/color_selector.dart';
 import 'package:sport_stats_live/features/screen_team_new/presentation/widgets/logo_selector.dart';
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
@@ -20,9 +21,9 @@ class DialogColorSelectorView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(7)),
-        color: AppColors.card,
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(Radius.circular(7)),
+        color: ThemeHolder.of(context).card,
       ),
       child: _ColorSelectorView(
         currentColor: currentColor,
@@ -44,16 +45,17 @@ class _ColorSelectorView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorText = ThemeHolder.of(context).main;
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
+          padding: const EdgeInsets.symmetric(vertical: 12),
           child: Text(
-            "Выберите эмблему".toUpperCase(),
+            "Выберите эмблему",
             textAlign: TextAlign.center,
-            style: AppStyle.h1(size: 18),
+            style: ThemeHolder.of(context).textStyle.h2(color: colorText),
           ),
         ),
         Padding(

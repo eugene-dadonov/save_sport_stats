@@ -13,7 +13,6 @@ import 'package:sport_stats_live/features/screen_team_new/domain/bloc/bloc.dart'
 import 'package:sport_stats_live/features/screen_team_new/domain/bloc/event.dart';
 import 'package:sport_stats_live/features/screen_team_new/presentation/dialog/selector_color_view.dart';
 import 'package:sport_stats_live/features/screen_team_new/presentation/dialog/selector_logo_view.dart';
-import 'package:sport_stats_live/features/screen_team_new/presentation/widgets/color_selector.dart';
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 
 class TeamEditView extends StatelessWidget {
@@ -40,12 +39,26 @@ class TeamEditView extends StatelessWidget {
           shrinkWrap: true,
           physics: const RangeMaintainingScrollPhysics(),
           slivers: [
+            SliverToBoxAdapter(
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
+                child: Text(
+                  "Новая команда",
+                  textAlign: TextAlign.center,
+                  style: ThemeHolder.of(context)
+                      .textStyle
+                      .h1(color: ThemeHolder.of(context).main),
+                ),
+              ),
+            ),
             const SliverToBoxAdapter(
               child: _Title(
                 name: 'Название',
               ),
             ),
             _buildInputElement(
+              context: context,
               hint: 'Введите название',
               text: team?.name,
               onValueChanged: (newName) {
@@ -59,6 +72,7 @@ class TeamEditView extends StatelessWidget {
               ),
             ),
             _buildInputElement(
+              context: context,
               text: team?.city,
               hint: 'Введите город',
               onValueChanged: (newCity) {
@@ -97,7 +111,7 @@ class TeamEditView extends StatelessWidget {
                     fit: FlexFit.loose,
                   ),
                   const Padding(
-                    padding: EdgeInsets.only(bottom: 32, top: 16),
+                    padding: EdgeInsets.only(bottom: 28, top: 16),
                     child: _OperationButtons(),
                   )
                 ],
@@ -110,6 +124,7 @@ class TeamEditView extends StatelessWidget {
   }
 
   SliverToBoxAdapter _buildInputElement({
+    required BuildContext context,
     required String hint,
     required String? text,
     required ValueChanged<String> onValueChanged,
@@ -122,11 +137,11 @@ class TeamEditView extends StatelessWidget {
           height: 50,
           child: InputView(
             text: text ?? "",
-            hint: hint.toUpperCase(),
-            textColor: AppColors.main,
-            fillColor: AppColors.background,
-            borderColor: AppColors.secondary,
-            hintColor: AppColors.secondary,
+            hint: hint.toLowerCase(),
+            textColor: ThemeHolder.of(context).main,
+            fillColor: ThemeHolder.of(context).background1,
+            borderColor: ThemeHolder.of(context).secondary1,
+            hintColor: ThemeHolder.of(context).secondary2,
             onValueChanged: onValueChanged,
             validator: validator,
           ),
@@ -145,12 +160,13 @@ class _Title extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final color = ThemeHolder.of(context).secondary2;
     return Padding(
       padding: const EdgeInsets.only(top: 16, bottom: 2),
       child: Text(
         name.toUpperCase(),
         textAlign: TextAlign.center,
-        style: AppStyle.h1(size: 14),
+        style: ThemeHolder.of(context).textStyle.t1(color: color),
       ),
     );
   }
@@ -171,7 +187,7 @@ class _SelectLogoWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 10),
       child: Material(
-        color: AppColors.card,
+        color: ThemeHolder.of(context).card,
         child: InkWell(
           customBorder: const CircleBorder(),
           highlightColor: currentColor.withOpacity(0.2),
@@ -219,7 +235,7 @@ class _SelectColorWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 10),
       child: Material(
-        color: AppColors.card,
+        color: ThemeHolder.of(context).card,
         child: InkWell(
           customBorder: const CircleBorder(),
           highlightColor: color.withOpacity(0.2),
@@ -263,8 +279,7 @@ class _OperationButtons extends StatelessWidget {
       children: [
         MenuButton(
             title: 'Сохранить'.toUpperCase(),
-            color: AppColors.main,
-            fontSize: 20,
+            color: ThemeHolder.of(context).main,
             onPress: () {
               BlocProvider.of<TeamEditBloc>(context).add(SaveTeamEvent());
               Navigator.of(context).pop();
@@ -272,8 +287,7 @@ class _OperationButtons extends StatelessWidget {
         const SizedBox(height: 12),
         MenuButton(
             title: 'Отмена'.toUpperCase(),
-            color: AppColors.cancel,
-            fontSize: 20,
+            color: ThemeHolder.of(context).cancel,
             onPress: () {
               Navigator.of(context).pop();
             })

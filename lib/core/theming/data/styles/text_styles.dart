@@ -25,6 +25,7 @@ class Exo2TextStyles implements AppTextStyle {
         color: color,
         fontSize: 22,
         fontWeight: FontWeight.bold,
+        textBaseline: TextBaseline.alphabetic
       );
 
   @override
@@ -65,14 +66,14 @@ class Exo2TextStyles implements AppTextStyle {
   @override
   TextStyle t1({Color? color}) => GoogleFonts.exo2(
         color: color,
-        fontSize: 14,
+        fontSize: 16,
         fontWeight: FontWeight.bold,
-      );
+  );
 
   @override
-  TextStyle t2({Color? color}) => GoogleFonts.exo2(
+  TextStyle t2({Color? color}) => GoogleFonts.exo(
         color: color,
-        fontSize: 14,
+        fontSize: 16,
         fontWeight: FontWeight.bold,
       );
 }

@@ -56,7 +56,6 @@ class TableScore extends StatelessWidget {
         textAlign: textAlign,
         style: GoogleFonts.russoOne(
           fontSize: 55,
-          // TODO: Сделать выбор цвета от enum;
           color: ThemeHolder.of(context).fromTeamColor(team.teamColor),
         ));
   }

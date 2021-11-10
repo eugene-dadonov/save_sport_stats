@@ -32,9 +32,9 @@ class _AttributeWidgetState extends State<AttributeWidget> {
   Widget build(BuildContext context) {
     return Container(
       key: ValueKey<String>(widget.attribute.parameter.name),
-      decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(7.0))),
+      decoration: BoxDecoration(
+          color: ThemeHolder.of(context).card,
+          borderRadius: const BorderRadius.all(Radius.circular(7.0))),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -66,7 +66,6 @@ class _AttributeWidgetState extends State<AttributeWidget> {
             },
             child: _buildScoreText(
               parameter.host,
-              // TODO: Сделать выбор цвета от enum;
               ThemeHolder.of(context).fromTeamColor(teamHost.teamColor),
               TextAlign.start,
             ),
@@ -88,7 +87,6 @@ class _AttributeWidgetState extends State<AttributeWidget> {
             duration: const Duration(milliseconds: 500),
             child: _buildScoreText(
               parameter.guest,
-              // TODO: Сделать выбор цвета от enum;
               ThemeHolder.of(context).fromTeamColor(teamHost.teamColor),
               TextAlign.end,
             ),
@@ -112,7 +110,7 @@ class _AttributeWidgetState extends State<AttributeWidget> {
             ThemeHolder.of(context).fromTeamColor(teamOne.teamColor),
           ),
           Container(
-            color: Colors.white,
+            color: ThemeHolder.of(context).card,
             width: 2,
           ),
           _buildChartPart(
@@ -154,7 +152,9 @@ class _AttributeWidgetState extends State<AttributeWidget> {
         maxLines: 2,
         textAlign: TextAlign.center,
         overflow: TextOverflow.ellipsis,
-        style: GoogleFonts.russoOne(fontSize: 18, color: AppColors.main),
+        style: ThemeHolder.of(context)
+            .textStyle
+            .h2(color: ThemeHolder.of(context).main),
       ),
     );
   }

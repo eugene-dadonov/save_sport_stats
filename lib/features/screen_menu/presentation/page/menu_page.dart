@@ -46,13 +46,15 @@ class _MenuPageState extends State<MenuPage> {
           listener: (BuildContext context, Object? state) {
             // Todo: не особо нравится такое решение. Лучше выделить это все в отдельный класс навигатор;
             if (state is NavigateTo) {
-              if (state.route == PageItem.matchList) {
+              if (state.route == PageItem.teamsList) {
                 Navigator.of(context)
                     .push(TeamsListPage.route(context.read<TeamsBloc>()));
               } else if (state.route == PageItem.lastMatch) {
                 navigateTo(context, const MatchPage());
               } else if (state.route == PageItem.teamsList) {
                 navigateTo(context, const TeamsListPage());
+              } else if (state.route == PageItem.matchList) {
+                navigateTo(context, const MatchListPage());
               }
             }
           },

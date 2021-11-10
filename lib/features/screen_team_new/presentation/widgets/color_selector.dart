@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sport_stats_live/core/design/colors.dart';
+import 'package:sport_stats_live/core/design/logos/icons.dart';
 import 'package:sport_stats_live/core/theming/data/themes/app_theme_data.dart';
 import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
+import 'package:sport_stats_live/core/widgets/app_icon.dart';
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 
 class ColorSelector extends StatelessWidget {
@@ -29,40 +30,79 @@ class ColorSelector extends StatelessWidget {
         final currentColor = TeamColor.values[index];
         final isSelected = selectedColor.isEqual(currentColor);
 
-        final padding = isSelected ? selectedPadding : unselectedPadding;
-        final borderColor =
-            isSelected ? AppColors.background : Colors.transparent;
-
         return GestureDetector(
-          onTap: () {
-            onColorSelected?.call(TeamColor.values[index]);
-          },
-          child: Container(
-            decoration: BoxDecoration(
-              color: borderColor,
-              borderRadius: const BorderRadius.all(
-                Radius.circular(outerRadius),
-              ),
-            ),
-            child: Padding(
-              padding: EdgeInsets.all(padding),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: ThemeHolder.of(context).fromTeamColor(selectedColor),
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(innerRadius),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        );
+            onTap: () {
+              onColorSelected?.call(TeamColor.values[index]);
+            },
+            child: isSelected
+                ? _SelectedColor(color: currentColor)
+                : _NotSelectedColor(color: currentColor));
       },
     );
   }
+}
 
-  static const double innerRadius = 7;
-  static const double outerRadius = 12;
-  static const double selectedPadding = 5;
-  static const double unselectedPadding = 15;
+class _NotSelectedColor extends StatelessWidget {
+  final TeamColor color;
+
+  const _NotSelectedColor({
+    Key? key,
+    required this.color,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: ThemeHolder.of(context).fromTeamColor(color),
+          shape: BoxShape.circle,
+          boxShadow: [
+            BoxShadow(
+                color: ThemeHolder.of(context).cardShadow,
+                spreadRadius: 0,
+                blurRadius: 10,
+                offset: const Offset(0, 4)),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _SelectedColor extends StatelessWidget {
+  final TeamColor color;
+
+  const _SelectedColor({
+    Key? key,
+    required this.color,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(6.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: ThemeHolder.of(context).fromTeamColor(color),
+          shape: BoxShape.circle,
+          boxShadow: [
+            BoxShadow(
+                color: ThemeHolder.of(context).cardShadow,
+                spreadRadius: 0,
+                blurRadius: 10,
+                offset: const Offset(0, 4)),
+          ],
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: AppIcon(
+            icon: AppIcons.ok,
+            color: ThemeHolder.of(context).card,
+          ),
+        ),
+      ),
+    );
+  }
 }

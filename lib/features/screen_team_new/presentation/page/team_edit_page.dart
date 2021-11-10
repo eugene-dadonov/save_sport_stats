@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_stats_live/core/design/colors.dart';
 import 'package:sport_stats_live/core/design/styles.dart';
+import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 import 'package:sport_stats_live/features/screen_team_new/domain/bloc/bloc.dart';
 import 'package:sport_stats_live/features/screen_team_new/domain/bloc/event.dart';
 import 'package:sport_stats_live/features/screen_team_new/domain/bloc/state.dart';
@@ -38,16 +39,11 @@ class TeamEditPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cardColor = ThemeHolder.of(context).card;
+    final textColor = ThemeHolder.of(context).main;
+
     return Scaffold(
-      backgroundColor: AppColors.card,
-      appBar: AppBar(
-        backgroundColor: AppColors.card,
-        elevation: 0,
-        title: Text(
-          "Новая команда".toUpperCase(),
-          style: AppStyle.h1(size: 18),
-        ),
-      ),
+      backgroundColor: cardColor,
       body: BlocConsumer<TeamEditBloc, TeamEditState>(
         listenWhen: (_, newState) => newState is TeamSavedState,
         listener: (BuildContext context, state) {

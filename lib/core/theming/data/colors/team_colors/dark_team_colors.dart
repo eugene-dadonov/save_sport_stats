@@ -16,5 +16,5 @@ class DarkTeamColors {
   static const Color greyLight = Color(0xFFA7A7A7);
   static const Color grey = Color(0xFF9E9E9E);
   static const Color greyDark = Color(0xFF727272);
-  static const Color black = Color(0xFF282828);
+  static const Color black = Color(0xFF171717);
 }

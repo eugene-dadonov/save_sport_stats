@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sport_stats_live/core/design/colors.dart';
+import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 import 'package:sport_stats_live/core/widgets/stroke_flat_button/stroke_flat_button.dart';
 import 'package:sport_stats_live/features/match/data/repository/match_repository.dart';
 import 'package:sport_stats_live/features/match/domain/entity/match.dart';
@@ -24,7 +25,7 @@ class _MatchListPageState extends State<MatchListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: ThemeHolder.of(context).background1,
       body: BlocProvider(
         create: (BuildContext context) =>
             MatchListBloc(matchRepository: context.read<MatchRepositoryImpl>())
@@ -78,47 +79,46 @@ class _MatchListPageState extends State<MatchListPage> {
   }
 
   Widget _buildStandardAppBar(BuildContext context) {
+    final textColor = ThemeHolder.of(context).main;
+
     return SliverAppBar(
-      backgroundColor: AppColors.background,
+      backgroundColor: ThemeHolder.of(context).background1,
       title: Text(
         'Список матчей',
-        style: GoogleFonts.russoOne(
-          fontSize: 18,
-          color: AppColors.main,
-        ),
+        style: ThemeHolder.of(context).textStyle.h1(color: textColor),
       ),
       actions: [
         IconButton(
           onPressed: () {
             context.read<MatchListBloc>().add(OnSearchWithString(""));
           },
-          icon: const Icon(Icons.search_rounded, color: AppColors.main),
+          icon: Icon(Icons.search_rounded, color: textColor),
         ),
       ],
     );
   }
 
   Widget _buildSearchAppBar(BuildContext context) {
+    final hintColor = ThemeHolder.of(context).secondary1;
+    final mainColor = ThemeHolder.of(context).main;
+
     return SliverAppBar(
-      backgroundColor: AppColors.background,
+      backgroundColor: ThemeHolder.of(context).background1,
       title: TextField(
           onChanged: (String query) {
             context.read<MatchListBloc>().add(OnSearchWithString(query));
           },
           decoration: InputDecoration(
             hintText: 'Команда или город',
-            hintStyle: GoogleFonts.russoOne(
-              color: AppColors.secondary,
-              fontSize: 14,
-            ),
+            hintStyle: ThemeHolder.of(context).textStyle.b2(color: hintColor),
           ),
-          style: GoogleFonts.russoOne(fontSize: 14, color: AppColors.main)),
+          style: ThemeHolder.of(context).textStyle.h3(color: hintColor)),
       actions: [
         IconButton(
           onPressed: () {
             context.read<MatchListBloc>().add(OnStopSearch());
           },
-          icon: const Icon(Icons.close_sharp, color: AppColors.main),
+          icon: Icon(Icons.close_sharp, color: mainColor),
         ),
       ],
     );

@@ -7,14 +7,12 @@ class MenuButton extends StatelessWidget {
   final String title;
   final VoidCallback onPress;
   final Color color;
-  final double fontSize;
 
   const MenuButton({
     required this.title,
     required this.onPress,
     this.color = Colors.black26,
     Key? key,
-    this.fontSize = 24,
   }) : super(key: key);
 
   @override

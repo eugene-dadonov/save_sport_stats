@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sport_stats_live/core/design/colors.dart';
+import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 import 'package:sport_stats_live/core/widgets/clickable_card/clickable_card.dart';
 import 'package:sport_stats_live/features/match/domain/entity/match.dart';
 import 'package:sport_stats_live/features/screen_match_list/presentation/widget/match_card/team_block.dart';
@@ -32,9 +33,9 @@ class MatchCard extends StatelessWidget {
         callback?.call();
       },
       borderRadius: borderRadius,
-      cardColor: Colors.white,
-      splashColor: AppColors.background,
-      shadowColor: AppColors.secondary.withOpacity(0.5),
+      cardColor: ThemeHolder.of(context).card,
+      splashColor: ThemeHolder.of(context).background1,
+      shadowColor: ThemeHolder.of(context).cardShadow,
     );
   }
 }

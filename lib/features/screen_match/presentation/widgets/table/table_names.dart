@@ -35,7 +35,6 @@ class TableNames extends StatelessWidget {
       maxLines: 2,
       style: GoogleFonts.russoOne(
         fontSize: 22,
-        // TODO: Сделать выбор цвета от enum;
         color: ThemeHolder.of(context).fromTeamColor(team.teamColor),
       ),
     );

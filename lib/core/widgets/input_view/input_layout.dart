@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sport_stats_live/core/design/colors.dart';
 import 'package:sport_stats_live/core/design/styles.dart';
+import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 
 class InputView extends StatefulWidget {
   final String text;
@@ -29,7 +30,6 @@ class InputView extends StatefulWidget {
 }
 
 class _InputViewState extends State<InputView> {
-
   late TextEditingController textController;
 
   @override
@@ -42,7 +42,7 @@ class _InputViewState extends State<InputView> {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: textController,
-      style: AppStyle.h1(size: 18, color: widget.textColor),
+      style: ThemeHolder.of(context).textStyle.h2(color: widget.textColor),
       textAlign: TextAlign.center,
       onChanged: widget.onValueChanged,
       validator: widget.validator,
@@ -52,10 +52,10 @@ class _InputViewState extends State<InputView> {
 
   InputDecoration _buildDecoration() {
     return InputDecoration(
-      hintText: widget.hint.toUpperCase(),
+      hintText: widget.hint,
       fillColor: widget.fillColor,
-      focusColor: AppColors.background,
-      hintStyle: AppStyle.h1(size: 16, color: widget.hintColor),
+      focusColor: widget.fillColor,
+      hintStyle: ThemeHolder.of(context).textStyle.t1(color: widget.hintColor),
       filled: true,
       focusedBorder: _buildBorder(color: widget.borderColor, width: 2),
       enabledBorder: _buildBorder(color: Colors.transparent, width: 2),
