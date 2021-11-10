@@ -9,8 +9,8 @@ import 'package:sport_stats_live/features/screen_team_new/presentation/view/new_
 import 'package:sport_stats_live/features/team/domain/bloc/bloc.dart';
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 
-class NewTeamPage extends StatelessWidget {
-  const NewTeamPage({Key? key}) : super(key: key);
+class TeamEditPage extends StatelessWidget {
+  const TeamEditPage({Key? key}) : super(key: key);
 
   static Widget page({required TeamsBloc teamsBloc, Team? team}) {
     return BlocProvider.value(
@@ -22,7 +22,7 @@ class NewTeamPage extends StatelessWidget {
             teamsBloc: teamsBloc,
           )..add(StartEvent());
         },
-        child: const NewTeamPage(),
+        child: const TeamEditPage(),
       ),
     );
   }
@@ -31,7 +31,7 @@ class NewTeamPage extends StatelessWidget {
     return MaterialPageRoute<void>(
       builder: (_) => BlocProvider.value(
         value: teamsBloc,
-        child: NewTeamPage.page(teamsBloc: teamsBloc, team: team),
+        child: TeamEditPage.page(teamsBloc: teamsBloc, team: team),
       ),
     );
   }
@@ -57,7 +57,7 @@ class NewTeamPage extends StatelessWidget {
           if (state is LoadingState) {
             return Container(color: AppColors.orange);
           } else if (state is TeamState) {
-            return NewTeamView(team: state.team);
+            return TeamEditView(team: state.team);
           } else {
             return Container(
               color: AppColors.red,

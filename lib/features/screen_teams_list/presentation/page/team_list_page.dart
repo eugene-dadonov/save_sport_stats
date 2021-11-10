@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:sport_stats_live/core/design/colors.dart';
-import 'package:sport_stats_live/features/screen_team_new/presentation/page/new_team_page.dart';
+import 'package:sport_stats_live/features/screen_team_new/presentation/page/team_edit_page.dart';
 import 'package:sport_stats_live/features/screen_teams_list/domain/bloc/bloc.dart';
 import 'package:sport_stats_live/features/screen_teams_list/domain/bloc/event.dart'
     as event;
@@ -78,10 +78,8 @@ class TeamsListPage extends StatelessWidget {
           },
           listener: (BuildContext context, Object? state) {
             if (state is OpenTeamState) {
-              print("OpenTeam");
               openTeamEditDialog(context: context, team: state.team);
             } else if (state is NewTeamState) {
-              print("OnNewTeam");
               openTeamEditDialog(context: context, team: null);
             }
           },
@@ -97,7 +95,7 @@ class TeamsListPage extends StatelessWidget {
       context: context,
       expand: true,
       builder: (BuildContext context) {
-        return NewTeamPage.page(
+        return TeamEditPage.page(
             teamsBloc: context.read<TeamsBloc>(), team: team);
       },
     );

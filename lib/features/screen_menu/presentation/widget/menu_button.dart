@@ -6,12 +6,14 @@ class MenuButton extends StatelessWidget {
   final String title;
   final VoidCallback onPress;
   final Color color;
+  final double fontSize;
 
   const MenuButton({
     required this.title,
     required this.onPress,
     this.color = Colors.black26,
     Key? key,
+    this.fontSize = 24,
   }) : super(key: key);
 
   @override
@@ -20,15 +22,16 @@ class MenuButton extends StatelessWidget {
       color: Colors.transparent,
       child: InkWell(
         onTap: onPress,
-        splashColor: color.withOpacity(0.5),
+        splashColor: color.withOpacity(0.2),
         highlightColor: color.withOpacity(0.1),
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(10.0),
           child: Center(
-              child: Text(
-            title,
-            style: GoogleFonts.russoOne(fontSize: 24, color: color),
-          )),
+            child: Text(
+              title,
+              style: GoogleFonts.russoOne(fontSize: fontSize, color: color),
+            ),
+          ),
         ),
       ),
     );

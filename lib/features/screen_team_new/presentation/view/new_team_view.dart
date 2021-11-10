@@ -3,17 +3,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_stats_live/core/design/colors.dart';
 import 'package:sport_stats_live/core/design/logos/logos.dart';
 import 'package:sport_stats_live/core/design/styles.dart';
+import 'package:sport_stats_live/core/widgets/dialog/dialog.dart';
 import 'package:sport_stats_live/core/widgets/input_view/input_layout.dart';
+import 'package:sport_stats_live/core/widgets/logo/logo.dart';
+import 'package:sport_stats_live/features/screen_menu/presentation/widget/menu_button.dart';
 import 'package:sport_stats_live/features/screen_team_new/domain/bloc/bloc.dart';
 import 'package:sport_stats_live/features/screen_team_new/domain/bloc/event.dart';
+import 'package:sport_stats_live/features/screen_team_new/presentation/dialog/dialog_logo.dart';
 import 'package:sport_stats_live/features/screen_team_new/presentation/widgets/color_selector.dart';
-import 'package:sport_stats_live/features/screen_team_new/presentation/widgets/logo_selector.dart';
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 
-class NewTeamView extends StatelessWidget {
+class TeamEditView extends StatelessWidget {
   final Team? team;
 
-  const NewTeamView({
+  const TeamEditView({
     Key? key,
     required this.team,
   }) : super(key: key);
@@ -35,7 +38,8 @@ class NewTeamView extends StatelessWidget {
               hint: 'Введите название',
               text: team?.name,
               onValueChanged: (newName) {
-                BlocProvider.of<TeamEditBloc>(context).add(UpdateNameEvent(newName));
+                BlocProvider.of<TeamEditBloc>(context)
+                    .add(UpdateNameEvent(newName));
               },
             ),
             _buildTitle("Город"),
@@ -43,14 +47,17 @@ class NewTeamView extends StatelessWidget {
               text: team?.city,
               hint: 'Введите город',
               onValueChanged: (newCity) {
-                BlocProvider.of<TeamEditBloc>(context).add(UpdateCityEvent(newCity));
+                BlocProvider.of<TeamEditBloc>(context)
+                    .add(UpdateCityEvent(newCity));
               },
             ),
             _buildTitle("Выберите эмблему"),
-            _buildLogoSelector(
-              context: context,
-              logo: team?.logo ?? Logo.round,
-              teamColor: team?.teamColor ?? TeamColor.black,
+            SliverToBoxAdapter(
+              child: _SelectLogoWidget(
+                selectedLogo: team?.logo ?? Logo.round,
+                currentColor:
+                    team?.teamColor.toColor() ?? TeamColor.black.toColor(),
+              ),
             ),
             _buildTitle("Выберите цвет"),
             _buildColorSelector(context, team?.teamColor ?? TeamColor.black),
@@ -97,22 +104,6 @@ class NewTeamView extends StatelessWidget {
     );
   }
 
-  SliverToBoxAdapter _buildLogoSelector({
-    required BuildContext context,
-    required Logo logo,
-    required TeamColor teamColor,
-  }) =>
-      SliverToBoxAdapter(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 10),
-          child: LogoSelector(
-            currentColor: teamColor.toColor(),
-            selectedLogo: logo,
-            onLogoSelected: (logo) {},
-          ),
-        ),
-      );
-
   SliverToBoxAdapter _buildColorSelector(
           BuildContext context, TeamColor teamColor) =>
       SliverToBoxAdapter(
@@ -120,8 +111,9 @@ class NewTeamView extends StatelessWidget {
           padding: const EdgeInsets.only(top: 10),
           child: ColorSelector(
             selectedColor: teamColor,
-            onColorSelected: (value) {
-              print(value);
+            onColorSelected: (color) {
+              BlocProvider.of<TeamEditBloc>(context)
+                  .add(UpdateColorEvent(color));
             },
           ),
         ),
@@ -134,9 +126,58 @@ class NewTeamView extends StatelessWidget {
           child: TextButton(
             onPressed: () {
               BlocProvider.of<TeamEditBloc>(context).add(SaveTeamEvent());
+              Navigator.of(context).pop();
             },
             child: const Text('Сохранить'),
           ),
         ),
       );
+}
+
+class _SelectLogoWidget extends StatelessWidget {
+  final Color currentColor;
+  final Logo selectedLogo;
+
+  const _SelectLogoWidget({
+    Key? key,
+    required this.currentColor,
+    required this.selectedLogo,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 10),
+      child: Material(
+        color: AppColors.card,
+        child: InkWell(
+          customBorder: const CircleBorder(),
+          highlightColor: currentColor.withOpacity(0.2),
+          splashColor: currentColor.withOpacity(0.2),
+          onTap: () {
+            showDialog(
+              context: context,
+              builder: (builderContext) {
+                return AppDialog(
+                  child: LogoSelectorView(
+                    selectedLogo: selectedLogo,
+                    currentColor: currentColor,
+                    onLogoSelected: (logo) {
+                      BlocProvider.of<TeamEditBloc>(context)
+                          .add(UpdateLogoEvent(logo));
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                );
+              },
+            );
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: LogoIcon(logo: selectedLogo, color: currentColor, height: 100),
+          ),
+        ),
+      ),
+    );
+  }
 }

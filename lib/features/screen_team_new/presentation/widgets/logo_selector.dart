@@ -33,13 +33,15 @@ class LogoSelector extends StatelessWidget {
 
         final padding = isSelected ? selectedPadding : unselectedPadding;
 
-        return GestureDetector(
-          onTap: () {
-            onLogoSelected?.call(Logo.values[index]);
-          },
-          child: Padding(
-            padding: EdgeInsets.all(padding),
-            child: LogoIcon(logo: Logo.values[index], color: color),
+        return Material(
+          child: InkWell(
+            onTap: () {
+              onLogoSelected?.call(Logo.values[index]);
+            },
+            child: Padding(
+              padding: EdgeInsets.all(padding),
+              child: LogoIcon(logo: Logo.values[index], color: color),
+            ),
           ),
         );
       },
