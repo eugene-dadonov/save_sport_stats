@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sport_stats_live/core/design/colors.dart';
+import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 
 class TeamView extends StatelessWidget {
   final Team team;
   final int score;
-
-  Color get color => AppColors.getColorByTeamColor(team.teamColor);
 
   const TeamView({
     Key? key,
@@ -17,6 +16,8 @@ class TeamView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final color = ThemeHolder.of(context).fromTeamColor(team.teamColor);
+
     return Padding(
       padding: const EdgeInsets.all(2.0),
       child: Container(

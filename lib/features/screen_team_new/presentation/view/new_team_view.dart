@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_stats_live/core/design/colors.dart';
 import 'package:sport_stats_live/core/design/logos/logos.dart';
 import 'package:sport_stats_live/core/design/styles.dart';
+import 'package:sport_stats_live/core/theming/data/themes/app_theme_data.dart';
+import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 import 'package:sport_stats_live/core/widgets/dialog/dialog.dart';
 import 'package:sport_stats_live/core/widgets/input_view/input_layout.dart';
 import 'package:sport_stats_live/core/widgets/logo/logo.dart';
@@ -28,6 +30,9 @@ class TeamEditView extends StatelessWidget {
   }
 
   Widget _buildForm(BuildContext context, Team? team) {
+    final color = ThemeHolder.of(context)
+        .fromTeamColor(team?.teamColor ?? TeamColor.black);
+
     return Form(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -69,8 +74,7 @@ class TeamEditView extends StatelessWidget {
             SliverToBoxAdapter(
               child: _SelectLogoWidget(
                 selectedLogo: team?.logo ?? Logo.round,
-                currentColor:
-                    team?.teamColor.toColor() ?? TeamColor.black.toColor(),
+                currentColor: color,
               ),
             ),
             const SliverToBoxAdapter(
@@ -211,14 +215,15 @@ class _SelectColorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final color = ThemeHolder.of(context).fromTeamColor(currentColor);
     return Padding(
       padding: const EdgeInsets.only(top: 10),
       child: Material(
         color: AppColors.card,
         child: InkWell(
           customBorder: const CircleBorder(),
-          highlightColor: currentColor.toColor().withOpacity(0.2),
-          splashColor: currentColor.toColor().withOpacity(0.2),
+          highlightColor: color.withOpacity(0.2),
+          splashColor: color.withOpacity(0.2),
           onTap: () {
             showDialog(
               context: context,
@@ -240,7 +245,7 @@ class _SelectColorWidget extends StatelessWidget {
             padding: const EdgeInsets.all(10.0),
             child: CircleAvatar(
               radius: 35,
-              backgroundColor: currentColor.toColor(),
+              backgroundColor: color,
             ),
           ),
         ),

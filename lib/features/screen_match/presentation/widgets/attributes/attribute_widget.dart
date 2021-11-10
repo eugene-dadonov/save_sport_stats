@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sport_stats_live/core/design/colors.dart';
+import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 import 'package:sport_stats_live/features/match/domain/entity/attribute.dart';
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 
@@ -66,7 +67,7 @@ class _AttributeWidgetState extends State<AttributeWidget> {
             child: _buildScoreText(
               parameter.host,
               // TODO: Сделать выбор цвета от enum;
-              AppColors.getColorByTeamColor(teamHost.teamColor),
+              ThemeHolder.of(context).fromTeamColor(teamHost.teamColor),
               TextAlign.start,
             ),
           ),
@@ -88,7 +89,7 @@ class _AttributeWidgetState extends State<AttributeWidget> {
             child: _buildScoreText(
               parameter.guest,
               // TODO: Сделать выбор цвета от enum;
-              AppColors.getColorByTeamColor(teamGuest.teamColor),
+              ThemeHolder.of(context).fromTeamColor(teamHost.teamColor),
               TextAlign.end,
             ),
           ),
@@ -108,8 +109,7 @@ class _AttributeWidgetState extends State<AttributeWidget> {
         children: [
           _buildChartPart(
             parameter.host,
-            // TODO: Сделать выбор цвета от enum;
-            AppColors.getColorByTeamColor(teamOne.teamColor),
+            ThemeHolder.of(context).fromTeamColor(teamOne.teamColor),
           ),
           Container(
             color: Colors.white,
@@ -117,8 +117,7 @@ class _AttributeWidgetState extends State<AttributeWidget> {
           ),
           _buildChartPart(
             parameter.guest,
-            // TODO: Сделать выбор цвета от enum;
-            AppColors.getColorByTeamColor(teamTwo.teamColor),
+            ThemeHolder.of(context).fromTeamColor(teamTwo.teamColor),
           )
         ],
       ),
@@ -166,8 +165,7 @@ class _AttributeWidgetState extends State<AttributeWidget> {
     HostStatus hostStatus,
   ) {
     return DoubleButton(
-      // TODO: Сделать выбор цвета от enum;
-      color: AppColors.getColorByTeamColor(team.teamColor),
+      color: ThemeHolder.of(context).fromTeamColor(team.teamColor),
       height: 30,
       width: 100,
       borderWidth: 2,

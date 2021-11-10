@@ -27,41 +27,4 @@ class AppColors {
   static const Color cancel = Color(0xFF9E203C);
   static const Color ok = Color(0xFF1A7943);
   static const Color card = Color(0xFFFFFFFF);
-
-  static Color getColorByTeamColor(TeamColor teamColor) {
-    switch (teamColor) {
-      case TeamColor.redDark:
-        return ColorsLight.redDark;
-      case TeamColor.red:
-        return ColorsLight.red;
-      case TeamColor.orange:
-        return ColorsLight.orange;
-      case TeamColor.yellow:
-        return ColorsLight.yellow;
-      case TeamColor.green:
-        return ColorsLight.green;
-      case TeamColor.greenLight:
-        return ColorsLight.greenLight;
-      case TeamColor.cyan:
-        return ColorsLight.cyan;
-      case TeamColor.azure:
-        return ColorsLight.azure;
-      case TeamColor.blue:
-        return ColorsLight.blue;
-      case TeamColor.purple:
-        return ColorsLight.purple;
-      case TeamColor.raspberry:
-        return ColorsLight.raspberry;
-      case TeamColor.pink:
-        return ColorsLight.pink;
-      case TeamColor.greyLight:
-        return ColorsLight.greyLight;
-      case TeamColor.grey:
-        return ColorsLight.grey;
-      case TeamColor.greyDark:
-        return ColorsLight.greyDark;
-      case TeamColor.black:
-        return ColorsLight.black;
-    }
-  }
 }

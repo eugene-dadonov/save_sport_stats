@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:sport_stats_live/core/design/colors.dart';
+import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 import 'package:sport_stats_live/features/screen_team_new/presentation/page/team_edit_page.dart';
 import 'package:sport_stats_live/features/screen_teams_list/domain/bloc/bloc.dart';
 import 'package:sport_stats_live/features/screen_teams_list/domain/bloc/event.dart'
@@ -32,7 +32,7 @@ class TeamsListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: ThemeHolder.of(context).background1,
       body: BlocProvider(
         create: (BuildContext context) {
           return TeamsListBloc(

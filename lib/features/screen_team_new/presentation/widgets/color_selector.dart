@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sport_stats_live/core/design/colors.dart';
+import 'package:sport_stats_live/core/theming/data/themes/app_theme_data.dart';
+import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 
 class ColorSelector extends StatelessWidget {
@@ -46,7 +48,7 @@ class ColorSelector extends StatelessWidget {
               padding: EdgeInsets.all(padding),
               child: Container(
                 decoration: BoxDecoration(
-                  color: currentColor.toColor(),
+                  color: ThemeHolder.of(context).fromTeamColor(selectedColor),
                   borderRadius: const BorderRadius.all(
                     Radius.circular(innerRadius),
                   ),

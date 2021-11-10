@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sport_stats_live/core/design/colors.dart';
+import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 
 class TableScore extends StatelessWidget {
@@ -24,14 +25,31 @@ class TableScore extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Expanded(child: buildScore(teamOne, teamOneScore, TextAlign.end)),
+        Expanded(
+            child: buildScore(
+          context,
+          teamOne,
+          teamOneScore,
+          TextAlign.end,
+        )),
         SizedBox(width: spaceBetweenTeams),
-        Expanded(child: buildScore(teamTwo, teamTwoScore, TextAlign.start)),
+        Expanded(
+            child: buildScore(
+          context,
+          teamTwo,
+          teamTwoScore,
+          TextAlign.start,
+        )),
       ],
     );
   }
 
-  Widget buildScore(Team team, int score, TextAlign textAlign) {
+  Widget buildScore(
+    BuildContext context,
+    Team team,
+    int score,
+    TextAlign textAlign,
+  ) {
     return Text(score.toString(),
         overflow: TextOverflow.ellipsis,
         maxLines: 1,
@@ -39,7 +57,7 @@ class TableScore extends StatelessWidget {
         style: GoogleFonts.russoOne(
           fontSize: 55,
           // TODO: Сделать выбор цвета от enum;
-          color: AppColors.getColorByTeamColor(team.teamColor),
+          color: ThemeHolder.of(context).fromTeamColor(team.teamColor),
         ));
   }
 }

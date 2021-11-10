@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sport_stats_live/core/design/colors.dart';
 import 'package:sport_stats_live/core/design/styles.dart';
+import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 import 'package:sport_stats_live/core/widgets/stroke_flat_button/stroke_flat_button.dart';
 import 'package:sport_stats_live/features/screen_teams_list/presentation/widget/team_card.dart';
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
@@ -25,19 +26,19 @@ class TeamListView extends StatelessWidget {
   Widget _buildTeamsScreen(BuildContext context, List<Team> teams) {
     return CustomScrollView(
       slivers: [
-        _buildSliverAppBar(),
+        _buildSliverAppBar(context),
         _buildNewTeamButton(context),
         _buildTeamList(context, teams),
       ],
     );
   }
 
-  Widget _buildSliverAppBar() {
+  Widget _buildSliverAppBar(BuildContext context) {
     return SliverAppBar(
-      backgroundColor: AppColors.background,
+      backgroundColor: ThemeHolder.of(context).background1,
       title: Text(
         "Список команд",
-        style: AppStyle.h1(size: 18),
+        style: AppStyle.h1(size: 18, color: ThemeHolder.of(context).main),
       ),
     );
   }
@@ -52,6 +53,7 @@ class TeamListView extends StatelessWidget {
             onNewTeamClicked.call();
           },
           height: 60,
+          color: ThemeHolder.of(context).main,
         ),
       ),
     );

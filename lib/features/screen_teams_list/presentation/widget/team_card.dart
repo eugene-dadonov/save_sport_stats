@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sport_stats_live/core/design/colors.dart';
 import 'package:sport_stats_live/core/design/styles.dart';
+import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 import 'package:sport_stats_live/core/widgets/clickable_card/clickable_card.dart';
 import 'package:sport_stats_live/core/widgets/logo/logo.dart';
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
@@ -23,7 +24,7 @@ class TeamCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = AppColors.getColorByTeamColor(team.teamColor);
+    final color = ThemeHolder.of(context).fromTeamColor(team.teamColor);
     return ClickableCard(
       cardColor: AppColors.card,
       splashColor: AppColors.greyLight.withOpacity(0.1),

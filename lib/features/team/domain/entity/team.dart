@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:sport_stats_live/core/design/colors.dart';
 import 'package:sport_stats_live/core/design/logos/logos.dart';
+import 'package:sport_stats_live/core/theming/data/themes/app_theme_data.dart';
 import 'package:uuid/uuid.dart';
 
 class Team {
@@ -32,27 +33,6 @@ enum HostStatus {
   guest,
 }
 
-enum TeamColor {
-  redDark,
-  red,
-  orange,
-  yellow,
-  green,
-  greenLight,
-  cyan,
-  azure,
-  blue,
-  purple,
-  raspberry,
-  pink,
-  greyLight,
-  grey,
-  greyDark,
-  black,
-}
-
 extension TeamColorX on TeamColor {
-  Color toColor() => AppColors.getColorByTeamColor(this);
-
   bool isEqual(TeamColor color) => color.index == index;
 }
