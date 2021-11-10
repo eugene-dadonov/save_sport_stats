@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sport_stats_live/core/design/colors.dart';
-import 'package:sport_stats_live/core/design/styles.dart';
 import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 import 'package:sport_stats_live/core/widgets/clickable_card/clickable_card.dart';
 import 'package:sport_stats_live/core/widgets/logo/logo.dart';
@@ -25,10 +23,12 @@ class TeamCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final color = ThemeHolder.of(context).fromTeamColor(team.teamColor);
+    final colorCard = ThemeHolder.of(context).card;
+
     return ClickableCard(
-      cardColor: AppColors.card,
-      splashColor: AppColors.greyLight.withOpacity(0.1),
-      shadowColor: AppColors.main.withOpacity(0.2),
+      cardColor: colorCard,
+      splashColor: ThemeHolder.of(context).secondary2,
+      shadowColor: ThemeHolder.of(context).cardShadow,
       borderRadius: const BorderRadius.all(Radius.circular(radius)),
       onTap: () {
         onCardClick?.call(team);
@@ -50,7 +50,7 @@ class TeamCard extends StatelessWidget {
                   logo: team.logo,
                   height: 45,
                   width: 45,
-                  color: AppColors.card,
+                  color: colorCard,
                 ),
               ),
             ),
@@ -62,8 +62,14 @@ class TeamCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(team.name, style: AppStyle.h1(color: color, size: 18)),
-                  Text(team.city, style: AppStyle.h1(color: color, size: 14)),
+                  Text(
+                    team.name,
+                    style: ThemeHolder.of(context).textStyle.h2(color: color),
+                  ),
+                  Text(
+                    team.city,
+                    style: ThemeHolder.of(context).textStyle.h4(color: color),
+                  ),
                 ],
               ),
             ),
@@ -72,9 +78,10 @@ class TeamCard extends StatelessWidget {
               onPressed: () {
                 onContextMenuClick?.call(team.uid);
               },
-              color: AppColors.main,
-              splashRadius: 30,
-              splashColor: AppColors.main.withOpacity(0.5),
+              color: ThemeHolder.of(context).secondary1,
+              splashRadius: 22,
+              splashColor: ThemeHolder.of(context).secondary1.withOpacity(0.2),
+              highlightColor: ThemeHolder.of(context).secondary1.withOpacity(0.2),
               icon: const Icon(Icons.more_vert_sharp))
         ],
       ),

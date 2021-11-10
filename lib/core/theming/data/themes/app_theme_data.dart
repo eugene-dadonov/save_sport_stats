@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:sport_stats_live/core/theming/data/colors/team_colors/dark_team_colors.dart';
 import 'package:sport_stats_live/core/theming/data/colors/team_colors/light_team_colors.dart';
+import 'package:sport_stats_live/core/theming/data/styles/text_styles.dart';
 import 'package:sport_stats_live/core/theming/data/themes/themes.dart';
 
 class AppThemeData {
@@ -16,6 +17,7 @@ class AppThemeData {
   final Color cancel;
   final Color card;
   final Color cardShadow;
+  final AppTextStyle textStyle;
 
   AppThemeData.darkBase({
     required this.themeData,
@@ -27,6 +29,7 @@ class AppThemeData {
     required this.cancel,
     required this.card,
     required this.cardShadow,
+    required this.textStyle,
   })  : isDark = true,
         teamsColor = TeamsColors.dark();
 
@@ -40,6 +43,7 @@ class AppThemeData {
     required this.cancel,
     required this.card,
     required this.cardShadow,
+    required this.textStyle,
   })  : isDark = false,
         teamsColor = TeamsColors.light();
 

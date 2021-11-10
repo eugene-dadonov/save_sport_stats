@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sport_stats_live/core/design/colors.dart';
 import 'package:sport_stats_live/core/design/styles.dart';
+import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 import 'package:sport_stats_live/core/widgets/stroke_flat_button/stroke_flat_button.dart';
 
 class EmptyTeamListView extends StatelessWidget {
@@ -17,19 +18,25 @@ class EmptyTeamListView extends StatelessWidget {
     return CustomScrollView(
       physics: const NeverScrollableScrollPhysics(),
       slivers: [
-        _buildSliverAppBar(),
+        _buildSliverAppBar(context),
         _buildNewTeamButton(context),
-        _buildSliverEmptyMessage()
+        _buildSliverEmptyMessage(context)
       ],
     );
   }
 
-  Widget _buildSliverAppBar() {
+  Widget _buildSliverAppBar(BuildContext context) {
     return SliverAppBar(
-      backgroundColor: AppColors.background,
+      backgroundColor: ThemeHolder.of(context).background1,
+      iconTheme: IconThemeData(
+        color: ThemeHolder.of(context).main,
+        size: 24,
+      ),
       title: Text(
         "Команды",
-        style: AppStyle.h1(size: 18),
+        style: ThemeHolder.of(context)
+            .textStyle
+            .h1(color: ThemeHolder.of(context).main),
       ),
     );
   }
@@ -49,7 +56,8 @@ class EmptyTeamListView extends StatelessWidget {
     );
   }
 
-  Widget _buildSliverEmptyMessage() {
+  Widget _buildSliverEmptyMessage(BuildContext context) {
+    final textColor = ThemeHolder.of(context).secondary2;
     return SliverFillRemaining(
       hasScrollBody: false,
       child: Padding(
@@ -57,7 +65,7 @@ class EmptyTeamListView extends StatelessWidget {
         child: Center(
           child: Text(
             "У Вас пока нет добавленных команд",
-            style: AppStyle.h1(size: 18),
+            style: ThemeHolder.of(context).textStyle.h2(color: textColor),
             textAlign: TextAlign.center,
           ),
         ),

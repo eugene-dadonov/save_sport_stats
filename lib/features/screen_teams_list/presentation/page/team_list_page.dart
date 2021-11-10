@@ -88,8 +88,10 @@ class TeamsListPage extends StatelessWidget {
     );
   }
 
-  Future<T?> openTeamEditDialog<T>(
-      {required BuildContext context, Team? team}) {
+  Future<T?> openTeamEditDialog<T>({
+    required BuildContext context,
+    Team? team,
+  }) {
     return showCupertinoModalBottomSheet(
       topRadius: const Radius.circular(30),
       context: context,

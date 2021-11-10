@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sport_stats_live/core/design/colors.dart';
-import 'package:sport_stats_live/core/design/styles.dart';
 import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 import 'package:sport_stats_live/core/widgets/stroke_flat_button/stroke_flat_button.dart';
 import 'package:sport_stats_live/features/screen_teams_list/presentation/widget/team_card.dart';
@@ -34,11 +32,17 @@ class TeamListView extends StatelessWidget {
   }
 
   Widget _buildSliverAppBar(BuildContext context) {
+    final textColor = ThemeHolder.of(context).main;
     return SliverAppBar(
+      iconTheme: IconThemeData(
+        color: ThemeHolder.of(context).main,
+        size: 24,
+      ),
+
       backgroundColor: ThemeHolder.of(context).background1,
       title: Text(
-        "Список команд",
-        style: AppStyle.h1(size: 18, color: ThemeHolder.of(context).main),
+        "Команды",
+        style: ThemeHolder.of(context).textStyle.h1(color: textColor),
       ),
     );
   }
@@ -48,12 +52,12 @@ class TeamListView extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         child: StrokeFlatButton(
-          text: 'Добавить новую команду',
+          text: 'Новая команда',
           onPress: () {
             onNewTeamClicked.call();
           },
           height: 60,
-          color: ThemeHolder.of(context).main,
+          color: ThemeHolder.of(context).secondary1,
         ),
       ),
     );

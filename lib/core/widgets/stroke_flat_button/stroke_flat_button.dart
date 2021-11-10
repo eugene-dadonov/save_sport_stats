@@ -2,6 +2,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sport_stats_live/core/design/colors.dart';
+import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 
 class StrokeFlatButton extends StatelessWidget {
   final String text;
@@ -37,10 +38,7 @@ class StrokeFlatButton extends StatelessWidget {
             child: Center(
               child: Text(
                 text.toUpperCase(),
-                style: GoogleFonts.russoOne(
-                  fontSize: 18,
-                  color: color,
-                ),
+                style: ThemeHolder.of(context).textStyle.b2(color: color),
               ),
             ),
           ),

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 
 class MenuButton extends StatelessWidget {
   final String title;
@@ -29,7 +30,7 @@ class MenuButton extends StatelessWidget {
           child: Center(
             child: Text(
               title,
-              style: GoogleFonts.russoOne(fontSize: fontSize, color: color),
+              style: ThemeHolder.of(context).textStyle.h1(color: color),
             ),
           ),
         ),

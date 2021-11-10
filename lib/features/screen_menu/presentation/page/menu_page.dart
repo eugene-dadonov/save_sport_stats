@@ -81,34 +81,35 @@ class _MenuPageState extends State<MenuPage> {
         SizedBox(
           width: 120,
           height: 120,
-          child: SvgPicture.asset(assetName, color: ThemeHolder.of(context).teamsColor.redDark),
+          child: SvgPicture.asset(assetName,
+              color: ThemeHolder.of(context).teamsColor.redDark),
         ),
         const SizedBox(
           height: 80,
           width: 80,
         ),
-        _buildPreparedButton(
+        _MenuButtonWidget(
           title: 'Новый матч'.toUpperCase(),
           color: ThemeHolder.of(context).main,
           onTap: () {
             context.read<MenuBloc>().add(OnNewMatch());
           },
         ),
-        _buildPreparedButton(
+        _MenuButtonWidget(
           title: 'Все матчи'.toUpperCase(),
           color: ThemeHolder.of(context).main,
           onTap: () {
             context.read<MenuBloc>().add(OnMatchList());
           },
         ),
-        _buildPreparedButton(
+        _MenuButtonWidget(
           title: 'Список команд'.toUpperCase(),
           color: ThemeHolder.of(context).main,
           onTap: () {
             context.read<MenuBloc>().add(OnTeamsList());
           },
         ),
-        _buildPreparedButton(
+        _MenuButtonWidget(
           title: 'Сменить тему'.toUpperCase(),
           color: ThemeHolder.of(context).main,
           onTap: () {
@@ -121,16 +122,36 @@ class _MenuPageState extends State<MenuPage> {
             }
           },
         ),
-        if (lastMatch != null) _buildLastMatch(context, lastMatch)
+        if (lastMatch != null)
+          _LastMatchButton(
+            match: lastMatch,
+          ),
       ],
     );
   }
 
-  Widget _buildPreparedButton({
-    required String title,
-    required Color color,
-    required VoidCallback onTap,
-  }) {
+  void navigateTo(BuildContext context, Widget route) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => route),
+    );
+  }
+}
+
+class _MenuButtonWidget extends StatelessWidget {
+  final String title;
+  final VoidCallback onTap;
+  final Color color;
+
+  const _MenuButtonWidget({
+    Key? key,
+    required this.title,
+    required this.onTap,
+    required this.color,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
       child: MenuButton(
@@ -140,23 +161,27 @@ class _MenuPageState extends State<MenuPage> {
       ),
     );
   }
+}
 
-  Widget _buildLastMatch(BuildContext context, Match lastMatch) {
+class _LastMatchButton extends StatelessWidget {
+  final Match match;
+
+  const _LastMatchButton({
+    Key? key,
+    required this.match,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
       child: MatchCard(
-        match: lastMatch,
+        match: match,
         callback: () {
           context.read<MenuBloc>().add(OnLastMatch());
         },
       ),
     );
-  }
-
-  void navigateTo(BuildContext context, Widget route) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => route),
-    );
+    ;
   }
 }
