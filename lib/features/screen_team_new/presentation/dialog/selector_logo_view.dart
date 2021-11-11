@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sport_stats_live/core/design/colors.dart';
 import 'package:sport_stats_live/core/design/logos/logos.dart';
-import 'package:sport_stats_live/core/design/styles.dart';
 import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 import 'package:sport_stats_live/features/screen_team_new/presentation/widgets/logo_selector.dart';
 
@@ -19,15 +17,17 @@ class DialogLogoSelectorView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(7)),
-        color: AppColors.card,
-      ),
-      child: _LogoSelectorView(
-        currentColor: currentColor,
-        selectedLogo: selectedLogo,
-        onLogoSelected: onLogoSelected,
+    return SingleChildScrollView(
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(7)),
+          color: ThemeHolder.of(context).card,
+        ),
+        child: _LogoSelectorView(
+          currentColor: currentColor,
+          selectedLogo: selectedLogo,
+          onLogoSelected: onLogoSelected,
+        ),
       ),
     );
   }

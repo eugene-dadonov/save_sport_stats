@@ -6,8 +6,12 @@ class LoadingState extends TeamEditState {}
 
 class TeamState extends TeamEditState {
   final Team team;
+  final bool isNewTeam;
 
-  TeamState(this.team);
+  TeamState({
+    required this.team,
+    required this.isNewTeam,
+  });
 }
 
 class TeamSavedState extends TeamEditState {}

@@ -20,14 +20,16 @@ class DialogColorSelectorView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.all(Radius.circular(7)),
-        color: ThemeHolder.of(context).card,
-      ),
-      child: _ColorSelectorView(
-        currentColor: currentColor,
-        onColorSelected: onColorSelected,
+    return SingleChildScrollView(
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(7)),
+          color: ThemeHolder.of(context).card,
+        ),
+        child: _ColorSelectorView(
+          currentColor: currentColor,
+          onColorSelected: onColorSelected,
+        ),
       ),
     );
   }

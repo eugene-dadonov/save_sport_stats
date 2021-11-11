@@ -12,13 +12,16 @@ class TeamEditBloc extends Bloc<TeamEditEvent, TeamEditState> {
   }) : super(LoadingState()) {
     if (team == null) {
       this.team = Team.blank();
+      isNewTeam = true;
     } else {
       this.team = team;
+      isNewTeam = false;
     }
   }
 
   final TeamsBloc teamsBloc;
   late Team team;
+  bool isNewTeam = false;
 
   @override
   Stream<TeamEditState> mapEventToState(TeamEditEvent event) async* {
@@ -26,23 +29,19 @@ class TeamEditBloc extends Bloc<TeamEditEvent, TeamEditState> {
 
     try {
       if (event is StartEvent) {
-        yield TeamState(team);
+        yield TeamState(team: team, isNewTeam: isNewTeam);
       } else if (event is UpdateNameEvent) {
-
         team.name = event.name;
-        yield TeamState(team);
+        yield TeamState(team: team, isNewTeam: isNewTeam);
       } else if (event is UpdateCityEvent) {
-
         team.city = event.city;
-        yield TeamState(team);
+        yield TeamState(team: team, isNewTeam: isNewTeam);
       } else if (event is UpdateColorEvent) {
-
         team.teamColor = event.color;
-        yield TeamState(team);
+        yield TeamState(team: team, isNewTeam: isNewTeam);
       } else if (event is UpdateLogoEvent) {
-
         team.logo = event.logo;
-        yield TeamState(team);
+        yield TeamState(team: team, isNewTeam: isNewTeam);
       } else if (event is SaveTeamEvent) {
 
         testUpdate(team);
