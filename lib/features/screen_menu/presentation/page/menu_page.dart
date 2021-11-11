@@ -50,7 +50,7 @@ class _MenuPageState extends State<MenuPage> {
                 Navigator.of(context)
                     .push(TeamsListPage.route(context.read<TeamsBloc>()));
               } else if (state.route == PageItem.lastMatch) {
-                navigateTo(context, const MatchPage());
+                navigateTo(context, MatchPage.openActiveMatch());
               } else if (state.route == PageItem.teamsList) {
                 navigateTo(context, const TeamsListPage());
               } else if (state.route == PageItem.matchList) {

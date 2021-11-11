@@ -73,11 +73,11 @@ class HiveMatchStorage extends MatchStorage {
   }
 
   @override
-  Future<Match?> getMatch(String id) async {
+  Future<Match> getMatch(String id) async {
     final box = Hive.box<MatchModel>(boxMatchStorage);
     final matchModel = box.get(id);
     if (matchModel == null) {
-      return null;
+      throw NoSuchMatch(id: id);
     } else {
       return MatchConverter.fromModel(matchModel);
     }

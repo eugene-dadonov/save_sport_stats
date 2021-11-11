@@ -23,7 +23,7 @@ class MatchRepositoryImpl implements MatchRepository {
   }
 
   @override
-  Future<Match?> getMatchById(String id) async =>
+  Future<Match> getMatchById(String id) async =>
       await matchStorage.getMatch(id);
 
   @override

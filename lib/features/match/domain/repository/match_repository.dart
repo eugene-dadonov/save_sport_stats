@@ -1,7 +1,7 @@
 import 'package:sport_stats_live/features/match/domain/entity/match.dart';
 
 abstract class MatchRepository {
-  Future<Match?> getMatchById(String id);
+  Future<Match> getMatchById(String id);
 
   Future<List<Match>> getAllMatches();
 

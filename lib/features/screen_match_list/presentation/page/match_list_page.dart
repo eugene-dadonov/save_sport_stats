@@ -34,10 +34,10 @@ class _MatchListPageState extends State<MatchListPage> {
             listenWhen: (oldState, newState) => newState is OpenMatch,
             listener: (context, state) {
               if (state is OpenMatch) {
+                print("SADASASDAS");
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => MatchPage(matchId: state.matchId)),
+                  MaterialPageRoute(builder: (context) => MatchPage.openMatch(state.matchId)),
                 );
               }
             },

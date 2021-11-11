@@ -12,12 +12,22 @@ import 'package:sport_stats_live/features/screen_match/presentation/widgets/attr
 import 'package:sport_stats_live/features/screen_match/presentation/widgets/table/table.dart';
 
 class MatchPage extends StatefulWidget {
+  final String? matchId;
+  final bool openActiveMatch;
+
   const MatchPage({
     Key? key,
     this.matchId,
+    required this.openActiveMatch,
   }) : super(key: key);
 
-  final String? matchId;
+  MatchPage.openMatch(String id)
+      : matchId = id,
+        openActiveMatch = false;
+
+  MatchPage.openActiveMatch()
+      : matchId = null,
+        openActiveMatch = true;
 
   @override
   State<MatchPage> createState() => _MatchPageState();
@@ -29,9 +39,16 @@ class _MatchPageState extends State<MatchPage> {
     return Scaffold(
       backgroundColor: ThemeHolder.of(context).background1,
       body: BlocProvider(
-        create: (BuildContext context) =>
-            MatchBloc(matchRepository: context.read<MatchRepositoryImpl>())
-              ..add(InitialEvent(matchId: widget.matchId)),
+        create: (BuildContext context) {
+          final event = widget.openActiveMatch
+              ? OpenActiveMatchEvent()
+              : OpenMatchEvent(matchId: widget.matchId ?? "");
+
+          print(event.toString());
+
+          return MatchBloc(matchRepository: context.read<MatchRepositoryImpl>())
+            ..add(event);
+        },
         child: BlocBuilder<MatchBloc, MatchState>(
             builder: (BuildContext context, MatchState state) {
           if (state is OnMatch) {
