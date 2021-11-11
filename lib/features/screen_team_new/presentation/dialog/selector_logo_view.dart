@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sport_stats_live/core/design/colors.dart';
 import 'package:sport_stats_live/core/design/logos/logos.dart';
 import 'package:sport_stats_live/core/design/styles.dart';
+import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 import 'package:sport_stats_live/features/screen_team_new/presentation/widgets/logo_selector.dart';
 
 class DialogLogoSelectorView extends StatelessWidget {
@@ -46,6 +47,7 @@ class _LogoSelectorView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final color = ThemeHolder.of(context).main;
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -53,13 +55,13 @@ class _LogoSelectorView extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
           child: Text(
-            "Выберите эмблему".toUpperCase(),
+            "Выберите эмблему",
             textAlign: TextAlign.center,
-            style: AppStyle.h1(size: 18),
+            style: ThemeHolder.of(context).textStyle.h2(color: color),
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(4.0),
           child: LogoSelector(
             selectedLogo: selectedLogo,
             currentColor: currentColor,

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:sport_stats_live/core/design/colors.dart';
 import 'package:sport_stats_live/core/design/logos/logos.dart';
+import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 import 'package:sport_stats_live/core/widgets/logo/logo.dart';
+import 'package:sport_stats_live/core/widgets/rounded_ripple.dart';
 
 class LogoSelector extends StatelessWidget {
   const LogoSelector({
@@ -29,20 +31,17 @@ class LogoSelector extends StatelessWidget {
         final currentLogo = Logo.values[index];
         final isSelected = currentLogo.isEqualTo(selectedLogo);
         final color =
-            isSelected ? currentColor : AppColors.main.withOpacity(0.3);
-
+            isSelected ? currentColor : ThemeHolder.of(context).secondary2.withOpacity(0.5);
         final padding = isSelected ? selectedPadding : unselectedPadding;
 
-        return Material(
-          child: InkWell(
-            onTap: () {
-              onLogoSelected?.call(Logo.values[index]);
-            },
-            child: Padding(
-              padding: EdgeInsets.all(padding),
-              child: LogoIcon(logo: Logo.values[index], color: color),
-            ),
-          ),
+        return RoundedRipple(
+          color: Colors.transparent,
+          rippleColor: color,
+          onTap: () {
+            onLogoSelected?.call(Logo.values[index]);
+          },
+          padding: padding,
+          child: LogoIcon(logo: Logo.values[index], color: color),
         );
       },
     );

@@ -53,7 +53,7 @@ class _ColorSelectorView extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 12),
           child: Text(
-            "Выберите эмблему",
+            "Выберите цвет",
             textAlign: TextAlign.center,
             style: ThemeHolder.of(context).textStyle.h2(color: colorText),
           ),

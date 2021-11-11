@@ -8,5 +8,5 @@ class ColorsLight {
   static const Color cancel = Color(0xFF9E203C);
   static const Color ok = Color(0xFF1A7943);
   static const Color card = Color(0xFFFFFFFF);
-  static const Color cardShadow = Color(0x407F9CBE);
+  static const Color cardShadow = Color(0x807F9CBE);
 }

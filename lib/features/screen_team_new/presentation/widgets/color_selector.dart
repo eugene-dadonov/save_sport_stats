@@ -4,6 +4,7 @@ import 'package:sport_stats_live/core/design/logos/icons.dart';
 import 'package:sport_stats_live/core/theming/data/themes/app_theme_data.dart';
 import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 import 'package:sport_stats_live/core/widgets/app_icon.dart';
+import 'package:sport_stats_live/core/widgets/rounded_ripple.dart';
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 
 class ColorSelector extends StatelessWidget {
@@ -30,33 +31,37 @@ class ColorSelector extends StatelessWidget {
         final currentColor = TeamColor.values[index];
         final isSelected = selectedColor.isEqual(currentColor);
 
-        return GestureDetector(
-            onTap: () {
-              onColorSelected?.call(TeamColor.values[index]);
-            },
-            child: isSelected
-                ? _SelectedColor(color: currentColor)
-                : _NotSelectedColor(color: currentColor));
+        return RoundedRipple(
+          onTap: () {
+            onColorSelected?.call(TeamColor.values[index]);
+          },
+          rippleColor: ThemeHolder.of(context).fromTeamColor(currentColor),
+          color: ThemeHolder.of(context).card,
+          child: isSelected
+              ? _SelectedColor(teamColor: currentColor)
+              : _NotSelectedColor(teamColor: currentColor),
+        );
       },
     );
   }
 }
 
 class _NotSelectedColor extends StatelessWidget {
-  final TeamColor color;
+  final TeamColor teamColor;
 
   const _NotSelectedColor({
     Key? key,
-    required this.color,
+    required this.teamColor,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final color = ThemeHolder.of(context).fromTeamColor(teamColor);
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: Container(
         decoration: BoxDecoration(
-          color: ThemeHolder.of(context).fromTeamColor(color),
+          color: color,
           shape: BoxShape.circle,
           boxShadow: [
             BoxShadow(
@@ -72,27 +77,29 @@ class _NotSelectedColor extends StatelessWidget {
 }
 
 class _SelectedColor extends StatelessWidget {
-  final TeamColor color;
+  final TeamColor teamColor;
 
   const _SelectedColor({
     Key? key,
-    required this.color,
+    required this.teamColor,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final color = ThemeHolder.of(context).fromTeamColor(teamColor);
     return Padding(
-      padding: const EdgeInsets.all(6.0),
+      padding: const EdgeInsets.all(4.0),
       child: Container(
         decoration: BoxDecoration(
-          color: ThemeHolder.of(context).fromTeamColor(color),
+          color: color,
           shape: BoxShape.circle,
           boxShadow: [
             BoxShadow(
-                color: ThemeHolder.of(context).cardShadow,
-                spreadRadius: 0,
-                blurRadius: 10,
-                offset: const Offset(0, 4)),
+              color: color,
+              spreadRadius: 0,
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
           ],
         ),
         child: Padding(

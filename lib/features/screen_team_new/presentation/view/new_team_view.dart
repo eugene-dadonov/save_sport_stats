@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_stats_live/core/design/colors.dart';
+import 'package:sport_stats_live/core/design/logos/icons.dart';
 import 'package:sport_stats_live/core/design/logos/logos.dart';
 import 'package:sport_stats_live/core/design/styles.dart';
 import 'package:sport_stats_live/core/theming/data/themes/app_theme_data.dart';
 import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
+import 'package:sport_stats_live/core/widgets/app_icon.dart';
 import 'package:sport_stats_live/core/widgets/dialog/dialog.dart';
 import 'package:sport_stats_live/core/widgets/input_view/input_layout.dart';
 import 'package:sport_stats_live/core/widgets/logo/logo.dart';
@@ -80,25 +82,16 @@ class TeamEditView extends StatelessWidget {
                     .add(UpdateCityEvent(newCity));
               },
             ),
-            const SliverToBoxAdapter(
-              child: _Title(
-                name: 'Эмблема',
-              ),
-            ),
             SliverToBoxAdapter(
-              child: _SelectLogoWidget(
-                selectedLogo: team?.logo ?? Logo.round,
-                currentColor: color,
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  _LogoSelector(team: team),
+                  const SizedBox(width: 24),
+                  _ColorSelector(team: team),
+                ],
               ),
-            ),
-            const SliverToBoxAdapter(
-              child: _Title(
-                name: 'Цвет',
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: _SelectColorWidget(
-                  currentColor: team?.teamColor ?? TeamColor.black),
             ),
             SliverFillRemaining(
               hasScrollBody: false,
@@ -172,100 +165,79 @@ class _Title extends StatelessWidget {
   }
 }
 
-class _SelectLogoWidget extends StatelessWidget {
-  final Color currentColor;
-  final Logo selectedLogo;
+class _LogoSelector extends StatelessWidget {
+  final Team? team;
 
-  const _SelectLogoWidget({
+  const _LogoSelector({
     Key? key,
-    required this.currentColor,
-    required this.selectedLogo,
+    required this.team,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 10),
-      child: Material(
-        color: ThemeHolder.of(context).card,
-        child: InkWell(
-          customBorder: const CircleBorder(),
-          highlightColor: currentColor.withOpacity(0.2),
-          splashColor: currentColor.withOpacity(0.2),
-          onTap: () {
-            showDialog(
-              context: context,
-              builder: (builderContext) {
-                return AppDialog(
-                  child: DialogLogoSelectorView(
-                    selectedLogo: selectedLogo,
-                    currentColor: currentColor,
-                    onLogoSelected: (logo) {
-                      BlocProvider.of<TeamEditBloc>(context)
-                          .add(UpdateLogoEvent(logo));
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                );
-              },
+    final selectedLogo = team?.logo ?? Logo.shield2;
+    final selectedTeamColor = team?.teamColor ?? TeamColor.black;
+    final selectedColor =
+        ThemeHolder.of(context).fromTeamColor(selectedTeamColor);
+
+    return _SelectorWidget(
+      child: _LogoSelectorIcon(
+        teamColor: team?.teamColor ?? TeamColor.black,
+        logo: team?.logo ?? Logo.shield1,
+      ),
+      onTap: () {
+        showDialog(
+          context: context,
+          builder: (builderContext) {
+            return AppDialog(
+              child: DialogLogoSelectorView(
+                currentColor: selectedColor,
+                selectedLogo: selectedLogo,
+                onLogoSelected: (logo) {
+                  BlocProvider.of<TeamEditBloc>(context)
+                      .add(UpdateLogoEvent(logo));
+                  Navigator.of(context).pop();
+                },
+              ),
             );
           },
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child:
-                LogoIcon(logo: selectedLogo, color: currentColor, height: 90),
-          ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
 
-class _SelectColorWidget extends StatelessWidget {
-  final TeamColor currentColor;
+class _ColorSelector extends StatelessWidget {
+  final Team? team;
 
-  const _SelectColorWidget({
+  const _ColorSelector({
     Key? key,
-    required this.currentColor,
+    required this.team,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final color = ThemeHolder.of(context).fromTeamColor(currentColor);
-    return Padding(
-      padding: const EdgeInsets.only(top: 10),
-      child: Material(
-        color: ThemeHolder.of(context).card,
-        child: InkWell(
-          customBorder: const CircleBorder(),
-          highlightColor: color.withOpacity(0.2),
-          splashColor: color.withOpacity(0.2),
-          onTap: () {
-            showDialog(
-              context: context,
-              builder: (builderContext) {
-                return AppDialog(
-                  child: DialogColorSelectorView(
-                    currentColor: currentColor,
-                    onColorSelected: (color) {
-                      BlocProvider.of<TeamEditBloc>(context)
-                          .add(UpdateColorEvent(color));
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                );
-              },
+    return _SelectorWidget(
+      child: _ColorSelectorIcon(
+        color: team?.teamColor ?? TeamColor.black,
+      ),
+      onTap: () {
+        showDialog(
+          context: context,
+          builder: (builderContext) {
+            return AppDialog(
+              child: DialogColorSelectorView(
+                currentColor: team?.teamColor ?? TeamColor.black,
+                onColorSelected: (color) {
+                  BlocProvider.of<TeamEditBloc>(context)
+                      .add(UpdateColorEvent(color));
+                  Navigator.of(context).pop();
+                },
+              ),
             );
           },
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: CircleAvatar(
-              radius: 35,
-              backgroundColor: color,
-            ),
-          ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
@@ -292,6 +264,120 @@ class _OperationButtons extends StatelessWidget {
               Navigator.of(context).pop();
             })
       ],
+    );
+  }
+}
+
+class _SelectorWidget extends StatelessWidget {
+  final Widget child;
+  final VoidCallback onTap;
+
+  const _SelectorWidget({
+    Key? key,
+    required this.child,
+    required this.onTap,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      flex: 1,
+      child: Material(
+        color: ThemeHolder.of(context).background1,
+        borderRadius: const BorderRadius.all(Radius.circular(7)),
+        child: InkWell(
+          highlightColor: ThemeHolder.of(context).secondary1.withOpacity(0.05),
+          splashColor: ThemeHolder.of(context).secondary1.withOpacity(0.1),
+          borderRadius: const BorderRadius.all(Radius.circular(7)),
+          onTap: onTap,
+          child: Row(
+            children: [
+              Expanded(
+                flex: 1,
+                child: Padding(
+                  padding: EdgeInsets.all(12),
+                  child: child,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 0,
+                  right: 12,
+                  bottom: 12,
+                  top: 12,
+                ),
+                child: AppIcon(
+                  icon: AppIcons.dropdown,
+                  color: ThemeHolder.of(context).secondary2,
+                  height: 24,
+                  width: 24,
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _ColorSelectorIcon extends StatelessWidget {
+  final TeamColor color;
+
+  const _ColorSelectorIcon({
+    Key? key,
+    required this.color,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: Container(
+        height: 80,
+        width: 80,
+        padding: const EdgeInsets.all(12),
+        child: Container(
+          decoration: BoxDecoration(
+            color: ThemeHolder.of(context).fromTeamColor(color),
+            shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(
+                color: ThemeHolder.of(context).cardShadow,
+                spreadRadius: 0,
+                blurRadius: 10,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _LogoSelectorIcon extends StatelessWidget {
+  final TeamColor teamColor;
+  final Logo logo;
+
+  const _LogoSelectorIcon({
+    Key? key,
+    required this.teamColor,
+    required this.logo,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: SizedBox(
+        width: 100,
+        height: 80,
+        child: LogoIcon(
+          logo: logo,
+          color: ThemeHolder.of(context).fromTeamColor(teamColor),
+        ),
+      ),
     );
   }
 }

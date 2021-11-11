@@ -1,5 +1,6 @@
 enum AppIcons {
   ok,
+  dropdown,
 }
 
 extension LogoExtensionX on AppIcons {
