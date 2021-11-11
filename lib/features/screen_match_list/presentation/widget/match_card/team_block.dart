@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
+import 'package:sport_stats_live/core/widgets/logo/logo.dart';
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 
 class TeamView extends StatelessWidget {
@@ -19,39 +20,39 @@ class TeamView extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.all(2.0),
-      child: Container(
-        child: Row(
-          children: [
-            SizedBox(
-              height: 30,
-              width: 30,
-              child: Container(
-                color: color,
-                height: 30,
-                width: 20,
-              ),
+      child: Row(
+        children: [
+          LogoIcon(
+              logo: team.logo,
+              width: 45,
+              height: 45,
+              color: color,
             ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(team.name,
-                      style: GoogleFonts.russoOne(
-                          color: color, fontSize: 18)),
-                  Text(team.city,
-                      style: GoogleFonts.russoOne(
-                          color: color, fontSize: 14)),
-                ],
-              ),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  team.name,
+                  style: ThemeHolder.of(context).textStyle.h2(color: color),
+                ),
+                Text(
+                  team.city,
+                  style: ThemeHolder.of(context).textStyle.h4(color: color),
+                ),
+              ],
             ),
-            Text(
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Text(
               score.toString(),
               style: GoogleFonts.russoOne(color: color, fontSize: 36),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
