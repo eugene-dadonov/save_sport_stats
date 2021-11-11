@@ -1,15 +1,16 @@
 import 'package:collection/src/iterable_extensions.dart';
 import 'package:sport_stats_live/features/match/data/converters/attribute_converter.dart';
-import 'package:sport_stats_live/features/match/data/converters/team_converter.dart';
+import 'package:sport_stats_live/features/match/data/converters/team_shot_converter.dart';
 import 'package:sport_stats_live/features/match/data/storage/models/match_model.dart';
 import 'package:sport_stats_live/features/match/domain/entity/match.dart';
 import 'package:sport_stats_live/features/match/domain/entity/attribute.dart';
-import 'package:sport_stats_live/features/match/domain/entity/team.dart';
+import 'package:sport_stats_live/features/team/data/converters/team_converter.dart';
+import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 
 class MatchConverter {
   static Match fromModel(MatchModel matchModel) {
-    Team host = TeamConverter.fromModel(matchModel.host);
-    Team guest = TeamConverter.fromModel(matchModel.guest);
+    Team host = TeamShotConverter.fromModel(matchModel.host);
+    Team guest = TeamShotConverter.fromModel(matchModel.guest);
     List<Attribute> attributes = matchModel.attributes
         .map((param) => AttributeConverter.fromModel(param))
         .toList();
@@ -35,8 +36,8 @@ class MatchConverter {
   }
 
   static MatchModel toModel(Match match) {
-    final host = TeamConverter.toModel(match.host);
-    final guest = TeamConverter.toModel(match.guest);
+    final host = TeamShotConverter.toModel(match.host);
+    final guest = TeamShotConverter.toModel(match.guest);
     final attributes = match.attributes
         .map((param) => AttributeConverter.toModel(param))
         .toList();

@@ -1,5 +1,5 @@
 import 'package:sport_stats_live/features/match/domain/entity/attribute.dart';
-import 'package:sport_stats_live/features/match/domain/entity/team.dart';
+import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 
 class Match {
   final String id;
@@ -17,6 +17,22 @@ class Match {
     required this.date,
     required this.status,
   });
+
+  Match copyWith({
+    Team? host,
+    Team? guest,
+    List<Attribute>? attributes,
+    DateTime? date,
+    Status? status,
+  }) =>
+      Match(
+        id: id,
+        host: host ?? this.host,
+        guest: guest ?? this.guest,
+        status: status ?? this.status,
+        date: date ?? this.date,
+        attributes: attributes ?? this.attributes,
+      );
 }
 
 enum Status {

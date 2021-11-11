@@ -11,3 +11,13 @@ class NoActiveMatch extends MatchException {
 
   static const String defaultCause = "No active match";
 }
+
+class NoSuchMatch extends MatchException {
+  NoSuchMatch({
+    String cause = defaultCause,
+    required this.id,
+  }) : super(cause);
+  final String id;
+
+  static const String defaultCause = "No such match!";
+}

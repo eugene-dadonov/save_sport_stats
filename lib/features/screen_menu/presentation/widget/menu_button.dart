@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 
 class MenuButton extends StatelessWidget {
   final String title;
@@ -20,15 +21,16 @@ class MenuButton extends StatelessWidget {
       color: Colors.transparent,
       child: InkWell(
         onTap: onPress,
-        splashColor: color.withOpacity(0.5),
+        splashColor: color.withOpacity(0.2),
         highlightColor: color.withOpacity(0.1),
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(10.0),
           child: Center(
-              child: Text(
-            title,
-            style: GoogleFonts.russoOne(fontSize: 24, color: color),
-          )),
+            child: Text(
+              title,
+              style: ThemeHolder.of(context).textStyle.h1(color: color),
+            ),
+          ),
         ),
       ),
     );

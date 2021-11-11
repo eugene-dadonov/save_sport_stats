@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sport_stats_live/core/design/colors.dart';
+import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 import 'package:sport_stats_live/features/match/data/repository/match_repository.dart';
-import 'package:sport_stats_live/features/match/domain/entity/team.dart';
+import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 import 'package:sport_stats_live/features/screen_match/domain/bloc/bloc.dart';
 import 'package:sport_stats_live/features/screen_match/domain/bloc/event.dart';
 import 'package:sport_stats_live/features/screen_match/domain/bloc/state.dart';
@@ -11,12 +12,22 @@ import 'package:sport_stats_live/features/screen_match/presentation/widgets/attr
 import 'package:sport_stats_live/features/screen_match/presentation/widgets/table/table.dart';
 
 class MatchPage extends StatefulWidget {
+  final String? matchId;
+  final bool openActiveMatch;
+
   const MatchPage({
     Key? key,
     this.matchId,
+    required this.openActiveMatch,
   }) : super(key: key);
 
-  final String? matchId;
+  MatchPage.openMatch(String id)
+      : matchId = id,
+        openActiveMatch = false;
+
+  MatchPage.openActiveMatch()
+      : matchId = null,
+        openActiveMatch = true;
 
   @override
   State<MatchPage> createState() => _MatchPageState();
@@ -26,11 +37,18 @@ class _MatchPageState extends State<MatchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: ThemeHolder.of(context).background1,
       body: BlocProvider(
-        create: (BuildContext context) =>
-            MatchBloc(matchRepository: context.read<MatchRepositoryImpl>())
-              ..add(InitialEvent(matchId: widget.matchId)),
+        create: (BuildContext context) {
+          final event = widget.openActiveMatch
+              ? OpenActiveMatchEvent()
+              : OpenMatchEvent(matchId: widget.matchId ?? "");
+
+          print(event.toString());
+
+          return MatchBloc(matchRepository: context.read<MatchRepositoryImpl>())
+            ..add(event);
+        },
         child: BlocBuilder<MatchBloc, MatchState>(
             builder: (BuildContext context, MatchState state) {
           if (state is OnMatch) {
@@ -55,10 +73,10 @@ class _MatchPageState extends State<MatchPage> {
 
   Widget _buildAppBar(BuildContext context) {
     return SliverAppBar(
-      backgroundColor: AppColors.background,
+      backgroundColor: ThemeHolder.of(context).background1,
       title: Text(
         "Sport\nStats\nLive",
-        style: GoogleFonts.russoOne(fontSize: 10, color: AppColors.blueDark),
+        style: GoogleFonts.russoOne(fontSize: 10, color: AppColors.main),
       ),
     );
   }

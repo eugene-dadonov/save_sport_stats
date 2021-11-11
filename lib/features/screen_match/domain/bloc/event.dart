@@ -1,12 +1,14 @@
-import 'package:sport_stats_live/features/match/domain/entity/team.dart';
+import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 
 abstract class MatchEvent {}
 
-class InitialEvent extends MatchEvent {
-  String? matchId;
+class OpenMatchEvent extends MatchEvent {
+  String matchId;
 
-  InitialEvent({this.matchId});
+  OpenMatchEvent({required this.matchId});
 }
+
+class OpenActiveMatchEvent extends MatchEvent {}
 
 class OnParameterChangedEvent extends MatchEvent {
   final String parameterId;

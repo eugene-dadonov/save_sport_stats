@@ -18,8 +18,8 @@ class MatchModelAdapter extends TypeAdapter<MatchModel> {
     };
     return MatchModel(
       id: fields[0] as String,
-      host: fields[1] as TeamModel,
-      guest: fields[2] as TeamModel,
+      host: fields[1] as TeamShotModel,
+      guest: fields[2] as TeamShotModel,
       attributes: (fields[3] as List).cast<AttributeModel>(),
       dateTime: fields[4] as int,
       status: fields[5] as String,

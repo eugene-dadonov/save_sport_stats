@@ -29,7 +29,7 @@ class ClickableCard extends StatelessWidget {
         borderRadius: borderRadius,
         child: InkWell(
           borderRadius: borderRadius,
-          splashColor: splashColor.withOpacity(0.5),
+          splashColor: splashColor.withOpacity(0.2),
           highlightColor: splashColor.withOpacity(0.1),
           child: child,
           onTap: onTap,

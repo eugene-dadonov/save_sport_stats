@@ -19,24 +19,21 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
       if (event is OnStart) {
         print("OnLoading");
         yield OnLoaded(lastMatch);
-
       } else if (event is OnNewMatch) {
         print("OnNewMatch");
         yield NavigateTo(PageItem.newMatch);
-
       } else if (event is OnMatchList) {
         print("OnMatchList");
         yield NavigateTo(PageItem.matchList);
-
       } else if (event is OnTheme) {
         print("OnTheme");
         yield NavigateTo(PageItem.theme);
-
       } else if (event is OnLastMatch) {
-
         print("OnLastMatch");
         yield NavigateTo(PageItem.lastMatch);
-
+      } else if (event is OnTeamsList) {
+        print("OnTeamsList");
+        yield NavigateTo(PageItem.teamsList);
       }
     } catch (e) {
       print("BLOC ERROR");
@@ -57,6 +54,7 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
 enum PageItem {
   newMatch,
   matchList,
+  teamsList,
   lastMatch,
   theme,
 }

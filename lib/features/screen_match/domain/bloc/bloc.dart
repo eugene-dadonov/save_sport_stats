@@ -1,9 +1,10 @@
 import 'package:collection/src/iterable_extensions.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_stats_live/features/match/domain/entity/attribute.dart';
+import 'package:sport_stats_live/features/match/domain/exception/exception.dart';
 import 'package:sport_stats_live/features/match/domain/repository/match_repository.dart';
 import 'package:sport_stats_live/features/match/domain/entity/match.dart';
-import 'package:sport_stats_live/features/match/domain/entity/team.dart';
+import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 import 'package:sport_stats_live/features/screen_match/domain/bloc/event.dart';
 import 'package:sport_stats_live/features/screen_match/domain/bloc/state.dart';
 
@@ -12,39 +13,36 @@ class MatchBloc extends Bloc<MatchEvent, MatchState> {
 
   MatchBloc({required this.matchRepository}) : super(OnLoading());
 
+  late Match currentMatch;
+
   @override
   Stream<MatchState> mapEventToState(MatchEvent event) async* {
-    // try {
-    if (event is InitialEvent) {
-      final matchId = event.matchId;
-      if (matchId != null) {
-        Match? match = await matchRepository.getMatchById(matchId);
-        if (match != null) {
-          yield OnMatch(match: await matchRepository.getActiveMatch());
-        } else {
-          yield OnError("Ошибка! Матч не найден!");
-        }
-      } else {
-        yield OnMatch(match: await matchRepository.getActiveMatch());
-      }
-    } else if (event is OnParameterChangedEvent) {
-      Match oldMatch = await matchRepository.getActiveMatch();
+    try {
+      if (event is OpenMatchEvent) {
+        currentMatch = await matchRepository.getMatchById(event.matchId);
+        yield OnMatch(match: currentMatch);
+      } else if (event is OpenActiveMatchEvent) {
+        currentMatch = await matchRepository.getActiveMatch();
+        yield OnMatch(match: currentMatch);
+      } else if (event is OnParameterChangedEvent) {
 
       Match updatedMatch = _updateParameterById(
-        oldMatch,
+        currentMatch,
         event.parameterId,
         event.hostStatus,
         event.delta,
       );
 
-      matchRepository.updateMatch(updatedMatch);
+        matchRepository.updateMatch(updatedMatch);
 
-      yield OnMatch(match: updatedMatch);
+        yield OnMatch(match: updatedMatch);
+      }
+    } on NoSuchMatch {
+      yield OnError("Ошибка! Матч не найден!");
     }
-    // } catch (e) {
-    //   // Todo: Сделать кастомные ошибки;
-    //   yield OnError(e.runtimeType.toString());
-    // }
+    catch (e) {
+      yield OnError(e.runtimeType.toString());
+    }
   }
 
   Match _updateParameterById(

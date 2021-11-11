@@ -1,37 +1,40 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'team_model.dart';
+part of 'team_shot_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class TeamModelAdapter extends TypeAdapter<TeamModel> {
+class TeamShotModelAdapter extends TypeAdapter<TeamShotModel> {
   @override
-  final int typeId = 2;
+  final int typeId = 5;
 
   @override
-  TeamModel read(BinaryReader reader) {
+  TeamShotModel read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return TeamModel(
-      name: fields[0] as String,
-      teamColor: fields[1] as String,
-      city: fields[2] as String,
+    return TeamShotModel(
+      id: fields[0] as String,
+      name: fields[1] as String,
+      teamColor: fields[2] as String,
+      city: fields[3] as String,
     );
   }
 
   @override
-  void write(BinaryWriter writer, TeamModel obj) {
+  void write(BinaryWriter writer, TeamShotModel obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
-      ..write(obj.name)
+      ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.teamColor)
+      ..write(obj.name)
       ..writeByte(2)
+      ..write(obj.teamColor)
+      ..writeByte(3)
       ..write(obj.city);
   }
 
@@ -41,7 +44,7 @@ class TeamModelAdapter extends TypeAdapter<TeamModel> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is TeamModelAdapter &&
+      other is TeamShotModelAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
