@@ -23,11 +23,11 @@ class TeamView extends StatelessWidget {
       child: Row(
         children: [
           LogoIcon(
-              logo: team.logo,
-              width: 45,
-              height: 45,
-              color: color,
-            ),
+            logo: team.logo,
+            width: 45,
+            height: 45,
+            color: color,
+          ),
           const SizedBox(width: 8),
           Expanded(
             child: Column(
@@ -49,7 +49,7 @@ class TeamView extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Text(
               score.toString(),
-              style: GoogleFonts.russoOne(color: color, fontSize: 36),
+              style: ThemeHolder.of(context).textStyle.attribute(color: color),
             ),
           ),
         ],

@@ -35,7 +35,7 @@ class ActiveMatch extends StatelessWidget {
         Container(
           alignment: Alignment.bottomCenter,
           decoration: BoxDecoration(
-              shape: BoxShape.circle, color: ThemeHolder.of(context).cancel),
+              shape: BoxShape.circle, color: ThemeHolder.of(context).warning),
           width: 12,
           height: 12,
         ),
@@ -76,7 +76,7 @@ class _AnimatedContainer extends State<_AnimatedDot>
     return Container(
       alignment: Alignment.center,
       decoration: BoxDecoration(
-          shape: BoxShape.circle, color: ThemeHolder.of(context).cancel),
+          shape: BoxShape.circle, color: ThemeHolder.of(context).warning),
       width: _animation.value,
       height: _animation.value,
     );

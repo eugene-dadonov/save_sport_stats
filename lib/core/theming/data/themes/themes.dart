@@ -22,7 +22,8 @@ final AppThemeData light = AppThemeData.lightBase(
     card: ColorsLight.card,
     cardShadow: ColorsLight.cardShadow,
     ok: ColorsLight.ok,
-    cancel: ColorsLight.cancel,
+    warning: ColorsLight.cancel,
+    attention: ColorsLight.softAttention,
     textStyle: Exo2TextStyles());
 
 final AppThemeData dark = AppThemeData.darkBase(
@@ -34,6 +35,7 @@ final AppThemeData dark = AppThemeData.darkBase(
   card: ColorsDark.card,
   cardShadow: ColorsDark.cardShadow,
   ok: ColorsDark.ok,
-  cancel: ColorsDark.cancel,
+  warning: ColorsDark.cancel,
+  attention: ColorsDark.softAttention,
   textStyle: Exo2TextStyles(),
 );

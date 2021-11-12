@@ -14,7 +14,8 @@ class AppThemeData {
   final Color secondary1;
   final Color secondary2;
   final Color ok;
-  final Color cancel;
+  final Color warning;
+  final Color attention;
   final Color card;
   final Color cardShadow;
   final AppTextStyle textStyle;
@@ -26,7 +27,8 @@ class AppThemeData {
     required this.secondary1,
     required this.secondary2,
     required this.ok,
-    required this.cancel,
+    required this.warning,
+    required this.attention,
     required this.card,
     required this.cardShadow,
     required this.textStyle,
@@ -40,7 +42,8 @@ class AppThemeData {
     required this.secondary1,
     required this.secondary2,
     required this.ok,
-    required this.cancel,
+    required this.warning,
+    required this.attention,
     required this.card,
     required this.cardShadow,
     required this.textStyle,

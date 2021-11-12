@@ -105,14 +105,12 @@ class HiveMatchStorage extends MatchStorage {
   Future<void> updateActiveMatchWithId(String id) async {
     final box = Hive.box<String>(boxActiveMatch);
     await box.put(activeMatchKey, id);
-    print("updateActiveMatchWithId: Active match id: $id");
   }
 
   @override
   Future<bool> deleteMatch(String id) async {
     final matchesBox = Hive.box<MatchModel>(boxMatchStorage);
     final matchModel = matchesBox.get(id);
-
     final activeMatchBox = Hive.box<String>(boxActiveMatch);
     final String? activeMatchId = activeMatchBox.get(activeMatchKey);
 
@@ -122,7 +120,6 @@ class HiveMatchStorage extends MatchStorage {
       if (matchModel.id == activeMatchId) {
         activeMatchBox.delete(activeMatchKey);
       }
-
       return true;
     } else {
       return false;

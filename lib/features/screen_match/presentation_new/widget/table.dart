@@ -167,7 +167,7 @@ class _ScoreCounter extends StatelessWidget {
         Container(
           height: 60,
           decoration: BoxDecoration(
-            color: ThemeHolder.of(context).main.withOpacity(0.2),
+            color: Colors.black.withOpacity(0.1),
             borderRadius: const BorderRadius.all(Radius.circular(5)),
           ),
           child: AspectRatio(aspectRatio: countAspectRatio(score)),
