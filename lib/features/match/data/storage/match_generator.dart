@@ -11,31 +11,37 @@ class MatchGenerator {
     final team1 = Team(
         uid: const Uuid().v1(),
         name: "FC Zenit",
-        logo: Logo.triangle2,
+        logo: Logo.triangle4,
         teamColor: TeamColor.cyan,
-        city: "Saints-Petersburg");
+        city: "Saint-Petersburg");
     final team2 = Team(
         uid: const Uuid().v1(),
-        name: "FC Manchester United",
-        logo: Logo.round,
-        teamColor: TeamColor.redDark,
-        city: "Manchester");
+        name: "FC Juventus",
+        logo: Logo.oval,
+        teamColor: TeamColor.black,
+        city: "Milan");
     final team3 = Team(
         uid: const Uuid().v1(),
         name: "FC Chelsea",
-        logo: Logo.round,
+        logo: Logo.round3,
         teamColor: TeamColor.blue,
         city: "London");
     final team4 = Team(
         uid: const Uuid().v1(),
-        name: "FC Atletico Madrid",
-        logo: Logo.shield4,
-        teamColor: TeamColor.red,
-        city: "Madrid");
+        name: "FC Manchester City",
+        logo: Logo.rombus2,
+        teamColor: TeamColor.azure,
+        city: "Manchester");
     final team5 = Team(
         uid: const Uuid().v1(),
-        name: "FC Borrusia Dortmund",
-        logo: Logo.shield5,
+        name: "FC Atletico Madrid",
+        logo: Logo.shield3,
+        teamColor: TeamColor.red,
+        city: "Madrid");
+    final team6 = Team(
+        uid: const Uuid().v1(),
+        name: "FC Borussia Dortmund",
+        logo: Logo.round1,
         teamColor: TeamColor.yellow,
         city: "Dortmund");
 
@@ -93,19 +99,9 @@ class MatchGenerator {
       attrCorner2
     ];
 
-    final attrSet3 = [
-      attrKick3,
-      attrKickInTarget3,
-      attrFoul3,
-      attrCorner3
-    ];
+    final attrSet3 = [attrKick3, attrKickInTarget3, attrFoul3, attrCorner3];
 
-    final attrSet4 = [
-      attrKick1,
-      attrKickInTarget3,
-      attrFoul1,
-      attrCorner2
-    ];
+    final attrSet4 = [attrKick1, attrKickInTarget3, attrFoul1, attrCorner2];
 
     final match1 = Match(
       id: const Uuid().v1(),

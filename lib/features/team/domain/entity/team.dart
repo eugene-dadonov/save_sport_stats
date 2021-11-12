@@ -25,7 +25,7 @@ class Team {
         name = "",
         city = "",
         teamColor = TeamColor.black,
-        logo = Logo.round;
+        logo = Logo.round2;
 }
 
 enum HostStatus {
