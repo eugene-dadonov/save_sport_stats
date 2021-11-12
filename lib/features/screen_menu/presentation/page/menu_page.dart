@@ -26,6 +26,15 @@ class MenuPage extends StatefulWidget {
 
   @override
   State<MenuPage> createState() => _MenuPageState();
+
+  static Route route(MatchBloc matchBloc) {
+    return MaterialPageRoute<void>(
+      builder: (_) => BlocProvider.value(
+        value: matchBloc,
+        child: const MenuPage(),
+      ),
+    );
+  }
 }
 
 class _MenuPageState extends State<MenuPage> {
@@ -35,7 +44,9 @@ class _MenuPageState extends State<MenuPage> {
       backgroundColor: ThemeHolder.of(context).background1,
       body: BlocProvider(
         create: (BuildContext context) {
-          return MenuBloc(matchRepository: context.read<MatchRepositoryImpl>())
+          return MenuBloc(
+              matchRepository: context.read<MatchRepositoryImpl>(),
+              matchBloc: BlocProvider.of<MatchBloc>(context))
             ..add(OnStart());
         },
         child: BlocConsumer<MenuBloc, MenuState>(
@@ -184,6 +195,5 @@ class _LastMatchButton extends StatelessWidget {
         },
       ),
     );
-    ;
   }
 }
