@@ -24,8 +24,8 @@ class MatchCard extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TeamView(team: match.host, score: 3),
-            TeamView(team: match.guest, score: 1),
+            TeamView(team: match.host, score: match.score.host),
+            TeamView(team: match.guest, score: match.score.guest),
           ],
         ),
       ),

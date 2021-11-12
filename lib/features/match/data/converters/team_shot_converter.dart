@@ -9,19 +9,22 @@ class TeamShotConverter {
     TeamColor? teamColor = TeamColor.values.firstWhereOrNull(
         (teamColor) => teamColor.toString() == teamShotModel.teamColor);
 
+    Logo? logo = Logo.values
+        .firstWhereOrNull((logo) => logo.toString() == teamShotModel.logo);
+
     return Team(
       uid: teamShotModel.id,
       name: teamShotModel.name,
-      logo: Logo.round, // TODO: НЕ РАБОТАЕТ ПОКА ЧТО! ПОЧИНИТЬ СРАЗУ ПОСЛЕ ЭКРАНА С КОМАНДАМИ!
+      logo: logo ?? Logo.shield1,
       teamColor: teamColor ?? TeamColor.grey,
       city: teamShotModel.city,
     );
   }
 
   static TeamShotModel toModel(Team team) => TeamShotModel(
-        id: team.uid,
-        name: team.name,
-        teamColor: team.teamColor.toString(),
-        city: team.city,
-      );
+      id: team.uid,
+      name: team.name,
+      teamColor: team.teamColor.toString(),
+      city: team.city,
+      logo: team.logo.toString());
 }

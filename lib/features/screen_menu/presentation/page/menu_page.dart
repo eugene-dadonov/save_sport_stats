@@ -2,23 +2,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:sport_stats_live/core/design/colors.dart';
-import 'package:sport_stats_live/core/design/logos/logos.dart';
 import 'package:sport_stats_live/core/theming/data/themes/themes.dart';
 import 'package:sport_stats_live/core/theming/domain/bloc/bloc.dart';
 import 'package:sport_stats_live/core/theming/domain/bloc/event.dart';
 import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
-import 'package:sport_stats_live/core/widgets/logo/logo.dart';
 import 'package:sport_stats_live/features/match/data/repository/match_repository.dart';
+import 'package:sport_stats_live/features/match/domain/bloc/bloc.dart';
 import 'package:sport_stats_live/features/match/domain/entity/match.dart';
-import 'package:sport_stats_live/features/screen_match/presentation/pages/match_page.dart';
+import 'package:sport_stats_live/features/screen_match/presentation_new/page/match_page.dart';
 import 'package:sport_stats_live/features/screen_match_list/presentation/page/match_list_page.dart';
 import 'package:sport_stats_live/features/screen_match_list/presentation/widget/match_card/match_card.dart';
 import 'package:sport_stats_live/features/screen_menu/domain/bloc/bloc.dart';
 import 'package:sport_stats_live/features/screen_menu/domain/bloc/event.dart';
 import 'package:sport_stats_live/features/screen_menu/domain/bloc/state.dart';
 import 'package:sport_stats_live/features/screen_menu/presentation/widget/menu_button.dart';
-import 'package:sport_stats_live/features/screen_teams_list/domain/bloc/state.dart';
 import 'package:sport_stats_live/features/screen_teams_list/presentation/page/team_list_page.dart';
 import 'package:sport_stats_live/features/team/domain/bloc/bloc.dart';
 
@@ -50,7 +47,10 @@ class _MenuPageState extends State<MenuPage> {
                 Navigator.of(context)
                     .push(TeamsListPage.route(context.read<TeamsBloc>()));
               } else if (state.route == PageItem.lastMatch) {
-                navigateTo(context, MatchPage.openActiveMatch());
+                Navigator.of(context).push(
+                  MatchRedesignedPage.route(
+                      matchBloc: context.read<MatchBloc>()),
+                );
               } else if (state.route == PageItem.teamsList) {
                 navigateTo(context, const TeamsListPage());
               } else if (state.route == PageItem.matchList) {

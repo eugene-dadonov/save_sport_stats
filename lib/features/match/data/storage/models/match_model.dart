@@ -16,18 +16,22 @@ class MatchModel extends HiveObject {
   final TeamShotModel guest;
 
   @HiveField(3)
-  final List<AttributeModel> attributes;
+  final AttributeModel score;
 
   @HiveField(4)
-  final int dateTime;
+  final List<AttributeModel> attributes;
 
   @HiveField(5)
+  final int dateTime;
+
+  @HiveField(6)
   final String status;
 
   MatchModel({
     required this.id,
     required this.host,
     required this.guest,
+    required this.score,
     required this.attributes,
     required this.dateTime,
     required this.status,

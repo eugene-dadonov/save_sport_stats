@@ -1,23 +1,35 @@
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 
-abstract class MatchEvent {}
+abstract class MatchScreenEvent {}
 
-class OpenMatchEvent extends MatchEvent {
+class OpenMatchEvent extends MatchScreenEvent {
   String matchId;
 
-  OpenMatchEvent({required this.matchId});
+  OpenMatchEvent({
+    required this.matchId,
+  });
 }
 
-class OpenActiveMatchEvent extends MatchEvent {}
+class OpenActiveMatchEvent extends MatchScreenEvent {}
 
-class OnParameterChangedEvent extends MatchEvent {
+class UpdateAttributeEvent extends MatchScreenEvent {
   final String parameterId;
   final int delta;
   final HostStatus hostStatus;
 
-  OnParameterChangedEvent({
+  UpdateAttributeEvent({
     required this.parameterId,
-    required this.delta,
     required this.hostStatus,
+    required this.delta,
+  });
+}
+
+class UpdateScoreEvent extends MatchScreenEvent {
+  final int delta;
+  final HostStatus hostStatus;
+
+  UpdateScoreEvent({
+    required this.hostStatus,
+    required this.delta,
   });
 }

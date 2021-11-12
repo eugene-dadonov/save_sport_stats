@@ -5,6 +5,7 @@ class Match {
   final String id;
   final Team host;
   final Team guest;
+  final Attribute score;
   final List<Attribute> attributes;
   final DateTime date;
   final Status status;
@@ -13,6 +14,7 @@ class Match {
     required this.id,
     required this.host,
     required this.guest,
+    required this.score,
     required this.attributes,
     required this.date,
     required this.status,
@@ -21,6 +23,7 @@ class Match {
   Match copyWith({
     Team? host,
     Team? guest,
+    Attribute? score,
     List<Attribute>? attributes,
     DateTime? date,
     Status? status,
@@ -32,6 +35,7 @@ class Match {
         status: status ?? this.status,
         date: date ?? this.date,
         attributes: attributes ?? this.attributes,
+        score: score ?? this.score,
       );
 }
 
@@ -41,4 +45,13 @@ enum Status {
   notStarted,
   canceled,
   unknown,
+}
+
+enum Sport {
+  football,
+  basketball,
+  volleyball,
+  baseball,
+  cricket,
+  hockey,
 }

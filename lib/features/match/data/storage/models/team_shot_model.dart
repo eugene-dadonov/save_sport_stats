@@ -14,12 +14,16 @@ class TeamShotModel extends HiveObject {
   final String teamColor;
 
   @HiveField(3)
+  final String logo;
+
+  @HiveField(4)
   final String city;
 
   TeamShotModel({
     required this.id,
     required this.name,
     required this.teamColor,
+    required this.logo,
     required this.city,
   });
 }

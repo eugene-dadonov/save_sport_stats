@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:sport_stats_live/core/design/colors.dart';
 import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 import 'package:sport_stats_live/core/widgets/stroke_flat_button/stroke_flat_button.dart';
 import 'package:sport_stats_live/features/match/data/repository/match_repository.dart';
+import 'package:sport_stats_live/features/match/domain/bloc/bloc.dart';
 import 'package:sport_stats_live/features/match/domain/entity/match.dart';
-import 'package:sport_stats_live/features/screen_match/presentation/pages/match_page.dart';
+import 'package:sport_stats_live/features/screen_match/presentation_new/page/match_page.dart';
 import 'package:sport_stats_live/features/screen_match_list/domain/bloc.dart';
 import 'package:sport_stats_live/features/screen_match_list/domain/event.dart';
 import 'package:sport_stats_live/features/screen_match_list/domain/state.dart';
@@ -19,25 +18,38 @@ class MatchListPage extends StatefulWidget {
 
   @override
   State<MatchListPage> createState() => _MatchListPageState();
+
+  static Route route(MatchBloc matchBloc) {
+    return MaterialPageRoute<void>(
+      builder: (_) => BlocProvider.value(
+        value: matchBloc,
+        child: const MatchListPage(),
+      ),
+    );
+  }
 }
 
+//TODO: Что-то страшное, нужно понять, как лучше это все организовать;
 class _MatchListPageState extends State<MatchListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ThemeHolder.of(context).background1,
       body: BlocProvider(
-        create: (BuildContext context) =>
-            MatchListBloc(matchRepository: context.read<MatchRepositoryImpl>())
-              ..add(OnInitialization()),
+        create: (BuildContext context) => MatchListBloc(
+          matchRepository: context.read<MatchRepositoryImpl>(),
+          matchBloc: context.read<MatchBloc>(),
+        )..add(OnInitialization()),
         child: BlocConsumer<MatchListBloc, MatchListState>(
             listenWhen: (oldState, newState) => newState is OpenMatch,
             listener: (context, state) {
               if (state is OpenMatch) {
-                print("SADASASDAS");
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => MatchPage.openMatch(state.matchId)),
+                  MatchRedesignedPage.route(
+                    matchBloc: BlocProvider.of<MatchBloc>(context),
+                    matchId: state.matchId,
+                  ),
                 );
               }
             },

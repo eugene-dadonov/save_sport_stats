@@ -10,34 +10,34 @@ class MatchGenerator {
   static List<Match> createDemoMatches() {
     final team1 = Team(
         uid: const Uuid().v1(),
-        name: "ФК Спирово",
-        logo: Logo.shield1,
-        teamColor: TeamColor.green,
-        city: "Спирово");
+        name: "FC Zenit",
+        logo: Logo.triangle2,
+        teamColor: TeamColor.cyan,
+        city: "Saints-Petersburg");
     final team2 = Team(
         uid: const Uuid().v1(),
-        name: "ФК Ржев",
+        name: "FC Manchester United",
         logo: Logo.round,
-        teamColor: TeamColor.black,
-        city: "Ржева");
+        teamColor: TeamColor.redDark,
+        city: "Manchester");
     final team3 = Team(
         uid: const Uuid().v1(),
-        name: "ФК Урожай",
-        logo: Logo.shield2,
-        teamColor: TeamColor.greenLight,
-        city: "Мирный");
-    final team4 = Team(
-        uid: const Uuid().v1(),
-        name: "ФК Торжок",
+        name: "FC Chelsea",
         logo: Logo.round,
         teamColor: TeamColor.blue,
-        city: "Торжка");
+        city: "London");
+    final team4 = Team(
+        uid: const Uuid().v1(),
+        name: "FC Atletico Madrid",
+        logo: Logo.shield4,
+        teamColor: TeamColor.red,
+        city: "Madrid");
     final team5 = Team(
         uid: const Uuid().v1(),
-        name: "ФК Бологое",
-        logo: Logo.round,
-        teamColor: TeamColor.grey,
-        city: "Бологое");
+        name: "FC Borrusia Dortmund",
+        logo: Logo.shield5,
+        teamColor: TeamColor.yellow,
+        city: "Dortmund");
 
     final par1 =
         Parameter(id: const Uuid().v1(), name: "Голы", isDeletable: false);
@@ -48,9 +48,9 @@ class MatchGenerator {
     final par6 = Parameter(id: const Uuid().v1(), name: "Угловые");
 
     // Cчет
-    final attrGoal1 = Attribute(parameter: par1, host: 3, guest: 1);
-    final attrGoal2 = Attribute(parameter: par1, host: 1, guest: 1);
-    final attrGoal3 = Attribute(parameter: par1, host: 2, guest: 4);
+    final score1 = Attribute(parameter: par1, host: 3, guest: 1);
+    final score2 = Attribute(parameter: par1, host: 1, guest: 1);
+    final score3 = Attribute(parameter: par1, host: 2, guest: 4);
 
     // Удары
     final attrKick1 = Attribute(parameter: par2, host: 21, guest: 14);
@@ -78,7 +78,6 @@ class MatchGenerator {
     final attrCorner3 = Attribute(parameter: par6, host: 5, guest: 3);
 
     final attrSet1 = [
-      attrGoal1,
       attrKick1,
       attrKickInTarget1,
       attrFoul1,
@@ -87,7 +86,6 @@ class MatchGenerator {
     ];
 
     final attrSet2 = [
-      attrGoal2,
       attrKick2,
       attrKickInTarget2,
       attrFoul2,
@@ -96,7 +94,6 @@ class MatchGenerator {
     ];
 
     final attrSet3 = [
-      attrGoal3,
       attrKick3,
       attrKickInTarget3,
       attrFoul3,
@@ -104,7 +101,6 @@ class MatchGenerator {
     ];
 
     final attrSet4 = [
-      attrGoal2,
       attrKick1,
       attrKickInTarget3,
       attrFoul1,
@@ -115,6 +111,7 @@ class MatchGenerator {
       id: const Uuid().v1(),
       host: team1,
       guest: team2,
+      score: score1,
       attributes: attrSet1,
       date: DateTime.now(),
       status: Status.inProcess,
@@ -124,6 +121,7 @@ class MatchGenerator {
       id: const Uuid().v1(),
       host: team5,
       guest: team3,
+      score: score3,
       attributes: attrSet3,
       date: DateTime(2021, 6, 24, 18),
       status: Status.finished,
@@ -133,6 +131,7 @@ class MatchGenerator {
       id: const Uuid().v1(),
       host: team3,
       guest: team1,
+      score: score3,
       attributes: attrSet3,
       date: DateTime(2021, 6, 24, 18),
       status: Status.notStarted,
@@ -142,6 +141,7 @@ class MatchGenerator {
       id: const Uuid().v1(),
       host: team4,
       guest: team5,
+      score: score1,
       attributes: attrSet4,
       date: DateTime(2021, 5, 5, 13),
       status: Status.finished,
@@ -151,6 +151,7 @@ class MatchGenerator {
       id: const Uuid().v1(),
       host: team1,
       guest: team5,
+      score: score3,
       attributes: attrSet3,
       date: DateTime(2021, 5, 14, 13),
       status: Status.finished,
@@ -160,6 +161,7 @@ class MatchGenerator {
       id: const Uuid().v1(),
       host: team2,
       guest: team1,
+      score: score2,
       attributes: attrSet2,
       date: DateTime(2021, 5, 14, 13),
       status: Status.finished,
@@ -169,6 +171,7 @@ class MatchGenerator {
       id: const Uuid().v1(),
       host: team2,
       guest: team5,
+      score: score1,
       attributes: attrSet4,
       date: DateTime(2021, 6, 15, 13),
       status: Status.finished,
@@ -178,6 +181,7 @@ class MatchGenerator {
       id: const Uuid().v1(),
       host: team1,
       guest: team4,
+      score: score3,
       attributes: attrSet1,
       date: DateTime(2021, 9, 2, 13),
       status: Status.finished,

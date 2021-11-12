@@ -1,4 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sport_stats_live/features/match/domain/bloc/bloc.dart';
+import 'package:sport_stats_live/features/match/domain/bloc/state.dart';
 import 'package:sport_stats_live/features/match/domain/entity/match.dart';
 import 'package:sport_stats_live/features/match/domain/repository/match_repository.dart';
 import 'package:sport_stats_live/features/screen_match_list/domain/event.dart';
@@ -6,11 +10,22 @@ import 'package:sport_stats_live/features/screen_match_list/domain/state.dart';
 
 class MatchListBloc extends Bloc<MatchListEvent, MatchListState> {
   final MatchRepository matchRepository;
+  final MatchBloc matchBloc;
 
   late List<Match> _matches;
   bool isSearch = false;
+  late StreamSubscription _streamSubscription;
 
-  MatchListBloc({required this.matchRepository}) : super(Loading());
+  MatchListBloc({
+    required this.matchRepository,
+    required this.matchBloc,
+  }) : super(Loading()) {
+    _streamSubscription = matchBloc.stream.listen((event) {
+      if (event is MatchState) {
+        add(OnInitialization());
+      }
+    });
+  }
 
   @override
   Stream<MatchListState> mapEventToState(MatchListEvent event) async* {
@@ -48,5 +63,11 @@ class MatchListBloc extends Bloc<MatchListEvent, MatchListState> {
       print("Bloc: Error");
       yield Error("Произошла ошибка");
     }
+  }
+
+  @override
+  Future<void> close() async {
+    _streamSubscription.cancel();
+    return super.close();
   }
 }
