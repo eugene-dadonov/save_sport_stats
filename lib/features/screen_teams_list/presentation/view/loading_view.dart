@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sport_stats_live/core/design/colors.dart';
-import 'package:sport_stats_live/core/design/styles.dart';
+import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 
 class LoadingTeamListView extends StatelessWidget {
   const LoadingTeamListView({Key? key}) : super(key: key);
@@ -12,25 +11,26 @@ class LoadingTeamListView extends StatelessWidget {
 
   Widget _buildEmptyView(BuildContext context) {
     return CustomScrollView(
-      slivers: [_buildSliverAppBar(), _buildSliverLoading()],
+      slivers: [_buildSliverAppBar(context), _buildSliverLoading(context)],
     );
   }
 
-  Widget _buildSliverAppBar() {
+  Widget _buildSliverAppBar(BuildContext context) {
     return SliverAppBar(
-      backgroundColor: AppColors.background,
+      backgroundColor: ThemeHolder.of(context).background1,
       title: Text(
         "Команды",
-        style: AppStyle.h1(size: 18),
+        style: ThemeHolder.of(context).textStyle.h2(),
       ),
     );
   }
 
-  Widget _buildSliverLoading() {
+  Widget _buildSliverLoading(BuildContext context) {
     return const SliverFillRemaining(
       hasScrollBody: false,
       child: Center(
-        child: CircularProgressIndicator(color: AppColors.main),
+        // TODO: Сделать...
+        child: CircularProgressIndicator(color: Colors.red),
       ),
     );
   }

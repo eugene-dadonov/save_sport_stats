@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sport_stats_live/core/design/colors.dart';
-import 'package:sport_stats_live/core/design/styles.dart';
 import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 
 class InputView extends StatefulWidget {

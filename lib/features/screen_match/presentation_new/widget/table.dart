@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 import 'package:sport_stats_live/core/widgets/logo/logo.dart';
+import 'package:sport_stats_live/core/widgets/score_counter.dart';
 import 'package:sport_stats_live/features/match/domain/entity/attribute.dart';
 import 'package:sport_stats_live/features/screen_match/domain/bloc/bloc.dart';
 import 'package:sport_stats_live/features/screen_match/domain/bloc/event.dart';
@@ -111,7 +112,7 @@ class _HostHalf extends StatelessWidget {
                   alignment: scoreAlign,
                   child: Padding(
                     padding: const EdgeInsets.only(top: 12.0),
-                    child: _ScoreCounter(score: score),
+                    child: ScoreCounter(score: score, height: 60),
                   ),
                 ),
                 Align(
@@ -148,53 +149,5 @@ class _HostHalf extends StatelessWidget {
         ],
       ),
     );
-  }
-}
-
-class _ScoreCounter extends StatelessWidget {
-  final int score;
-
-  const _ScoreCounter({
-    Key? key,
-    required this.score,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Container(
-          height: 60,
-          decoration: BoxDecoration(
-            color: Colors.black.withOpacity(0.1),
-            borderRadius: const BorderRadius.all(Radius.circular(5)),
-          ),
-          child: AspectRatio(aspectRatio: countAspectRatio(score)),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(bottom: 2),
-          child: Text(
-            score.toString(),
-            maxLines: 1,
-            overflow: TextOverflow.clip,
-            textAlign: TextAlign.center,
-            style: ThemeHolder.of(context)
-                .textStyle
-                .table(color: ThemeHolder.of(context).card),
-          ),
-        ),
-      ],
-    );
-  }
-
-  double countAspectRatio(int score) {
-    if (score >= 0 && score < 10) {
-      return 1.0;
-    } else if (score >= 10 && score < 100) {
-      return 1.5;
-    } else {
-      return 2;
-    }
   }
 }

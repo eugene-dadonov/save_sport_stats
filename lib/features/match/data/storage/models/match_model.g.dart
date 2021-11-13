@@ -24,13 +24,14 @@ class MatchModelAdapter extends TypeAdapter<MatchModel> {
       attributes: (fields[4] as List).cast<AttributeModel>(),
       dateTime: fields[5] as int,
       status: fields[6] as String,
+      sport: fields[7] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, MatchModel obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -44,7 +45,9 @@ class MatchModelAdapter extends TypeAdapter<MatchModel> {
       ..writeByte(5)
       ..write(obj.dateTime)
       ..writeByte(6)
-      ..write(obj.status);
+      ..write(obj.status)
+      ..writeByte(7)
+      ..write(obj.sport);
   }
 
   @override

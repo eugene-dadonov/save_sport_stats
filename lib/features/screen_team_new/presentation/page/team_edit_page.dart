@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sport_stats_live/core/design/colors.dart';
 import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 import 'package:sport_stats_live/features/screen_team_new/domain/bloc/bloc.dart';
 import 'package:sport_stats_live/features/screen_team_new/domain/bloc/event.dart';
@@ -49,7 +48,7 @@ class TeamEditPage extends StatelessWidget {
         },
         builder: (context, state) {
           if (state is LoadingState) {
-            return Container(color: AppColors.orange);
+            return Container(color: Colors.orange);
           } else if (state is TeamState) {
             return TeamEditView(
               team: state.team,
@@ -57,7 +56,7 @@ class TeamEditPage extends StatelessWidget {
             );
           } else {
             return Container(
-              color: AppColors.red,
+              color: Colors.red,
             );
           }
         },

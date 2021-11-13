@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:sport_stats_live/features/configuration/domain/sport.dart';
 import 'attribute_model.dart';
 import 'team_shot_model.dart';
 
@@ -27,6 +28,9 @@ class MatchModel extends HiveObject {
   @HiveField(6)
   final String status;
 
+  @HiveField(7)
+  final String sport;
+
   MatchModel({
     required this.id,
     required this.host,
@@ -35,5 +39,6 @@ class MatchModel extends HiveObject {
     required this.attributes,
     required this.dateTime,
     required this.status,
+    required this.sport,
   });
 }

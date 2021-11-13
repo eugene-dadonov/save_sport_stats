@@ -1,4 +1,5 @@
 import 'package:collection/src/iterable_extensions.dart';
+import 'package:sport_stats_live/features/configuration/domain/sport.dart';
 import 'package:sport_stats_live/features/match/data/converters/attribute_converter.dart';
 import 'package:sport_stats_live/features/match/data/converters/team_shot_converter.dart';
 import 'package:sport_stats_live/features/match/data/storage/models/match_model.dart';
@@ -16,6 +17,9 @@ class MatchConverter {
 
     Status? status = Status.values
         .firstWhereOrNull((status) => status.toString() == matchModel.status);
+
+    Sport? sport = Sport.values
+        .firstWhereOrNull((sport) => sport.toString() == matchModel.sport);
 
     Attribute score = AttributeConverter.fromModel(matchModel.score);
 
@@ -35,6 +39,7 @@ class MatchConverter {
       date: dateTime,
       status: status ?? Status.unknown,
       score: score,
+      sport: sport ?? Sport.unknown,
     );
   }
 
@@ -55,6 +60,7 @@ class MatchConverter {
       dateTime: match.date.millisecondsSinceEpoch,
       status: match.status.toString(),
       score: score,
+      sport: match.sport.toString(),
     );
   }
 }

@@ -10,6 +10,8 @@ abstract class AppTextStyle {
 
   TextStyle h4({Color? color});
 
+  TextStyle h5({Color? color});
+
   TextStyle b1({Color? color});
 
   TextStyle b2({Color? color});
@@ -51,6 +53,13 @@ class Exo2TextStyles implements AppTextStyle {
         fontSize: 16,
         fontWeight: FontWeight.bold,
       );
+
+  @override
+  TextStyle h5({Color? color}) => GoogleFonts.ubuntu(
+    color: color,
+    fontSize: 14,
+    fontWeight: FontWeight.bold,
+  );
 
   @override
   TextStyle b1({Color? color}) => GoogleFonts.exo2(

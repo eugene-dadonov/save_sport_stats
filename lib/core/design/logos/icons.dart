@@ -9,5 +9,10 @@ extension LogoExtensionX on AppIcons {
     return toString().split('.').last;
   }
 
+  String toPath() {
+    final name = toShortString();
+    return "assets/graphics/icons/$name.svg";
+  }
+
   bool isEqualTo(AppIcons icon) => index == icon.index;
 }

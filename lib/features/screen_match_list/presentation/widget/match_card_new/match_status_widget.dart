@@ -1,0 +1,159 @@
+import 'package:flutter/material.dart';
+import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
+import 'package:sport_stats_live/features/match/domain/entity/match.dart';
+
+class MatchStatusWidget extends StatelessWidget {
+  final Status status;
+
+  const MatchStatusWidget({
+    Key? key,
+    required this.status,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    switch (status) {
+      case Status.inProcess:
+        return const _InProcessStatusWidget();
+      case Status.finished:
+        return const _FinishedStatusWidget();
+      case Status.notStarted:
+        return const _NotStartedStatusWidget();
+      case Status.canceled:
+        return const _CancelledStatusWidget();
+      case Status.unknown:
+        return const _UnknownStatusWidget();
+    }
+  }
+}
+
+class _InProcessStatusWidget extends StatelessWidget {
+  const _InProcessStatusWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final textColor = ThemeHolder.of(context).main;
+    final circleColor = ThemeHolder.of(context).warning;
+    return _StatusCard(
+      cardColor: ThemeHolder.of(context).card,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            "матч идет",
+            style: ThemeHolder.of(context).textStyle.h5(color: textColor),
+          ),
+          const SizedBox(width: 4),
+          Container(
+            height: 7,
+            width: 7,
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(Radius.circular(7)),
+              color: circleColor,
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class _FinishedStatusWidget extends StatelessWidget {
+  const _FinishedStatusWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return _StatusCard(
+      cardColor: ThemeHolder.of(context).card,
+      child: Text(
+        "закончен",
+        textAlign: TextAlign.center,
+        style: ThemeHolder.of(context)
+            .textStyle
+            .h5(color: ThemeHolder.of(context).secondary2),
+      ),
+    );
+  }
+}
+
+class _NotStartedStatusWidget extends StatelessWidget {
+  const _NotStartedStatusWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return _StatusCard(
+      cardColor: ThemeHolder.of(context).card,
+      child: Text(
+        "не начат",
+        textAlign: TextAlign.center,
+        style: ThemeHolder.of(context)
+            .textStyle
+            .h5(color: ThemeHolder.of(context).main),
+      ),
+    );
+  }
+}
+
+class _CancelledStatusWidget extends StatelessWidget {
+  const _CancelledStatusWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return _StatusCard(
+      cardColor: ThemeHolder.of(context).attention,
+      child: Text(
+        "отменен",
+        textAlign: TextAlign.center,
+        style: ThemeHolder.of(context)
+            .textStyle
+            .h5(color: ThemeHolder.of(context).warning),
+      ),
+    );
+  }
+}
+
+class _UnknownStatusWidget extends StatelessWidget {
+  const _UnknownStatusWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return _StatusCard(
+      cardColor: ThemeHolder.of(context).teamsColor.greyLight,
+      child: Text(
+        "неизвестно",
+        textAlign: TextAlign.center,
+        style: ThemeHolder.of(context)
+            .textStyle
+            .h5(color: ThemeHolder.of(context).teamsColor.greyDark),
+      ),
+    );
+  }
+}
+
+class _StatusCard extends StatelessWidget {
+  final Color cardColor;
+  final Widget child;
+
+  const _StatusCard({
+    Key? key,
+    required this.cardColor,
+    required this.child,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 24,
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      child: Align(
+          alignment: Alignment.center,
+          child: child),
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(Radius.circular(6)),
+        color: cardColor,
+      ),
+    );
+  }
+}

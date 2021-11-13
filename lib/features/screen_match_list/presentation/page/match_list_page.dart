@@ -9,6 +9,7 @@ import 'package:sport_stats_live/features/screen_match/presentation_new/page/mat
 import 'package:sport_stats_live/features/screen_match_list/domain/bloc.dart';
 import 'package:sport_stats_live/features/screen_match_list/domain/event.dart';
 import 'package:sport_stats_live/features/screen_match_list/domain/state.dart';
+import 'package:sport_stats_live/features/screen_match_list/presentation/view/match_list_view.dart';
 import 'package:sport_stats_live/features/screen_match_list/presentation/widget/match_card/match_card.dart';
 
 class MatchListPage extends StatefulWidget {
@@ -60,7 +61,10 @@ class _MatchListPageState extends State<MatchListPage> {
             },
             builder: (BuildContext context, MatchListState state) {
               if (state is Data) {
-                return _buildScreen(context, state.matches, state.isSearch);
+                // return _buildScreen(context, state.matches, state.isSearch);
+                return MatchListView(
+                  matches: state.matches,
+                );
               } else {
                 return Container(
                   color: Colors.red,

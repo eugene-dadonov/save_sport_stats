@@ -12,6 +12,7 @@ import 'package:sport_stats_live/features/match/domain/entity/match.dart';
 import 'package:sport_stats_live/features/screen_match/presentation_new/page/match_page.dart';
 import 'package:sport_stats_live/features/screen_match_list/presentation/page/match_list_page.dart';
 import 'package:sport_stats_live/features/screen_match_list/presentation/widget/match_card/match_card.dart';
+import 'package:sport_stats_live/features/screen_match_list/presentation/widget/match_card_new/match_card_new.dart';
 import 'package:sport_stats_live/features/screen_menu/domain/bloc/bloc.dart';
 import 'package:sport_stats_live/features/screen_menu/domain/bloc/event.dart';
 import 'package:sport_stats_live/features/screen_menu/domain/bloc/state.dart';
@@ -188,7 +189,7 @@ class _LastMatchButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-      child: MatchCard(
+      child: MatchCardNew(
         match: match,
         callback: () {
           context.read<MenuBloc>().add(OnLastMatch());
