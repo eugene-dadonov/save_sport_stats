@@ -11,6 +11,7 @@ import 'core/theming/domain/bloc/bloc.dart';
 import 'features/match/data/repository/match_repository.dart';
 import 'features/match/data/storage/hive_match_storage.dart';
 import 'features/match/domain/bloc/bloc.dart';
+import 'features/screen_home/domain/bloc/bloc.dart';
 import 'features/team/data/repository/team_repository_impl.dart';
 import 'features/team/data/storage/hive_team_storage.dart';
 
@@ -87,6 +88,9 @@ class _BaseBlocsProvider extends StatelessWidget {
         BlocProvider(create: (BuildContext context) {
           return MatchBloc(
               matchRepository: context.read<MatchRepositoryImpl>());
+        }),
+        BlocProvider(create: (BuildContext context) {
+          return TabBloc();
         }),
         BlocProvider(create: (BuildContext context) {
           return ThemeBloc(ThemeState(light));

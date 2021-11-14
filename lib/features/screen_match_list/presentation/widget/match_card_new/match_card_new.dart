@@ -165,7 +165,7 @@ class _HalfCard extends StatelessWidget {
             maxLines: 1,
             overflow: TextOverflow.clip,
             textAlign: textAlign,
-            style: ThemeHolder.of(context).textStyle.h3(color: fontColor),
+            style: ThemeHolder.of(context).textStyle.h4(color: fontColor),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 4, bottom: 12),
@@ -176,7 +176,7 @@ class _HalfCard extends StatelessWidget {
                 LogoIcon(
                   logo: team.logo,
                   color: fontColor,
-                  height: 55,
+                  height: 45,
                 ),
                 if (isHost) ScoreCounter.small(score: score),
               ],

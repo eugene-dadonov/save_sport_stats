@@ -86,18 +86,18 @@ class _MenuPageState extends State<MenuPage> {
   }
 
   Widget _buildButtons(BuildContext context, Match? lastMatch) {
-    const String assetName = 'assets/graphics/app_logo/app_logo.svg';
+    const String assetName = 'assets/graphics/app_logo/logo.svg';
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        SizedBox(
-          width: 120,
-          height: 120,
-          child: SvgPicture.asset(assetName,
-              color: ThemeHolder.of(context).teamsColor.redDark),
-        ),
+        // SizedBox(
+        //   width: 120,
+        //   height: 120,
+        //   child: SvgPicture.asset(assetName,
+        //       color: ThemeHolder.of(context).teamsColor.redDark),
+        // ),
         const SizedBox(
           height: 80,
           width: 80,

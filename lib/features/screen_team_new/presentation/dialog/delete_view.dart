@@ -41,7 +41,7 @@ class DeleteDialog extends StatelessWidget {
               Text(
                 'Команда ${team.name} будет удалена.\nВы уверены?',
                 textAlign: TextAlign.center,
-                style: ThemeHolder.of(context).textStyle.h2(
+                style: ThemeHolder.of(context).textStyle.h3(
                       color: ThemeHolder.of(context).main,
                     ),
               ),
