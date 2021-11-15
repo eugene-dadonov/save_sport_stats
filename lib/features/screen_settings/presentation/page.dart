@@ -1,5 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sport_stats_live/core/theming/data/themes/themes.dart';
+import 'package:sport_stats_live/core/theming/domain/bloc/bloc.dart';
+import 'package:sport_stats_live/core/theming/domain/bloc/event.dart';
 import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -7,6 +11,7 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final main = ThemeHolder.of(context).main;
     return Scaffold(
       backgroundColor: ThemeHolder.of(context).background1,
       body: Column(
@@ -20,11 +25,17 @@ class SettingsScreen extends StatelessWidget {
               child: ListTile(
                 title: Text(
                   'Темная тема',
-                  style: ThemeHolder.of(context).textStyle.h3(),
+                  style: ThemeHolder.of(context)
+                      .textStyle
+                      .h3(color: main),
                 ),
                 trailing: Switch(
-                  value: false,
-                  onChanged: (value) {},
+                  activeColor: ThemeHolder.of(context).ok,
+                  value: ThemeHolder.of(context).isDark,
+                  onChanged: (value) {
+                    final theme = value ? AppTheme.dark : AppTheme.light;
+                    BlocProvider.of<ThemeBloc>(context).add(ThemeEvent(theme));
+                  },
                 ),
               ),
             ),

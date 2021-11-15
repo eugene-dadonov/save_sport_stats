@@ -17,6 +17,7 @@ class TabSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final iconColor = ThemeHolder.of(context).main;
+    final backgroundColor = ThemeHolder.of(context).card;
     return BottomNavigationBar(
       selectedItemColor: iconColor,
       selectedLabelStyle:
@@ -27,6 +28,7 @@ class TabSelector extends StatelessWidget {
       onTap: (index) => onTabSelected(AppTab.values[index]),
       items: AppTab.values.map((tab) {
         return BottomNavigationBarItem(
+          backgroundColor: backgroundColor,
           icon: AppIcon(
             icon: tab.toAppIcon(),
             color: iconColor,
