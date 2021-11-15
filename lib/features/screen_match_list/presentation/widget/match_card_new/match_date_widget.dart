@@ -3,10 +3,12 @@ import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart
 
 class MatchDateWidget extends StatelessWidget {
   final DateTime date;
+  final Color foregroundColor;
 
   MatchDateWidget({
     Key? key,
     required this.date,
+    required this.foregroundColor,
   }) : super(key: key);
 
   @override
@@ -32,21 +34,21 @@ class MatchDateWidget extends StatelessWidget {
         children: [
           Text(
             day,
-            style: ThemeHolder.of(context).textStyle.h3(color: textColor),
+            style: ThemeHolder.of(context).textStyle.h3(color: foregroundColor),
           ),
           const SizedBox(
             width: 4,
           ),
           Text(
             mouth.toUpperCase(),
-            style: ThemeHolder.of(context).textStyle.h5(color: textColor),
+            style: ThemeHolder.of(context).textStyle.h5(color: foregroundColor),
           ),
           const SizedBox(
             width: 4,
           ),
           Text(
             year,
-            style: ThemeHolder.of(context).textStyle.h3(color: textColor),
+            style: ThemeHolder.of(context).textStyle.h3(color: foregroundColor),
           ),
         ],
       ),

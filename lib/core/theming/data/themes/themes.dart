@@ -14,17 +14,18 @@ final themes = {
 };
 
 final AppThemeData light = AppThemeData.lightBase(
-    themeData: AppTheme.light,
-    main: ColorsLight.main,
-    background1: ColorsLight.background,
-    secondary1: ColorsLight.secondary1,
-    secondary2: ColorsLight.secondary2,
-    card: ColorsLight.card,
-    cardShadow: ColorsLight.cardShadow,
-    ok: ColorsLight.ok,
-    warning: ColorsLight.cancel,
-    attention: ColorsLight.softAttention,
-    textStyle: Exo2TextStyles());
+  themeData: AppTheme.light,
+  main: ColorsLight.main,
+  background1: ColorsLight.background,
+  secondary1: ColorsLight.secondary1,
+  secondary2: ColorsLight.secondary2,
+  card: ColorsLight.card,
+  cardShadow: ColorsLight.cardShadow,
+  ok: ColorsLight.ok,
+  warning: ColorsLight.cancel,
+  attention: ColorsLight.softAttention,
+  textStyle: Exo2TextStyles(),
+);
 
 final AppThemeData dark = AppThemeData.darkBase(
   themeData: AppTheme.dark,

@@ -4,31 +4,34 @@ import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart
 class ScoreCounter extends StatelessWidget {
   final int score;
   final double height;
+  final Color foregroundColor;
 
   const ScoreCounter({
     Key? key,
     required this.score,
     required this.height,
+    required this.foregroundColor,
   }) : super(key: key);
 
-  ScoreCounter.small({
+  const ScoreCounter.small({
     Key? key,
     required this.score,
+    required this.foregroundColor,
   })  : height = 40,
         super(key: key);
 
-  ScoreCounter.big({
+  const ScoreCounter.big({
     Key? key,
     required this.score,
+    required this.foregroundColor,
   })  : height = 60,
         super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final color = ThemeHolder.of(context).card;
     final textStyle = height >= 60
-        ? ThemeHolder.of(context).textStyle.table(color: color)
-        : ThemeHolder.of(context).textStyle.attribute(color: color);
+        ? ThemeHolder.of(context).textStyle.table(color: foregroundColor)
+        : ThemeHolder.of(context).textStyle.attribute(color: foregroundColor);
 
     return Stack(
       alignment: Alignment.center,
@@ -36,7 +39,7 @@ class ScoreCounter extends StatelessWidget {
         Container(
           height: height,
           decoration: BoxDecoration(
-            color: Colors.black.withOpacity(0.1),
+            color: foregroundColor.withOpacity(0.1),
             borderRadius: const BorderRadius.all(Radius.circular(5)),
           ),
           child: AspectRatio(aspectRatio: countAspectRatio(score)),

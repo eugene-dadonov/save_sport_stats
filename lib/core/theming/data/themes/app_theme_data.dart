@@ -86,6 +86,40 @@ class AppThemeData {
         return teamsColor.black;
     }
   }
+
+  Color cardForegroundColor(TeamColor teamColor) {
+    if (isDark) {
+      return _foregroundColorForDarkTheme(teamColor);
+    } else {
+      return _foregroundColorForLightTheme(teamColor);
+    }
+  }
+
+  Color _foregroundColorForDarkTheme(TeamColor teamColor) {
+    if (tooDarkColors.contains(teamColor)) {
+      return main;
+    } else {
+      return card;
+    }
+  }
+
+  Color _foregroundColorForLightTheme(TeamColor teamColor) {
+    if (tooLightColors.contains(teamColor)) {
+      return main;
+    } else {
+      return card;
+    }
+  }
+
+  final tooDarkColors = [
+    TeamColor.black,
+    TeamColor.greyDark,
+  ];
+
+  final tooLightColors = [
+    TeamColor.yellow,
+    TeamColor.greyLight,
+  ];
 }
 
 class TeamsColors {

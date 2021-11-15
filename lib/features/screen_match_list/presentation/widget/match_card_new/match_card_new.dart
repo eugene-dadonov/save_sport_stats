@@ -107,6 +107,8 @@ class _MatchInfoPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dateForegroundColor =
+        ThemeHolder.of(context).cardForegroundColor(match.guest.teamColor);
     return Row(
       mainAxisSize: MainAxisSize.max,
       children: [
@@ -119,7 +121,10 @@ class _MatchInfoPanel extends StatelessWidget {
         Expanded(child: MatchStatusWidget(status: match.status)),
         Expanded(
           child: Align(
-            child: MatchDateWidget(date: match.date),
+            child: MatchDateWidget(
+              date: match.date,
+              foregroundColor: dateForegroundColor,
+            ),
             alignment: Alignment.centerRight,
           ),
         ),
@@ -142,7 +147,8 @@ class _HalfCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final fontColor = ThemeHolder.of(context).card;
+    final foregroundColor =
+        ThemeHolder.of(context).cardForegroundColor(team.teamColor);
     final isHost = hostStatus == HostStatus.host;
 
     final textAlign = isHost ? TextAlign.end : TextAlign.start;
@@ -158,27 +164,35 @@ class _HalfCard extends StatelessWidget {
             maxLines: 1,
             overflow: TextOverflow.clip,
             textAlign: textAlign,
-            style: ThemeHolder.of(context).textStyle.h1(color: fontColor),
+            style: ThemeHolder.of(context).textStyle.h1(color: foregroundColor),
           ),
           Text(
             team.city,
             maxLines: 1,
             overflow: TextOverflow.clip,
             textAlign: textAlign,
-            style: ThemeHolder.of(context).textStyle.h4(color: fontColor),
+            style: ThemeHolder.of(context).textStyle.h4(color: foregroundColor),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 4, bottom: 12),
             child: Row(
               mainAxisAlignment: axisAlign,
               children: [
-                if (!isHost) ScoreCounter.small(score: score),
+                if (!isHost)
+                  ScoreCounter.small(
+                    score: score,
+                    foregroundColor: foregroundColor,
+                  ),
                 LogoIcon(
                   logo: team.logo,
-                  color: fontColor,
+                  color: foregroundColor,
                   height: 45,
                 ),
-                if (isHost) ScoreCounter.small(score: score),
+                if (isHost)
+                  ScoreCounter.small(
+                    score: score,
+                    foregroundColor: foregroundColor,
+                  ),
               ],
             ),
           )

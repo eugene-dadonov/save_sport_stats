@@ -58,8 +58,10 @@ class _HostHalf extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final elementsColor = ThemeHolder.of(context).card;
-    final teamColor = ThemeHolder.of(context).fromTeamColor(team.teamColor);
+    final foregroundColor =
+        ThemeHolder.of(context).cardForegroundColor(team.teamColor);
+    final backgroundColor =
+        ThemeHolder.of(context).fromTeamColor(team.teamColor);
     const iconSize = 80.0;
 
     final bool isHost = hostStatus == HostStatus.host;
@@ -73,7 +75,7 @@ class _HostHalf extends StatelessWidget {
     final buttonAlign = isHost ? Alignment.centerLeft : Alignment.centerRight;
 
     return Container(
-      color: teamColor,
+      color: backgroundColor,
       child: Stack(
         children: [
           // Background;
@@ -87,7 +89,7 @@ class _HostHalf extends StatelessWidget {
                   logo: team.logo,
                   width: iconSize,
                   height: iconSize,
-                  color: elementsColor,
+                  color: foregroundColor,
                 ),
               ),
             ),
@@ -106,13 +108,17 @@ class _HostHalf extends StatelessWidget {
                   overflow: TextOverflow.clip,
                   style: ThemeHolder.of(context)
                       .textStyle
-                      .h1(color: elementsColor),
+                      .h1(color: foregroundColor),
                 ),
                 Align(
                   alignment: scoreAlign,
                   child: Padding(
                     padding: const EdgeInsets.only(top: 12.0),
-                    child: ScoreCounter(score: score, height: 60),
+                    child: ScoreCounter(
+                      score: score,
+                      height: 60,
+                      foregroundColor: foregroundColor,
+                    ),
                   ),
                 ),
                 Align(
@@ -120,7 +126,7 @@ class _HostHalf extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.only(top: 12),
                     child: AttributeButton(
-                      color: elementsColor,
+                      color: foregroundColor,
                       height: 36,
                       width: 100,
                       borderWidth: 2,

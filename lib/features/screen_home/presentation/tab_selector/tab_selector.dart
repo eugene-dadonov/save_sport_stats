@@ -8,7 +8,7 @@ class TabSelector extends StatelessWidget {
   final AppTab activeTab;
   final Function(AppTab) onTabSelected;
 
-  TabSelector({
+  const TabSelector({
     Key? key,
     required this.activeTab,
     required this.onTabSelected,
@@ -16,17 +16,19 @@ class TabSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final iconColor = ThemeHolder.of(context).main;
+    final activeColor = ThemeHolder.of(context).main;
+    final inactiveColor = ThemeHolder.of(context).secondary1;
     final backgroundColor = ThemeHolder.of(context).card;
     return BottomNavigationBar(
-      selectedItemColor: iconColor,
+      selectedItemColor: activeColor,
       selectedLabelStyle:
-          ThemeHolder.of(context).textStyle.h3(color: iconColor),
-
+          ThemeHolder.of(context).textStyle.h4(color: activeColor),
       backgroundColor: ThemeHolder.of(context).card,
       currentIndex: AppTab.values.indexOf(activeTab),
       onTap: (index) => onTabSelected(AppTab.values[index]),
       items: AppTab.values.map((tab) {
+        final iconColor =
+            tab.index == activeTab.index ? activeColor : inactiveColor;
         return BottomNavigationBarItem(
           backgroundColor: backgroundColor,
           icon: AppIcon(

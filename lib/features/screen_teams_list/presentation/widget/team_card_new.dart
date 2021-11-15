@@ -20,11 +20,14 @@ class TeamCardNew extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final elementColor = ThemeHolder.of(context).card;
+    final foregroundColor =
+        ThemeHolder.of(context).cardForegroundColor(team.teamColor);
+
+    final backgroundColor = ThemeHolder.of(context).fromTeamColor(team.teamColor);
     return Container(
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(10)),
-        color: ThemeHolder.of(context).fromTeamColor(team.teamColor),
+        color: backgroundColor,
         boxShadow: [
           BoxShadow(
             color: ThemeHolder.of(context).cardShadow,
@@ -56,7 +59,7 @@ class TeamCardNew extends StatelessWidget {
                   children: [
                     LogoIcon(
                       logo: team.logo,
-                      color: elementColor,
+                      color: foregroundColor,
                       height: 60,
                       width: 60,
                     ),
@@ -65,7 +68,7 @@ class TeamCardNew extends StatelessWidget {
                       textAlign: TextAlign.center,
                       style: ThemeHolder.of(context)
                           .textStyle
-                          .h2(color: elementColor),
+                          .h2(color: foregroundColor),
                     ),
                     Text(
                       team.city,
@@ -74,7 +77,7 @@ class TeamCardNew extends StatelessWidget {
                       textAlign: TextAlign.center,
                       style: ThemeHolder.of(context)
                           .textStyle
-                          .h4(color: elementColor),
+                          .h4(color: foregroundColor),
                     )
                   ],
                 ),
