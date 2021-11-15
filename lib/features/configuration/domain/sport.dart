@@ -38,4 +38,29 @@ extension SportLogoExtension on Sport {
         return SportLogo.unknown;
     }
   }
+
+  String toSportName() {
+    switch (this) {
+      case Sport.football:
+        return "Футбол";
+      case Sport.cricket:
+        return "Крикет";
+      case Sport.fieldHockey:
+        return "Хоккей на траве";
+      case Sport.basketball:
+        return "Баскетбол";
+      case Sport.volleyball:
+        return "Воллейбол";
+      case Sport.rugby:
+        return "Регби";
+      case Sport.baseball:
+        return "Бейсбол";
+      case Sport.iceHockey:
+        return "Хоккей на льду";
+      case Sport.other:
+        return "Другое";
+      case Sport.unknown:
+        return "Неизвестно";
+    }
+  }
 }

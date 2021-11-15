@@ -25,8 +25,6 @@ class TeamEditBloc extends Bloc<TeamEditEvent, TeamEditState> {
 
   @override
   Stream<TeamEditState> mapEventToState(TeamEditEvent event) async* {
-    print(event.toString());
-
     try {
       if (event is StartEvent) {
         yield TeamState(team: team, isNewTeam: isNewTeam);
@@ -42,14 +40,16 @@ class TeamEditBloc extends Bloc<TeamEditEvent, TeamEditState> {
       } else if (event is UpdateLogoEvent) {
         team.logo = event.logo;
         yield TeamState(team: team, isNewTeam: isNewTeam);
+      } else if (event is UpdateSportEvent) {
+        team.sport = event.sport;
+        yield TeamState(team: team, isNewTeam: isNewTeam);
       } else if (event is SaveTeamEvent) {
-
-        testUpdate(team);
+        updateTeam(team);
       }
     } catch (e) {}
   }
 
-  void testUpdate(Team team) {
+  void updateTeam(Team team) {
     print("testUpdate: ${team.name}");
     teamsBloc.add(UpdateTeam(updatedTeam: team));
   }

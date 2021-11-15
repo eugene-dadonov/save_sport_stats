@@ -1,50 +1,14 @@
-import 'package:sport_stats_live/core/design/logos/logos.dart';
-import 'package:sport_stats_live/core/theming/data/themes/app_theme_data.dart';
 import 'package:sport_stats_live/features/configuration/domain/parameter.dart';
 import 'package:sport_stats_live/features/configuration/domain/sport.dart';
 import 'package:sport_stats_live/features/match/domain/entity/attribute.dart';
 import 'package:sport_stats_live/features/match/domain/entity/match.dart';
-import 'package:sport_stats_live/features/team/domain/entity/team.dart';
+import 'package:sport_stats_live/features/team/data/storage/team_generator.dart';
 import 'package:uuid/uuid.dart';
 
 class MatchGenerator {
   static List<Match> createDemoMatches() {
-    final team1 = Team(
-        uid: const Uuid().v1(),
-        name: "FC Zenit",
-        logo: Logo.triangle4,
-        teamColor: TeamColor.cyan,
-        city: "Saint-Petersburg");
-    final team2 = Team(
-        uid: const Uuid().v1(),
-        name: "FC Juventus",
-        logo: Logo.oval,
-        teamColor: TeamColor.black,
-        city: "Milan");
-    final team3 = Team(
-        uid: const Uuid().v1(),
-        name: "FC Chelsea",
-        logo: Logo.round3,
-        teamColor: TeamColor.blue,
-        city: "London");
-    final team4 = Team(
-        uid: const Uuid().v1(),
-        name: "FC Manchester City",
-        logo: Logo.rombus2,
-        teamColor: TeamColor.azure,
-        city: "Manchester");
-    final team5 = Team(
-        uid: const Uuid().v1(),
-        name: "FC Atletico Madrid",
-        logo: Logo.shield3,
-        teamColor: TeamColor.red,
-        city: "Madrid");
-    final team6 = Team(
-        uid: const Uuid().v1(),
-        name: "FC Borussia Dortmund",
-        logo: Logo.round1,
-        teamColor: TeamColor.yellow,
-        city: "Dortmund");
+
+    final teams = TeamGenerator.generateTeams();
 
     final par1 =
         Parameter(id: const Uuid().v1(), name: "Голы", isDeletable: false);
@@ -106,8 +70,8 @@ class MatchGenerator {
 
     final match1 = Match(
         id: const Uuid().v1(),
-        host: team1,
-        guest: team2,
+        host: teams[0],
+        guest: teams[1],
         score: score1,
         attributes: attrSet1,
         date: DateTime.now(),
@@ -116,8 +80,8 @@ class MatchGenerator {
 
     final match2 = Match(
       id: const Uuid().v1(),
-      host: team5,
-      guest: team3,
+      host: teams[4],
+      guest: teams[2],
       score: score3,
       attributes: attrSet3,
       date: DateTime(2021, 6, 24, 18),
@@ -127,8 +91,8 @@ class MatchGenerator {
 
     final match3 = Match(
       id: const Uuid().v1(),
-      host: team3,
-      guest: team1,
+      host: teams[1],
+      guest: teams[6],
       score: score3,
       attributes: attrSet3,
       date: DateTime(2021, 6, 24, 18),
@@ -138,8 +102,8 @@ class MatchGenerator {
 
     final match4 = Match(
       id: const Uuid().v1(),
-      host: team4,
-      guest: team5,
+      host: teams[2],
+      guest: teams[3],
       score: score1,
       attributes: attrSet4,
       date: DateTime(2021, 5, 5, 13),
@@ -149,8 +113,8 @@ class MatchGenerator {
 
     final match5 = Match(
       id: const Uuid().v1(),
-      host: team1,
-      guest: team5,
+      host: teams[4],
+      guest: teams[2],
       score: score3,
       attributes: attrSet3,
       date: DateTime(2021, 5, 14, 13),
@@ -160,8 +124,8 @@ class MatchGenerator {
 
     final match6 = Match(
       id: const Uuid().v1(),
-      host: team2,
-      guest: team1,
+      host: teams[5],
+      guest: teams[7],
       score: score2,
       attributes: attrSet2,
       date: DateTime(2021, 5, 14, 13),
@@ -171,8 +135,8 @@ class MatchGenerator {
 
     final match7 = Match(
       id: const Uuid().v1(),
-      host: team2,
-      guest: team5,
+      host: teams[1],
+      guest: teams[7],
       score: score1,
       attributes: attrSet4,
       date: DateTime(2021, 6, 15, 13),
@@ -182,8 +146,8 @@ class MatchGenerator {
 
     final match8 = Match(
       id: const Uuid().v1(),
-      host: team1,
-      guest: team4,
+      host: teams[5],
+      guest: teams[4],
       score: score3,
       attributes: attrSet1,
       date: DateTime(2021, 9, 2, 13),

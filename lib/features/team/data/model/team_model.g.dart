@@ -20,15 +20,16 @@ class TeamModelAdapter extends TypeAdapter<TeamModel> {
       id: fields[0] as String,
       name: fields[1] as String,
       logo: fields[2] as String,
-      teamColor: fields[3] as String,
-      city: fields[4] as String,
+      teamColor: fields[4] as String,
+      city: fields[5] as String,
+      sport: fields[3] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, TeamModel obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -36,8 +37,10 @@ class TeamModelAdapter extends TypeAdapter<TeamModel> {
       ..writeByte(2)
       ..write(obj.logo)
       ..writeByte(3)
-      ..write(obj.teamColor)
+      ..write(obj.sport)
       ..writeByte(4)
+      ..write(obj.teamColor)
+      ..writeByte(5)
       ..write(obj.city);
   }
 

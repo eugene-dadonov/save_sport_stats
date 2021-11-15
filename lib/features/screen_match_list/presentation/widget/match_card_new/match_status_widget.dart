@@ -120,13 +120,13 @@ class _UnknownStatusWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return _StatusCard(
-      cardColor: ThemeHolder.of(context).teamsColor.greyLight,
+      cardColor: ThemeHolder.of(context).teamsColor.metallic,
       child: Text(
         "неизвестно",
         textAlign: TextAlign.center,
         style: ThemeHolder.of(context)
             .textStyle
-            .h5(color: ThemeHolder.of(context).teamsColor.greyDark),
+            .h5(color: ThemeHolder.of(context).teamsColor.darkSlate),
       ),
     );
   }

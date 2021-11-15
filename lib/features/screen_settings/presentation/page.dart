@@ -30,7 +30,7 @@ class SettingsScreen extends StatelessWidget {
                       .h3(color: main),
                 ),
                 trailing: Switch(
-                  activeColor: ThemeHolder.of(context).ok,
+                  activeColor: ThemeHolder.of(context).main,
                   value: ThemeHolder.of(context).isDark,
                   onChanged: (value) {
                     final theme = value ? AppTheme.dark : AppTheme.light;

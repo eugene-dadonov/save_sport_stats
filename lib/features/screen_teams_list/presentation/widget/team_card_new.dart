@@ -23,7 +23,8 @@ class TeamCardNew extends StatelessWidget {
     final foregroundColor =
         ThemeHolder.of(context).cardForegroundColor(team.teamColor);
 
-    final backgroundColor = ThemeHolder.of(context).fromTeamColor(team.teamColor);
+    final backgroundColor =
+        ThemeHolder.of(context).fromTeamColor(team.teamColor);
     return Container(
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(10)),
@@ -49,9 +50,9 @@ class TeamCardNew extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Stack(
               children: [
-                const Align(
+                Align(
                   alignment: Alignment.topLeft,
-                  child: SportLogoWidget(sport: Sport.football),
+                  child: SportLogoWidget(sport: team.sport),
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,

@@ -14,9 +14,12 @@ class TeamModel extends HiveObject {
   final String logo;
 
   @HiveField(3)
-  final String teamColor;
+  final String sport;
 
   @HiveField(4)
+  final String teamColor;
+
+  @HiveField(5)
   final String city;
 
   TeamModel({
@@ -25,5 +28,6 @@ class TeamModel extends HiveObject {
     required this.logo,
     required this.teamColor,
     required this.city,
+    required this.sport,
   });
 }

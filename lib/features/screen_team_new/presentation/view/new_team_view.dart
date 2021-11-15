@@ -8,7 +8,8 @@ import 'package:sport_stats_live/core/widgets/app_icon.dart';
 import 'package:sport_stats_live/core/widgets/dialog/dialog.dart';
 import 'package:sport_stats_live/core/widgets/input_view/input_layout.dart';
 import 'package:sport_stats_live/core/widgets/logo/logo.dart';
-import 'package:sport_stats_live/features/match/domain/bloc/event.dart';
+import 'package:sport_stats_live/core/widgets/sport_selector/sport_selector_drop.dart';
+import 'package:sport_stats_live/features/configuration/domain/sport.dart';
 import 'package:sport_stats_live/features/screen_menu/presentation/widget/menu_button.dart';
 import 'package:sport_stats_live/features/screen_team_new/domain/bloc/bloc.dart';
 import 'package:sport_stats_live/features/screen_team_new/domain/bloc/event.dart';
@@ -36,8 +37,6 @@ class TeamEditView extends StatelessWidget {
   }
 
   Widget _buildForm(BuildContext context, Team team, bool isNewTeam) {
-    final title = isNewTeam ? "Новая команда" : team.name;
-
     return Form(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -49,6 +48,23 @@ class TeamEditView extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.only(top: 32),
                 child: _TopBar(isNewTeam: isNewTeam, team: team),
+              ),
+            ),
+            const SliverToBoxAdapter(
+              child: _Title(
+                name: 'Вид спорта',
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: SportSelectorDropdown(
+                  selectedSport: team.sport,
+                  onSportChanged: (sport) {
+                    BlocProvider.of<TeamEditBloc>(context)
+                        .add(UpdateSportEvent(sport));
+                  },
+                ),
               ),
             ),
             const SliverToBoxAdapter(
@@ -263,13 +279,13 @@ class _LogoSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final selectedLogo = team?.logo ?? Logo.shield2;
-    final selectedTeamColor = team?.teamColor ?? TeamColor.black;
+    final selectedTeamColor = team?.teamColor ?? TeamColor.gunMetalGrey;
     final selectedColor =
         ThemeHolder.of(context).fromTeamColor(selectedTeamColor);
 
     return _SelectorWidget(
       child: _LogoSelectorIcon(
-        teamColor: team?.teamColor ?? TeamColor.black,
+        teamColor: team?.teamColor ?? TeamColor.gunMetalGrey,
         logo: team?.logo ?? Logo.shield1,
       ),
       onTap: () {
@@ -310,7 +326,7 @@ class _ColorSelector extends StatelessWidget {
   Widget build(BuildContext context) {
     return _SelectorWidget(
       child: _ColorSelectorIcon(
-        color: team?.teamColor ?? TeamColor.black,
+        color: team?.teamColor ?? TeamColor.gunMetalGrey,
       ),
       onTap: () {
         showDialog(
@@ -321,7 +337,7 @@ class _ColorSelector extends StatelessWidget {
               child: SizedBox(
                 width: width,
                 child: DialogColorSelectorView(
-                  currentColor: team?.teamColor ?? TeamColor.black,
+                  currentColor: team?.teamColor ?? TeamColor.gunMetalGrey,
                   onColorSelected: (color) {
                     BlocProvider.of<TeamEditBloc>(context)
                         .add(UpdateColorEvent(color));
@@ -476,3 +492,32 @@ class _LogoSelectorIcon extends StatelessWidget {
     );
   }
 }
+//
+// class SportSelector extends StatelessWidget {
+//   SportSelector({Key? key}) : super(key: key);
+//
+//   final je
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return DropdownButton<Sport>(
+//       value: Sport.fieldHockey,
+//       dropdownColor: ThemeHolder.of(context).card,
+//       onChanged: (newValue) {
+//         print(newValue);
+//       },
+//       selectedItemBuilder: (BuildContext context) {
+//         return Sport.values.map<Widget>((Sport item) {
+//           return Text(item.toString(), style: TextStyle(color: Colors.red),);
+//         }).toList();
+//       },
+//       items: Sport.values
+//           .map<DropdownMenuItem<Sport>>((Sport value) {
+//         return DropdownMenuItem<Sport>(
+//           value: value,
+//           child: Text(value.toString()),
+//         );
+//       }).toList(),
+//     );
+//   }
+// }

@@ -65,7 +65,7 @@ class _InputViewState extends State<InputView> {
     required double width,
   }) {
     return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(6),
+      borderRadius: BorderRadius.circular(10),
       borderSide:
           BorderSide(style: BorderStyle.solid, color: color, width: width),
     );

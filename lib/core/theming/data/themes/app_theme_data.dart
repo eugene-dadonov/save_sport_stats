@@ -1,7 +1,10 @@
 import 'dart:ui';
+import 'dart:ui';
 
 import 'package:sport_stats_live/core/theming/data/colors/team_colors/dark_team_colors.dart';
+import 'package:sport_stats_live/core/theming/data/colors/team_colors/dark_team_colors_updated.dart';
 import 'package:sport_stats_live/core/theming/data/colors/team_colors/light_team_colors.dart';
+import 'package:sport_stats_live/core/theming/data/colors/team_colors/light_team_colors_updated.dart';
 import 'package:sport_stats_live/core/theming/data/styles/text_styles.dart';
 import 'package:sport_stats_live/core/theming/data/themes/themes.dart';
 
@@ -60,30 +63,48 @@ class AppThemeData {
         return teamsColor.orange;
       case TeamColor.yellow:
         return teamsColor.yellow;
+      case TeamColor.citron:
+        return teamsColor.citron;
       case TeamColor.green:
         return teamsColor.green;
       case TeamColor.greenLight:
         return teamsColor.greenLight;
+      case TeamColor.greenLime:
+        return teamsColor.greenLime;
+      case TeamColor.aquamarine:
+        return teamsColor.aquamarine;
       case TeamColor.cyan:
         return teamsColor.cyan;
-      case TeamColor.azure:
-        return teamsColor.azure;
+      case TeamColor.darkBlue:
+        return teamsColor.darkBlue;
       case TeamColor.blue:
         return teamsColor.blue;
+      case TeamColor.blueGrey:
+        return teamsColor.blueGrey;
+      case TeamColor.azure:
+        return teamsColor.azure;
+      case TeamColor.peacockBlue:
+        return teamsColor.peacockBlue;
       case TeamColor.purple:
         return teamsColor.purple;
       case TeamColor.raspberry:
         return teamsColor.raspberry;
+      case TeamColor.redRose:
+        return teamsColor.redRose;
       case TeamColor.pink:
         return teamsColor.pink;
-      case TeamColor.greyLight:
-        return teamsColor.greyLight;
-      case TeamColor.grey:
-        return teamsColor.grey;
-      case TeamColor.greyDark:
-        return teamsColor.greyDark;
-      case TeamColor.black:
-        return teamsColor.black;
+      case TeamColor.softPick:
+        return teamsColor.softPick;
+      case TeamColor.roseDusty:
+        return teamsColor.roseDusty;
+      case TeamColor.lightBrown:
+        return teamsColor.lightBrown;
+      case TeamColor.metallic:
+        return teamsColor.metallic;
+      case TeamColor.darkSlate:
+        return teamsColor.darkSlate;
+      case TeamColor.gunMetalGrey:
+        return teamsColor.gunMetalGrey;
     }
   }
 
@@ -112,13 +133,18 @@ class AppThemeData {
   }
 
   final tooDarkColors = [
-    TeamColor.black,
-    TeamColor.greyDark,
+    TeamColor.gunMetalGrey,
+    TeamColor.darkSlate,
+    TeamColor.darkBlue,
   ];
 
   final tooLightColors = [
+    TeamColor.metallic,
+    TeamColor.citron,
+    TeamColor.aquamarine,
     TeamColor.yellow,
-    TeamColor.greyLight,
+    TeamColor.blueGrey,
+    TeamColor.greenLime,
   ];
 }
 
@@ -127,54 +153,114 @@ class TeamsColors {
   Color red;
   Color orange;
   Color yellow;
+  Color citron;
+
+  //
   Color green;
   Color greenLight;
+  Color greenLime;
+  Color aquamarine;
   Color cyan;
-  Color azure;
+
+  //
+  Color darkBlue;
   Color blue;
+  Color blueGrey;
+  Color azure;
+  Color peacockBlue;
+
+  //
   Color purple;
   Color raspberry;
+  Color redRose;
   Color pink;
-  Color greyLight;
-  Color grey;
-  Color greyDark;
-  Color black;
+  Color softPick;
+
+  //
+  Color roseDusty;
+  Color lightBrown;
+  Color metallic;
+  Color darkSlate;
+  Color gunMetalGrey;
+
+  // Color redDark;
+  // Color red;
+  // Color orange;
+  // Color yellow;
+  // Color green;
+  // Color greenLight;
+  // Color cyan;
+  // Color azure;
+  // Color blue;
+  // Color purple;
+  // Color raspberry;
+  // Color pink;
+  // Color greyLight;
+  // Color grey;
+  // Color greyDark;
+  // Color black;
 
   TeamsColors.dark()
-      : redDark = DarkTeamColors.redDark,
-        red = DarkTeamColors.red,
-        orange = DarkTeamColors.orange,
-        yellow = DarkTeamColors.yellow,
-        greenLight = DarkTeamColors.greenLight,
-        green = DarkTeamColors.green,
-        cyan = DarkTeamColors.cyan,
-        azure = DarkTeamColors.azure,
-        blue = DarkTeamColors.blue,
-        purple = DarkTeamColors.purple,
-        raspberry = DarkTeamColors.raspberry,
-        pink = DarkTeamColors.pink,
-        greyLight = DarkTeamColors.greyLight,
-        grey = DarkTeamColors.grey,
-        greyDark = DarkTeamColors.greyDark,
-        black = DarkTeamColors.black;
+      : redDark = DarkTeamColorsUpdated.redDark,
+        red = DarkTeamColorsUpdated.red,
+        orange = DarkTeamColorsUpdated.orange,
+        yellow = DarkTeamColorsUpdated.yellow,
+        citron = DarkTeamColorsUpdated.citron,
+        //
+        green = DarkTeamColorsUpdated.green,
+        greenLight = DarkTeamColorsUpdated.greenLight,
+        greenLime = DarkTeamColorsUpdated.greenLime,
+        aquamarine = DarkTeamColorsUpdated.aquamarine,
+        cyan = DarkTeamColorsUpdated.cyan,
+        //
+        darkBlue = DarkTeamColorsUpdated.darkBlue,
+        blue = DarkTeamColorsUpdated.blue,
+        azure = DarkTeamColorsUpdated.azure,
+        blueGrey = DarkTeamColorsUpdated.blueGrey,
+        peacockBlue = DarkTeamColorsUpdated.peacockBlue,
+        //
+        purple = DarkTeamColorsUpdated.purple,
+        raspberry = DarkTeamColorsUpdated.raspberry,
+        redRose = DarkTeamColorsUpdated.redRose,
+        pink = DarkTeamColorsUpdated.pink,
+        softPick = DarkTeamColorsUpdated.softPick,
+        //
+        roseDusty = DarkTeamColorsUpdated.redRose,
+        lightBrown = DarkTeamColorsUpdated.lightBrown,
+        metallic = DarkTeamColorsUpdated.metallic,
+        darkSlate = DarkTeamColorsUpdated.darkSlate,
+        gunMetalGrey = DarkTeamColorsUpdated.gunMetalGrey;
 
   TeamsColors.light()
-      : redDark = LightTeamColors.redDark,
-        red = LightTeamColors.red,
-        orange = LightTeamColors.orange,
-        yellow = LightTeamColors.yellow,
-        greenLight = LightTeamColors.greenLight,
-        green = LightTeamColors.green,
-        cyan = LightTeamColors.cyan,
-        azure = LightTeamColors.azure,
-        blue = LightTeamColors.blue,
-        purple = LightTeamColors.purple,
-        raspberry = LightTeamColors.raspberry,
-        pink = LightTeamColors.pink,
-        greyLight = LightTeamColors.greyLight,
-        grey = LightTeamColors.grey,
-        greyDark = LightTeamColors.greyDark,
-        black = LightTeamColors.black;
+      : redDark = LightTeamColorsUpdated.redDark,
+        red = LightTeamColorsUpdated.red,
+        orange = LightTeamColorsUpdated.orange,
+        yellow = LightTeamColorsUpdated.yellow,
+        citron = LightTeamColorsUpdated.citron,
+        //
+        green = LightTeamColorsUpdated.green,
+        greenLight = LightTeamColorsUpdated.greenLight,
+        greenLime = LightTeamColorsUpdated.greenLime,
+        aquamarine = LightTeamColorsUpdated.aquamarine,
+        cyan = LightTeamColorsUpdated.cyan,
+        //
+        darkBlue = LightTeamColorsUpdated.darkBlue,
+        blue = LightTeamColorsUpdated.blue,
+        azure = LightTeamColorsUpdated.azure,
+        blueGrey = LightTeamColorsUpdated.blueGrey,
+        peacockBlue = LightTeamColorsUpdated.peacockBlue,
+        //
+        purple = LightTeamColorsUpdated.purple,
+        raspberry = LightTeamColorsUpdated.raspberry,
+        redRose = LightTeamColorsUpdated.redRose,
+        pink = LightTeamColorsUpdated.pink,
+        softPick = LightTeamColorsUpdated.softPick,
+        //
+        roseDusty = LightTeamColorsUpdated.redRose,
+        lightBrown = LightTeamColorsUpdated.lightBrown,
+        metallic = LightTeamColorsUpdated.metallic,
+        darkSlate = LightTeamColorsUpdated.darkSlate,
+        gunMetalGrey = LightTeamColorsUpdated.gunMetalGrey;
 }
 
 enum TeamColor {
@@ -182,16 +268,29 @@ enum TeamColor {
   red,
   orange,
   yellow,
+  citron,
+  //
   green,
   greenLight,
+  greenLime,
+  aquamarine,
   cyan,
-  azure,
+  //
+  darkBlue,
   blue,
+  blueGrey,
+  azure,
+  peacockBlue,
+  //
   purple,
   raspberry,
+  redRose,
   pink,
-  greyLight,
-  grey,
-  greyDark,
-  black,
+  softPick,
+  //
+  roseDusty,
+  lightBrown,
+  metallic,
+  darkSlate,
+  gunMetalGrey,
 }
