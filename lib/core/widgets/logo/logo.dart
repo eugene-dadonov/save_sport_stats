@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:sport_stats_live/core/design/colors.dart';
 import 'package:sport_stats_live/core/design/logos/logos.dart';
 
 class LogoIcon extends StatelessWidget {
@@ -9,7 +8,7 @@ class LogoIcon extends StatelessWidget {
     required this.logo,
     this.height = 100,
     this.width = 100,
-    this.color = AppColors.grey,
+    this.color = Colors.grey,
   }) : super(key: key);
 
   String get _path => "assets/graphics/logos/${logo.toShortString()}.svg";

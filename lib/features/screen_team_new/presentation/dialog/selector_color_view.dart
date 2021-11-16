@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sport_stats_live/core/design/colors.dart';
-import 'package:sport_stats_live/core/design/logos/logos.dart';
-import 'package:sport_stats_live/core/design/styles.dart';
 import 'package:sport_stats_live/core/theming/data/themes/app_theme_data.dart';
 import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 import 'package:sport_stats_live/features/screen_team_new/presentation/widgets/color_selector.dart';
-import 'package:sport_stats_live/features/screen_team_new/presentation/widgets/logo_selector.dart';
-import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 
 class DialogColorSelectorView extends StatelessWidget {
   const DialogColorSelectorView({

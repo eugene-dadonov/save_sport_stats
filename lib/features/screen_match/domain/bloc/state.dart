@@ -1,18 +1,18 @@
 import 'package:sport_stats_live/features/match/domain/entity/match.dart';
 
-abstract class MatchState {}
+abstract class MatchScreenState {}
 
-class OnLoading extends MatchState {}
+class OnLoading extends MatchScreenState {}
 
-class OnMatch extends MatchState {
+class OnMatch extends MatchScreenState {
   OnMatch({required this.match});
 
   final Match match;
 }
 
-class OnNoActiveMatch extends MatchState {}
+class OnNoActiveMatch extends MatchScreenState {}
 
-class OnError extends MatchState {
+class OnError extends MatchScreenState {
   final String message;
 
   OnError(this.message);

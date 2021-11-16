@@ -1,10 +1,10 @@
 import 'package:collection/src/iterable_extensions.dart';
+import 'package:sport_stats_live/features/configuration/domain/sport.dart';
 import 'package:sport_stats_live/features/match/data/converters/attribute_converter.dart';
 import 'package:sport_stats_live/features/match/data/converters/team_shot_converter.dart';
 import 'package:sport_stats_live/features/match/data/storage/models/match_model.dart';
 import 'package:sport_stats_live/features/match/domain/entity/match.dart';
 import 'package:sport_stats_live/features/match/domain/entity/attribute.dart';
-import 'package:sport_stats_live/features/team/data/converters/team_converter.dart';
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 
 class MatchConverter {
@@ -18,6 +18,11 @@ class MatchConverter {
     Status? status = Status.values
         .firstWhereOrNull((status) => status.toString() == matchModel.status);
 
+    Sport? sport = Sport.values
+        .firstWhereOrNull((sport) => sport.toString() == matchModel.sport);
+
+    Attribute score = AttributeConverter.fromModel(matchModel.score);
+
     late DateTime dateTime;
 
     try {
@@ -27,12 +32,15 @@ class MatchConverter {
     }
 
     return Match(
-        id: matchModel.id,
-        host: host,
-        guest: guest,
-        attributes: attributes,
-        date: dateTime,
-        status: status ?? Status.unknown);
+      id: matchModel.id,
+      host: host,
+      guest: guest,
+      attributes: attributes,
+      date: dateTime,
+      status: status ?? Status.unknown,
+      score: score,
+      sport: sport ?? Sport.unknown,
+    );
   }
 
   static MatchModel toModel(Match match) {
@@ -42,6 +50,8 @@ class MatchConverter {
         .map((param) => AttributeConverter.toModel(param))
         .toList();
 
+    final score = AttributeConverter.toModel(match.score);
+
     return MatchModel(
       id: match.id,
       host: host,
@@ -49,6 +59,8 @@ class MatchConverter {
       attributes: attributes,
       dateTime: match.date.millisecondsSinceEpoch,
       status: match.status.toString(),
+      score: score,
+      sport: match.sport.toString(),
     );
   }
 }

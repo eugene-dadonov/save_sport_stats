@@ -24,7 +24,7 @@ class ColorSelector extends StatelessWidget {
       shrinkWrap: true,
       itemCount: TeamColor.values.length,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 4,
+        crossAxisCount: 5,
         childAspectRatio: 1,
       ),
       itemBuilder: (BuildContext context, int index) {
@@ -58,7 +58,7 @@ class _NotSelectedColor extends StatelessWidget {
   Widget build(BuildContext context) {
     final color = ThemeHolder.of(context).fromTeamColor(teamColor);
     return Padding(
-      padding: const EdgeInsets.all(12.0),
+      padding: const EdgeInsets.all(10.0),
       child: Container(
         decoration: BoxDecoration(
           color: color,
@@ -95,9 +95,9 @@ class _SelectedColor extends StatelessWidget {
           shape: BoxShape.circle,
           boxShadow: [
             BoxShadow(
-              color: color,
-              spreadRadius: 0,
-              blurRadius: 10,
+              color: color.withOpacity(0.3),
+              spreadRadius: 1,
+              blurRadius: 5,
               offset: const Offset(0, 4),
             ),
           ],
@@ -106,7 +106,7 @@ class _SelectedColor extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           child: AppIcon(
             icon: AppIcons.ok,
-            color: ThemeHolder.of(context).card,
+            color: ThemeHolder.of(context).cardForegroundColor(teamColor),
           ),
         ),
       ),

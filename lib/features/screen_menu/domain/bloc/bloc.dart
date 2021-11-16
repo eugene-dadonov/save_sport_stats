@@ -1,12 +1,28 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_stats_live/features/match/data/repository/match_repository.dart';
+import 'package:sport_stats_live/features/match/domain/bloc/bloc.dart';
+import 'package:sport_stats_live/features/match/domain/bloc/state.dart';
 import 'package:sport_stats_live/features/match/domain/entity/match.dart';
 import 'package:sport_stats_live/features/match/domain/exception/exception.dart';
 import 'package:sport_stats_live/features/screen_menu/domain/bloc/event.dart';
 import 'package:sport_stats_live/features/screen_menu/domain/bloc/state.dart';
 
 class MenuBloc extends Bloc<MenuEvent, MenuState> {
-  MenuBloc({required this.matchRepository}) : super(OnLoading());
+  final MatchBloc matchBloc;
+  late StreamSubscription _streamSubscription;
+
+  MenuBloc({
+    required this.matchRepository,
+    required this.matchBloc,
+  }) : super(OnLoading()) {
+    _streamSubscription = matchBloc.stream.listen((event) {
+      if (event is MatchState) {
+        add(OnStart());
+      }
+    });
+  }
 
   final MatchRepositoryImpl matchRepository;
   Match? lastMatch;
@@ -48,6 +64,12 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
       lastMatch = null;
     }
     return lastMatch;
+  }
+
+  @override
+  Future<void> close() async {
+    _streamSubscription.cancel();
+    return super.close();
   }
 }
 

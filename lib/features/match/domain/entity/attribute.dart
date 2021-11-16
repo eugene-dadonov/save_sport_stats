@@ -1,4 +1,5 @@
 import 'package:sport_stats_live/features/configuration/domain/parameter.dart';
+import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 
 class Attribute {
   final Parameter parameter;
@@ -20,6 +21,14 @@ class Attribute {
   void changeGuestOn(int delta) {
     if (guest + delta >= 0) {
       guest = guest + delta;
+    }
+  }
+
+  void update(HostStatus hostStatus, int delta) {
+    if (hostStatus == HostStatus.host) {
+      changeHostOn(delta);
+    } else if (hostStatus == HostStatus.guest) {
+      changeGuestOn(delta);
     }
   }
 

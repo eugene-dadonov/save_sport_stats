@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sport_stats_live/core/design/colors.dart';
 import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 import 'package:sport_stats_live/core/widgets/clickable_card/clickable_card.dart';
 import 'package:sport_stats_live/features/match/domain/entity/match.dart';
@@ -24,8 +23,8 @@ class MatchCard extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TeamView(team: match.host, score: 3),
-            TeamView(team: match.guest, score: 1),
+            TeamView(team: match.host, score: match.score.host),
+            TeamView(team: match.guest, score: match.score.guest),
           ],
         ),
       ),

@@ -29,6 +29,13 @@ class TeamsListPage extends StatelessWidget {
     );
   }
 
+  static Widget view(TeamsBloc teamsBloc) {
+    return BlocProvider.value(
+      value: teamsBloc,
+      child: const TeamsListPage(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

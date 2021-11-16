@@ -5,7 +5,11 @@ class Parameter {
   String name;
   final bool isDeletable;
 
-  Parameter({required this.id, required this.name, this.isDeletable = false});
+  Parameter({
+    required this.id,
+    required this.name,
+    this.isDeletable = false,
+  });
 
   factory Parameter.newParameter(String name) {
     return Parameter(id: const Uuid().v1(), name: name, isDeletable: false);

@@ -1,43 +1,14 @@
-import 'package:sport_stats_live/core/design/logos/logos.dart';
-import 'package:sport_stats_live/core/theming/data/themes/app_theme_data.dart';
 import 'package:sport_stats_live/features/configuration/domain/parameter.dart';
+import 'package:sport_stats_live/features/configuration/domain/sport.dart';
 import 'package:sport_stats_live/features/match/domain/entity/attribute.dart';
 import 'package:sport_stats_live/features/match/domain/entity/match.dart';
-import 'package:sport_stats_live/features/team/domain/entity/team.dart';
+import 'package:sport_stats_live/features/team/data/storage/team_generator.dart';
 import 'package:uuid/uuid.dart';
 
 class MatchGenerator {
   static List<Match> createDemoMatches() {
-    final team1 = Team(
-        uid: const Uuid().v1(),
-        name: "ФК Спирово",
-        logo: Logo.shield1,
-        teamColor: TeamColor.green,
-        city: "Спирово");
-    final team2 = Team(
-        uid: const Uuid().v1(),
-        name: "ФК Ржев",
-        logo: Logo.round,
-        teamColor: TeamColor.black,
-        city: "Ржева");
-    final team3 = Team(
-        uid: const Uuid().v1(),
-        name: "ФК Урожай",
-        logo: Logo.shield2,
-        teamColor: TeamColor.greenLight,
-        city: "Мирный");
-    final team4 = Team(
-        uid: const Uuid().v1(),
-        name: "ФК Торжок",
-        logo: Logo.round,
-        teamColor: TeamColor.blue,
-        city: "Торжка");
-    final team5 = Team(
-        uid: const Uuid().v1(),
-        name: "ФК Бологое",
-        logo: Logo.round,
-        teamColor: TeamColor.grey,
-        city: "Бологое");
+
+    final teams = TeamGenerator.generateTeams();
 
     final par1 =
         Parameter(id: const Uuid().v1(), name: "Голы", isDeletable: false);
@@ -48,9 +19,9 @@ class MatchGenerator {
     final par6 = Parameter(id: const Uuid().v1(), name: "Угловые");
 
     // Cчет
-    final attrGoal1 = Attribute(parameter: par1, host: 3, guest: 1);
-    final attrGoal2 = Attribute(parameter: par1, host: 1, guest: 1);
-    final attrGoal3 = Attribute(parameter: par1, host: 2, guest: 4);
+    final score1 = Attribute(parameter: par1, host: 3, guest: 1);
+    final score2 = Attribute(parameter: par1, host: 1, guest: 1);
+    final score3 = Attribute(parameter: par1, host: 2, guest: 4);
 
     // Удары
     final attrKick1 = Attribute(parameter: par2, host: 21, guest: 14);
@@ -78,7 +49,6 @@ class MatchGenerator {
     final attrCorner3 = Attribute(parameter: par6, host: 5, guest: 3);
 
     final attrSet1 = [
-      attrGoal1,
       attrKick1,
       attrKickInTarget1,
       attrFoul1,
@@ -87,7 +57,6 @@ class MatchGenerator {
     ];
 
     final attrSet2 = [
-      attrGoal2,
       attrKick2,
       attrKickInTarget2,
       attrFoul2,
@@ -95,92 +64,95 @@ class MatchGenerator {
       attrCorner2
     ];
 
-    final attrSet3 = [
-      attrGoal3,
-      attrKick3,
-      attrKickInTarget3,
-      attrFoul3,
-      attrCorner3
-    ];
+    final attrSet3 = [attrKick3, attrKickInTarget3, attrFoul3, attrCorner3];
 
-    final attrSet4 = [
-      attrGoal2,
-      attrKick1,
-      attrKickInTarget3,
-      attrFoul1,
-      attrCorner2
-    ];
+    final attrSet4 = [attrKick1, attrKickInTarget3, attrFoul1, attrCorner2];
 
     final match1 = Match(
-      id: const Uuid().v1(),
-      host: team1,
-      guest: team2,
-      attributes: attrSet1,
-      date: DateTime.now(),
-      status: Status.inProcess,
-    );
+        id: const Uuid().v1(),
+        host: teams[0],
+        guest: teams[1],
+        score: score1,
+        attributes: attrSet1,
+        date: DateTime.now(),
+        status: Status.inProcess,
+        sport: Sport.football);
 
     final match2 = Match(
       id: const Uuid().v1(),
-      host: team5,
-      guest: team3,
+      host: teams[4],
+      guest: teams[2],
+      score: score3,
       attributes: attrSet3,
       date: DateTime(2021, 6, 24, 18),
       status: Status.finished,
+      sport: Sport.iceHockey,
     );
 
     final match3 = Match(
       id: const Uuid().v1(),
-      host: team3,
-      guest: team1,
+      host: teams[1],
+      guest: teams[6],
+      score: score3,
       attributes: attrSet3,
       date: DateTime(2021, 6, 24, 18),
       status: Status.notStarted,
+      sport: Sport.cricket,
     );
 
     final match4 = Match(
       id: const Uuid().v1(),
-      host: team4,
-      guest: team5,
+      host: teams[2],
+      guest: teams[3],
+      score: score1,
       attributes: attrSet4,
       date: DateTime(2021, 5, 5, 13),
       status: Status.finished,
+      sport: Sport.rugby,
     );
 
     final match5 = Match(
       id: const Uuid().v1(),
-      host: team1,
-      guest: team5,
+      host: teams[4],
+      guest: teams[2],
+      score: score3,
       attributes: attrSet3,
       date: DateTime(2021, 5, 14, 13),
       status: Status.finished,
+      sport: Sport.fieldHockey,
     );
 
     final match6 = Match(
       id: const Uuid().v1(),
-      host: team2,
-      guest: team1,
+      host: teams[5],
+      guest: teams[7],
+      score: score2,
       attributes: attrSet2,
       date: DateTime(2021, 5, 14, 13),
       status: Status.finished,
+      sport: Sport.other,
     );
 
     final match7 = Match(
       id: const Uuid().v1(),
-      host: team2,
-      guest: team5,
+      host: teams[1],
+      guest: teams[7],
+      score: score1,
       attributes: attrSet4,
       date: DateTime(2021, 6, 15, 13),
       status: Status.finished,
+      sport: Sport.cricket,
     );
 
     final match8 = Match(
       id: const Uuid().v1(),
-      host: team1,
-      guest: team4,
+      host: teams[5],
+      guest: teams[4],
+      score: score3,
       attributes: attrSet1,
       date: DateTime(2021, 9, 2, 13),
       status: Status.finished,
+      sport: Sport.volleyball,
     );
 
     List<Match> matches = [
