@@ -1,4 +1,5 @@
 import 'package:sport_stats_live/features/configuration/domain/sport.dart';
+import 'package:uuid/uuid.dart';
 
 import 'parameter.dart';
 
@@ -14,4 +15,10 @@ class Configuration {
     required this.parameters,
     required this.sport,
   });
+
+  Configuration.newConfiguration({
+    required this.name,
+    required this.sport,
+    required this.parameters,
+  }) : id = const Uuid().v1();
 }
