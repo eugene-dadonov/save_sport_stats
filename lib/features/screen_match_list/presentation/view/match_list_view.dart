@@ -24,7 +24,6 @@ class MatchListView extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: MatchCardNew(
-                // TODO: Тестовый
                 match: matches[0],
                 callback: () {
                   context.read<MatchListBloc>().add(OnOpenMatch(matches[0].id));

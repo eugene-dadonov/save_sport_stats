@@ -29,7 +29,7 @@ class HomeScreen extends StatelessWidget {
           appBar: AppBar(
             backgroundColor: ThemeHolder.of(context).card,
             elevation: 2,
-            shadowColor: ThemeHolder.of(context).secondary1,
+            shadowColor: ThemeHolder.of(context).cardShadow,
             title: Text(
               "Заголовок",
               style: ThemeHolder.of(context).textStyle.h2(color: textColor),
