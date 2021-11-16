@@ -40,10 +40,15 @@ class _InputViewState extends State<InputView> {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: textController,
-      style: ThemeHolder.of(context).textStyle.h2(color: widget.textColor),
+      style: ThemeHolder
+          .of(context)
+          .textStyle
+          .h2(color: widget.textColor),
       textAlign: TextAlign.center,
       onChanged: widget.onValueChanged,
       validator: widget.validator,
+      maxLength: 50,
+      keyboardType: TextInputType.name,
       decoration: _buildDecoration(),
     );
   }
@@ -53,10 +58,30 @@ class _InputViewState extends State<InputView> {
       hintText: widget.hint,
       fillColor: widget.fillColor,
       focusColor: widget.fillColor,
-      hintStyle: ThemeHolder.of(context).textStyle.t1(color: widget.hintColor),
+      errorBorder: _buildBorder(color: ThemeHolder
+          .of(context)
+          .warning, width: 2),
+      errorStyle: ThemeHolder
+          .of(context)
+          .textStyle
+          .h5(color: ThemeHolder
+          .of(context)
+          .warning),
+      counterStyle: ThemeHolder
+          .of(context)
+          .textStyle
+          .h5(color: widget.hintColor),
+      hintStyle: ThemeHolder
+          .of(context)
+          .textStyle
+          .t1(color: widget.hintColor),
       filled: true,
+      errorMaxLines: 2,
       focusedBorder: _buildBorder(color: widget.borderColor, width: 2),
       enabledBorder: _buildBorder(color: Colors.transparent, width: 2),
+      focusedErrorBorder: _buildBorder(color: ThemeHolder
+          .of(context)
+          .attention, width: 2),
     );
   }
 
@@ -67,7 +92,7 @@ class _InputViewState extends State<InputView> {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(10),
       borderSide:
-          BorderSide(style: BorderStyle.solid, color: color, width: width),
+      BorderSide(style: BorderStyle.solid, color: color, width: width),
     );
   }
 }

@@ -9,7 +9,6 @@ import 'package:sport_stats_live/core/widgets/dialog/dialog.dart';
 import 'package:sport_stats_live/core/widgets/input_view/input_layout.dart';
 import 'package:sport_stats_live/core/widgets/logo/logo.dart';
 import 'package:sport_stats_live/core/widgets/sport_selector/sport_selector_drop.dart';
-import 'package:sport_stats_live/features/configuration/domain/sport.dart';
 import 'package:sport_stats_live/features/screen_menu/presentation/widget/menu_button.dart';
 import 'package:sport_stats_live/features/screen_team_new/domain/bloc/bloc.dart';
 import 'package:sport_stats_live/features/screen_team_new/domain/bloc/event.dart';
@@ -21,23 +20,32 @@ import 'package:sport_stats_live/features/team/domain/bloc/bloc.dart';
 import 'package:sport_stats_live/features/team/domain/bloc/event.dart';
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 
+final _formKey = GlobalKey();
+
+String? isNotNullOrEmpty(String? value) {
+  if (value == null || value.length == 0) {
+    return "Поле должно быть заполнено!";
+  }
+}
+
 class TeamEditView extends StatelessWidget {
   final Team team;
-  final bool isNewTeam;
+  final String? title;
 
   const TeamEditView({
     Key? key,
     required this.team,
-    required this.isNewTeam,
+    required this.title,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return _buildForm(context, team, isNewTeam);
+    return _buildForm(context, team, title);
   }
 
-  Widget _buildForm(BuildContext context, Team team, bool isNewTeam) {
+  Widget _buildForm(BuildContext context, Team team, String? title) {
     return Form(
+      key: _formKey,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: CustomScrollView(
@@ -47,7 +55,7 @@ class TeamEditView extends StatelessWidget {
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.only(top: 32),
-                child: _TopBar(isNewTeam: isNewTeam, team: team),
+                child: _TopBar(title: title, team: team),
               ),
             ),
             const SliverToBoxAdapter(
@@ -68,33 +76,40 @@ class TeamEditView extends StatelessWidget {
               ),
             ),
             const SliverToBoxAdapter(
-              child: _Title(
-                name: 'Название',
+              child: Padding(
+                padding: EdgeInsets.only(top: 10),
+                child: _Title(
+                  name: 'Название',
+                ),
               ),
             ),
             _buildInputElement(
-              context: context,
-              hint: 'Введите название',
-              text: team.name,
-              onValueChanged: (newName) {
-                BlocProvider.of<TeamEditBloc>(context)
-                    .add(UpdateNameEvent(newName));
-              },
-            ),
+                context: context,
+                hint: 'Введите название',
+                text: team.name,
+                onValueChanged: (newName) {
+                  BlocProvider.of<TeamEditBloc>(context)
+                      .add(UpdateNameEvent(newName));
+                },
+                validator: (value) {
+                  return isNotNullOrEmpty(value);
+                }),
             const SliverToBoxAdapter(
               child: _Title(
                 name: 'Город',
               ),
             ),
             _buildInputElement(
-              context: context,
-              text: team.city,
-              hint: 'Введите город',
-              onValueChanged: (newCity) {
-                BlocProvider.of<TeamEditBloc>(context)
-                    .add(UpdateCityEvent(newCity));
-              },
-            ),
+                context: context,
+                text: team.city,
+                hint: 'Введите город',
+                onValueChanged: (newCity) {
+                  BlocProvider.of<TeamEditBloc>(context)
+                      .add(UpdateCityEvent(newCity));
+                },
+                validator: (value) {
+                  return isNotNullOrEmpty(value);
+                }),
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 10, top: 6),
@@ -155,20 +170,16 @@ class TeamEditView extends StatelessWidget {
     FormFieldValidator<String>? validator,
   }) {
     return SliverToBoxAdapter(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8),
-        child: SizedBox(
-          height: 50,
-          child: InputView(
-            text: text ?? "",
-            hint: hint.toLowerCase(),
-            textColor: ThemeHolder.of(context).main,
-            fillColor: ThemeHolder.of(context).background1,
-            borderColor: ThemeHolder.of(context).secondary1,
-            hintColor: ThemeHolder.of(context).secondary2,
-            onValueChanged: onValueChanged,
-            validator: validator,
-          ),
+      child: SizedBox(
+        child: InputView(
+          text: text ?? "",
+          hint: hint.toLowerCase(),
+          textColor: ThemeHolder.of(context).main,
+          fillColor: ThemeHolder.of(context).background1,
+          borderColor: ThemeHolder.of(context).secondary1,
+          hintColor: ThemeHolder.of(context).secondary2,
+          onValueChanged: onValueChanged,
+          validator: validator,
         ),
       ),
     );
@@ -177,23 +188,24 @@ class TeamEditView extends StatelessWidget {
 
 class _TopBar extends StatelessWidget {
   final Team team;
-  final bool isNewTeam;
+  final String? title;
 
   const _TopBar({
     Key? key,
     required this.team,
-    required this.isNewTeam,
+    required this.title,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final title = isNewTeam ? "Новая команда" : team.name;
+    final title = this.title ?? "Новая команда";
+    final isNewTeam = title == null;
 
     return Row(
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        if (!isNewTeam)
+        if (isNewTeam)
           const SizedBox(
             height: 45,
             width: 45,
@@ -364,8 +376,10 @@ class _OperationButtons extends StatelessWidget {
             title: 'Сохранить'.toUpperCase(),
             color: ThemeHolder.of(context).main,
             onPress: () {
-              BlocProvider.of<TeamEditBloc>(context).add(SaveTeamEvent());
-              Navigator.of(context).pop();
+              if ((_formKey.currentState as FormState).validate()) {
+                BlocProvider.of<TeamEditBloc>(context).add(SaveTeamEvent());
+                Navigator.of(context).pop();
+              }
             }),
         const SizedBox(height: 12),
         MenuButton(
@@ -492,32 +506,3 @@ class _LogoSelectorIcon extends StatelessWidget {
     );
   }
 }
-//
-// class SportSelector extends StatelessWidget {
-//   SportSelector({Key? key}) : super(key: key);
-//
-//   final je
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return DropdownButton<Sport>(
-//       value: Sport.fieldHockey,
-//       dropdownColor: ThemeHolder.of(context).card,
-//       onChanged: (newValue) {
-//         print(newValue);
-//       },
-//       selectedItemBuilder: (BuildContext context) {
-//         return Sport.values.map<Widget>((Sport item) {
-//           return Text(item.toString(), style: TextStyle(color: Colors.red),);
-//         }).toList();
-//       },
-//       items: Sport.values
-//           .map<DropdownMenuItem<Sport>>((Sport value) {
-//         return DropdownMenuItem<Sport>(
-//           value: value,
-//           child: Text(value.toString()),
-//         );
-//       }).toList(),
-//     );
-//   }
-// }

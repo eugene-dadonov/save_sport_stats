@@ -6,11 +6,11 @@ class LoadingState extends TeamEditState {}
 
 class TeamState extends TeamEditState {
   final Team team;
-  final bool isNewTeam;
+  final String? title;
 
   TeamState({
     required this.team,
-    required this.isNewTeam,
+    required this.title,
   });
 }
 

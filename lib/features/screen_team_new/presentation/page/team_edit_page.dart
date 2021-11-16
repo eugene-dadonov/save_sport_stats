@@ -52,7 +52,7 @@ class TeamEditPage extends StatelessWidget {
           } else if (state is TeamState) {
             return TeamEditView(
               team: state.team,
-              isNewTeam: state.isNewTeam,
+              title: state.title,
             );
           } else {
             return Container(
