@@ -6,8 +6,14 @@ import 'package:sport_stats_live/app.dart';
 import 'package:sport_stats_live/core/theming/data/themes/themes.dart';
 import 'package:sport_stats_live/core/theming/domain/bloc/state.dart';
 import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
+import 'package:sport_stats_live/features/configuration/data/storage/configuration_hive_storage.dart';
+import 'package:sport_stats_live/features/configuration/data/storage/parameter_hive_storage.dart';
+import 'package:sport_stats_live/features/configuration/domain/bloc/parameters/bloc.dart';
 import 'package:sport_stats_live/features/team/domain/bloc/bloc.dart';
 import 'core/theming/domain/bloc/bloc.dart';
+import 'features/configuration/data/repository/configuration_repository.dart';
+import 'features/configuration/data/repository/parameter_repository.dart';
+import 'features/configuration/domain/bloc/configuration/bloc.dart';
 import 'features/match/data/repository/match_repository.dart';
 import 'features/match/data/storage/hive_match_storage.dart';
 import 'features/match/domain/bloc/bloc.dart';
@@ -18,21 +24,33 @@ import 'features/team/data/storage/hive_team_storage.dart';
 void main() async {
   await Hive.initFlutter();
 
-  final hiveMatchStorage = HiveMatchStorage();
-  await hiveMatchStorage.init();
-  await hiveMatchStorage.createDemoMatches();
+  final hiveParametersStorage = HiveParameterStorage();
+  await hiveParametersStorage.init();
+  await hiveParametersStorage.createDemoParameters();
+
+  final hiveConfigurationStorage = HiveConfigurationStorage();
+  await hiveConfigurationStorage.init();
+  await hiveConfigurationStorage.createDemoConfigurations();
 
   final hiveTeamStorage = HiveTeamStorage();
   await hiveTeamStorage.init();
   await hiveTeamStorage.createDemoTeams();
 
+  final hiveMatchStorage = HiveMatchStorage();
+  await hiveMatchStorage.init();
+  await hiveMatchStorage.createDemoMatches();
+
   hiveMatchStorage.showMatches();
   hiveTeamStorage.showTeams();
+  hiveConfigurationStorage.showLog();
+  hiveParametersStorage.showLog();
 
   runApp(
     _RepositoriesProvider(
       hiveTeamStorage: hiveTeamStorage,
       hiveMatchStorage: hiveMatchStorage,
+      hiveConfigurationStorage: hiveConfigurationStorage,
+      hiveParameterStorage: hiveParametersStorage,
       child: const _BaseBlocsProvider(
         child: ThemeBuilder(
           child: MyApp(),
@@ -45,6 +63,8 @@ void main() async {
 class _RepositoriesProvider extends StatelessWidget {
   final HiveTeamStorage hiveTeamStorage;
   final HiveMatchStorage hiveMatchStorage;
+  final HiveParameterStorage hiveParameterStorage;
+  final HiveConfigurationStorage hiveConfigurationStorage;
   final Widget child;
 
   const _RepositoriesProvider({
@@ -52,6 +72,8 @@ class _RepositoriesProvider extends StatelessWidget {
     required this.child,
     required this.hiveTeamStorage,
     required this.hiveMatchStorage,
+    required this.hiveParameterStorage,
+    required this.hiveConfigurationStorage,
   }) : super(key: key);
 
   @override
@@ -63,7 +85,13 @@ class _RepositoriesProvider extends StatelessWidget {
                 MatchRepositoryImpl(matchStorage: hiveMatchStorage)),
         RepositoryProvider(
             create: (BuildContext context) =>
-                TeamRepositoryImpl(teamStorage: hiveTeamStorage))
+                TeamRepositoryImpl(teamStorage: hiveTeamStorage)),
+        RepositoryProvider(
+            create: (BuildContext context) =>
+                ParameterRepositoryImpl(storage: hiveParameterStorage)),
+        RepositoryProvider(
+            create: (BuildContext context) =>
+                ConfigurationRepositoryImpl(storage: hiveConfigurationStorage)),
       ],
       child: child,
     );
@@ -94,6 +122,14 @@ class _BaseBlocsProvider extends StatelessWidget {
         }),
         BlocProvider(create: (BuildContext context) {
           return ThemeBloc(ThemeState(light));
+        }),
+        BlocProvider(create: (BuildContext context) {
+          return ParameterBloc(
+              repository: context.read<ParameterRepositoryImpl>());
+        }),
+        BlocProvider(create: (BuildContext context) {
+          return ConfigurationBloc(
+              repository: context.read<ConfigurationRepositoryImpl>());
         }),
       ],
       child: child,

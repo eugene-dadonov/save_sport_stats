@@ -2,10 +2,10 @@ import 'package:sport_stats_live/features/configuration/data/storage/parameter_s
 import 'package:sport_stats_live/features/configuration/domain/parameter.dart';
 import 'package:sport_stats_live/features/configuration/domain/repository/parameter_repository.dart';
 
-class ConfigurationRepositoryImpl extends ParameterRepository {
+class ParameterRepositoryImpl extends ParameterRepository {
   final ParameterStorage storage;
 
-  ConfigurationRepositoryImpl({required this.storage});
+  ParameterRepositoryImpl({required this.storage});
 
   @override
   Future<List<Parameter>> getParameters() async => await storage.getParameters();

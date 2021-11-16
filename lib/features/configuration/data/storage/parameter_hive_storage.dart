@@ -32,6 +32,13 @@ class HiveParameterStorage extends ParameterStorage {
     }
   }
 
+  void showLog() {
+    final parametersBox = Hive.box<ParameterModel>(boxParameterStorage);
+    for (var element in parametersBox.values) {
+      print(element.id);
+    }
+  }
+
   @override
   Future<void> deleteParameter(String id) async {
     final box = Hive.box<ParameterModel>(boxParameterStorage);

@@ -1,6 +1,7 @@
 import 'package:hive/hive.dart';
 import 'package:sport_stats_live/features/configuration/data/converter/configuration_converter.dart';
 import 'package:sport_stats_live/features/configuration/data/model/configuration_model.dart';
+import 'package:sport_stats_live/features/configuration/data/model/parameter_model.dart';
 import 'package:sport_stats_live/features/configuration/data/storage/configuration_generator.dart';
 import 'package:sport_stats_live/features/configuration/data/storage/configuration_storage.dart';
 import 'package:sport_stats_live/features/configuration/domain/configuration.dart';
@@ -29,6 +30,13 @@ class HiveConfigurationStorage extends ConfigurationStorage {
       }
     } else {
       print('TeamBox: Box already has ${confsBox.length} items');
+    }
+  }
+
+  void showLog() {
+    final configurationBox = Hive.box<ConfigurationModel>(boxConfigurationStorage);
+    for (var element in configurationBox.values) {
+      print(element.id);
     }
   }
 

@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_stats_live/core/design/logos/icons.dart';
 import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 import 'package:sport_stats_live/core/widgets/app_icon.dart';
+import 'package:sport_stats_live/features/configuration/domain/bloc/configuration/bloc.dart';
+import 'package:sport_stats_live/features/configuration/domain/bloc/parameters/bloc.dart';
 import 'package:sport_stats_live/features/match/domain/bloc/bloc.dart';
 import 'package:sport_stats_live/features/screen_configuration/presentation/page.dart';
 import 'package:sport_stats_live/features/screen_home/domain/bloc/bloc.dart';
@@ -60,7 +62,10 @@ class HomeScreen extends StatelessWidget {
       case AppTab.teams:
         return TeamsListPage.view(BlocProvider.of<TeamsBloc>(context));
       case AppTab.configuration:
-        return const ConfigurationScreen();
+        return ConfigurationScreen.view(
+          configurationBloc: BlocProvider.of<ConfigurationBloc>(context),
+          parameterBloc: BlocProvider.of<ParameterBloc>(context),
+        );
       case AppTab.settings:
         return const SettingsScreen();
     }
