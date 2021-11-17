@@ -16,7 +16,10 @@ class Parameter {
     required this.sport,
   });
 
-  factory Parameter.newParameter(String name, Sport sport) {
+  factory Parameter.newParameter({
+    required String name,
+    required Sport sport,
+  }) {
     return Parameter(
       id: const Uuid().v1(),
       name: name,
@@ -26,7 +29,11 @@ class Parameter {
     );
   }
 
-  Parameter copyWith(String? name, Sport? sport) => Parameter(
+  Parameter copyWith({
+    String? name,
+    Sport? sport,
+  }) =>
+      Parameter(
         id: id,
         name: name ?? this.name,
         isEternal: isEternal,

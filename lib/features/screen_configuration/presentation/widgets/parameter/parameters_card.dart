@@ -5,10 +5,12 @@ import 'package:sport_stats_live/features/configuration/domain/parameter.dart';
 
 class ParameterCard extends StatelessWidget {
   final Parameter parameter;
+  final ValueChanged<Parameter> onTap;
 
   const ParameterCard({
     Key? key,
     required this.parameter,
+    required this.onTap,
   }) : super(key: key);
 
   @override
@@ -17,7 +19,9 @@ class ParameterCard extends StatelessWidget {
     final backgroundColor = ThemeHolder.of(context).card;
 
     return ClickableCard(
-      onTap: () {},
+      onTap: () {
+        onTap.call(parameter);
+      },
       borderRadius: const BorderRadius.all(Radius.circular(10)),
       cardColor: backgroundColor,
       splashColor: ThemeHolder.of(context).secondary1,

@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
+import 'package:sport_stats_live/core/widgets/dialog/dialog.dart';
 import 'package:sport_stats_live/core/widgets/stroke_flat_button/stroke_flat_button.dart';
+import 'package:sport_stats_live/features/configuration/domain/bloc/parameters/bloc.dart';
 import 'package:sport_stats_live/features/configuration/domain/configuration.dart';
 import 'package:sport_stats_live/features/configuration/domain/parameter.dart';
 import 'package:sport_stats_live/features/screen_configuration/presentation/widgets/configuration/card.dart';
 import 'package:sport_stats_live/features/screen_configuration/presentation/widgets/parameter/parameters_card.dart';
+import 'package:sport_stats_live/features/screen_dialog_parameter_new/presentation/dialog/dialog_new_parameter.dart';
 
 class ConfigurationsListView extends StatelessWidget {
   final List<Configuration> configurations;
@@ -68,7 +72,7 @@ class ConfigurationsListView extends StatelessWidget {
         // // Параметры;
         const SliverToBoxAdapter(
           child: _Title(
-            title: "Наборы параметров",
+            title: "Параметры",
           ),
         ),
         SliverToBoxAdapter(
@@ -76,7 +80,9 @@ class ConfigurationsListView extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: StrokeFlatButton(
               text: 'Новый параметр',
-              onPress: () {},
+              onPress: () {
+                showParameterDialog(context, null);
+              },
               height: 60,
               color: ThemeHolder.of(context).secondary1,
             ),
@@ -94,7 +100,14 @@ class ConfigurationsListView extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             sliver: SliverGrid(
               delegate: SliverChildListDelegate(
-                parameters.map((e) => ParameterCard(parameter: e)).toList(),
+                parameters
+                    .map((e) => ParameterCard(
+                          parameter: e,
+                          onTap: (Parameter value) {
+                            showParameterDialog(context, value);
+                          },
+                        ))
+                    .toList(),
               ),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
@@ -110,6 +123,24 @@ class ConfigurationsListView extends StatelessWidget {
               child: _EmptyViewTitle(
                   title: parametersMessage ?? "Параметров нет")),
       ],
+    );
+  }
+
+  Future<void> showParameterDialog(BuildContext context, Parameter? parameter) {
+    return showDialog(
+      context: context,
+      builder: (builderContext) {
+        final width = MediaQuery.of(context).size.height;
+        return AppDialog(
+          child: SizedBox(
+            width: width,
+            child: ParameterEditDialog.view(
+              parameterBloc: BlocProvider.of<ParameterBloc>(context),
+              parameter: parameter,
+            ),
+          ),
+        );
+      },
     );
   }
 }
