@@ -3,43 +3,43 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 import 'package:sport_stats_live/core/widgets/logo/logo.dart';
 import 'package:sport_stats_live/core/widgets/score_counter.dart';
-import 'package:sport_stats_live/features/match/domain/entity/attribute.dart';
+import 'package:sport_stats_live/features/match/domain/entity/match.dart';
 import 'package:sport_stats_live/features/screen_match/domain/bloc/bloc.dart';
 import 'package:sport_stats_live/features/screen_match/domain/bloc/event.dart';
 import 'package:sport_stats_live/features/screen_match/presentation_new/widget/double_button.dart';
+import 'package:sport_stats_live/features/screen_match_list/presentation/hero_tags.dart';
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 
 class ScoreTable extends StatelessWidget {
   const ScoreTable({
     Key? key,
-    required this.scoreAttribute,
-    required this.hostTeam,
-    required this.guestTeam,
+    required this.match,
   }) : super(key: key);
 
-  final Attribute scoreAttribute;
-  final Team hostTeam;
-  final Team guestTeam;
+  final Match match;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: _HostHalf(
-            score: scoreAttribute.host,
-            team: hostTeam,
-            hostStatus: HostStatus.host,
+    return Hero(
+      tag: "${HeroTags.background}${match.id}",
+      child: Row(
+        children: [
+          Expanded(
+            child: _HostHalf(
+              score: match.score.host,
+              team: match.host,
+              hostStatus: HostStatus.host,
+            ),
           ),
-        ),
-        Expanded(
-          child: _HostHalf(
-            team: guestTeam,
-            score: scoreAttribute.guest,
-            hostStatus: HostStatus.guest,
+          Expanded(
+            child: _HostHalf(
+              team: match.guest,
+              score: match.score.guest,
+              hostStatus: HostStatus.guest,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

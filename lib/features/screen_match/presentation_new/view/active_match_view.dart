@@ -31,11 +31,7 @@ class ActiveMatchView extends StatelessWidget {
           body: CustomScrollView(
             slivers: [
               SliverToBoxAdapter(
-                child: ScoreTable(
-                  hostTeam: match.host,
-                  guestTeam: match.guest,
-                  scoreAttribute: match.score,
-                ),
+                child: ScoreTable(match: match),
               ),
               const SliverPadding(padding: EdgeInsets.only(top: 7)),
               SliverList(
