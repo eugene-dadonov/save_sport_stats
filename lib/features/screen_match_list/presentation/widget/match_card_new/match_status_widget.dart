@@ -21,8 +21,6 @@ class MatchStatusWidget extends StatelessWidget {
         return const _NotStartedStatusWidget();
       case Status.canceled:
         return const _CancelledStatusWidget();
-      case Status.unknown:
-        return const _UnknownStatusWidget();
     }
   }
 }
@@ -109,24 +107,6 @@ class _CancelledStatusWidget extends StatelessWidget {
         style: ThemeHolder.of(context)
             .textStyle
             .h5(color: ThemeHolder.of(context).warning),
-      ),
-    );
-  }
-}
-
-class _UnknownStatusWidget extends StatelessWidget {
-  const _UnknownStatusWidget({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return _StatusCard(
-      cardColor: ThemeHolder.of(context).teamsColor.metallic,
-      child: Text(
-        "неизвестно",
-        textAlign: TextAlign.center,
-        style: ThemeHolder.of(context)
-            .textStyle
-            .h5(color: ThemeHolder.of(context).teamsColor.darkSlate),
       ),
     );
   }

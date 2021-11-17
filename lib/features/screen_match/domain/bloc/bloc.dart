@@ -51,6 +51,10 @@ class MatchScreenBloc extends Bloc<MatchScreenEvent, MatchScreenState> {
 
         matchBloc.add(UpdateMatch(updatedMatch));
         yield OnMatch(match: updatedMatch);
+      } else if (event is UpdateStatusEvent) {
+        Match updatedMatch = currentMatch.copyWith(status: event.status);
+        matchBloc.add(UpdateMatch(updatedMatch));
+        yield OnMatch(match: updatedMatch);
       }
     } on NoSuchMatch {
       yield OnError("Ошибка! Матч не найден!");
