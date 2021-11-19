@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:sport_stats_live/core/design/logos/sport_logo.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 enum Sport {
   football,
@@ -10,7 +12,6 @@ enum Sport {
   baseball,
   iceHockey,
   other,
-  unknown,
 }
 
 extension SportLogoExtension on Sport {
@@ -34,33 +35,29 @@ extension SportLogoExtension on Sport {
         return SportLogo.iceHockey;
       case Sport.other:
         return SportLogo.other;
-      case Sport.unknown:
-        return SportLogo.unknown;
     }
   }
 
-  String toSportName() {
+  String toSportName(BuildContext context) {
     switch (this) {
       case Sport.football:
-        return "Футбол";
+        return AppLocalizations.of(context)!.sportFootball;
       case Sport.cricket:
-        return "Крикет";
+        return AppLocalizations.of(context)!.sportCricket;
       case Sport.fieldHockey:
-        return "Хоккей на траве";
+        return AppLocalizations.of(context)!.sportIceHockey;
       case Sport.basketball:
-        return "Баскетбол";
+        return AppLocalizations.of(context)!.sportBasketball;
       case Sport.volleyball:
-        return "Воллейбол";
+        return AppLocalizations.of(context)!.sportVolleyball;
       case Sport.rugby:
-        return "Регби";
+        return AppLocalizations.of(context)!.sportRugby;
       case Sport.baseball:
-        return "Бейсбол";
+        return AppLocalizations.of(context)!.sportBaseball;
       case Sport.iceHockey:
-        return "Хоккей на льду";
+        return AppLocalizations.of(context)!.sportIceHockey;
       case Sport.other:
-        return "Другое";
-      case Sport.unknown:
-        return "Неизвестно";
+        return AppLocalizations.of(context)!.sportOther;
     }
   }
 }

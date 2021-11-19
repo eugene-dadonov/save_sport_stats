@@ -22,7 +22,7 @@ class TeamConverter {
       logo: logo ?? Logo.shield1,
       teamColor: teamColor ?? TeamColor.gunMetalGrey,
       city: teamModel.city,
-      sport: sport ?? Sport.unknown,
+      sport: sport ?? Sport.other,
     );
   }
 

@@ -5,6 +5,7 @@ import 'package:sport_stats_live/core/theming/data/themes/themes.dart';
 import 'package:sport_stats_live/core/theming/domain/bloc/bloc.dart';
 import 'package:sport_stats_live/core/theming/domain/bloc/event.dart';
 import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -24,7 +25,7 @@ class SettingsScreen extends StatelessWidget {
                   borderRadius: const BorderRadius.all(Radius.circular(10))),
               child: ListTile(
                 title: Text(
-                  'Темная тема',
+                    AppLocalizations.of(context)!.titleDarkTheme,
                   style: ThemeHolder.of(context)
                       .textStyle
                       .h3(color: main),
