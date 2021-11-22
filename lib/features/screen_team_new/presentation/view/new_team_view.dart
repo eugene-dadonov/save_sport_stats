@@ -8,8 +8,8 @@ import 'package:sport_stats_live/core/widgets/app_icon.dart';
 import 'package:sport_stats_live/core/widgets/dialog/dialog.dart';
 import 'package:sport_stats_live/core/widgets/input_view/input_layout.dart';
 import 'package:sport_stats_live/core/widgets/logo/logo.dart';
+import 'package:sport_stats_live/core/widgets/menu_button.dart';
 import 'package:sport_stats_live/core/widgets/sport_selector/sport_selector_drop.dart';
-import 'package:sport_stats_live/features/screen_menu/presentation/widget/menu_button.dart';
 import 'package:sport_stats_live/features/screen_team_new/domain/bloc/bloc.dart';
 import 'package:sport_stats_live/features/screen_team_new/domain/bloc/event.dart';
 import 'package:sport_stats_live/features/screen_team_new/presentation/dialog/delete_view.dart';
@@ -19,6 +19,7 @@ import 'package:sport_stats_live/features/screen_team_new/presentation/widgets/d
 import 'package:sport_stats_live/features/team/domain/bloc/bloc.dart';
 import 'package:sport_stats_live/features/team/domain/bloc/event.dart';
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 final _formKey = GlobalKey();
 
@@ -58,9 +59,9 @@ class TeamEditView extends StatelessWidget {
                 child: _TopBar(title: title, team: team),
               ),
             ),
-            const SliverToBoxAdapter(
+            SliverToBoxAdapter(
               child: _Title(
-                name: 'Вид спорта',
+                name: AppLocalizations.of(context)!.titleSport,
               ),
             ),
             SliverToBoxAdapter(
@@ -75,17 +76,17 @@ class TeamEditView extends StatelessWidget {
                 ),
               ),
             ),
-            const SliverToBoxAdapter(
+            SliverToBoxAdapter(
               child: Padding(
-                padding: EdgeInsets.only(top: 10),
+                padding: const EdgeInsets.only(top: 10),
                 child: _Title(
-                  name: 'Название',
+                  name: AppLocalizations.of(context)!.titleName,
                 ),
               ),
             ),
             _buildInputElement(
                 context: context,
-                hint: 'Введите название',
+                hint: AppLocalizations.of(context)!.hintEnterName,
                 text: team.name,
                 onValueChanged: (newName) {
                   BlocProvider.of<TeamEditBloc>(context)
@@ -94,15 +95,15 @@ class TeamEditView extends StatelessWidget {
                 validator: (value) {
                   return isNotNullOrEmpty(value);
                 }),
-            const SliverToBoxAdapter(
+            SliverToBoxAdapter(
               child: _Title(
-                name: 'Город',
+                name: AppLocalizations.of(context)!.titleCity,
               ),
             ),
             _buildInputElement(
                 context: context,
                 text: team.city,
-                hint: 'Введите город',
+                hint: AppLocalizations.of(context)!.hintEnterCity,
                 onValueChanged: (newCity) {
                   BlocProvider.of<TeamEditBloc>(context)
                       .add(UpdateCityEvent(newCity));
@@ -116,13 +117,17 @@ class TeamEditView extends StatelessWidget {
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
+                  children: [
                     Expanded(
-                      child: _Title(name: 'Эмблема'),
+                      child: _Title(
+                        name: AppLocalizations.of(context)!.titleLogo,
+                      ),
                     ),
-                    SizedBox(width: 24),
+                    const SizedBox(width: 24),
                     Expanded(
-                      child: _Title(name: 'Цвет'),
+                      child: _Title(
+                        name: AppLocalizations.of(context)!.titleColor,
+                      ),
                     ),
                   ],
                 ),
@@ -373,7 +378,7 @@ class _OperationButtons extends StatelessWidget {
     return Column(
       children: [
         MenuButton(
-            title: 'Сохранить'.toUpperCase(),
+            title: AppLocalizations.of(context)!.buttonSave,
             color: ThemeHolder.of(context).main,
             onPress: () {
               if ((_formKey.currentState as FormState).validate()) {
@@ -383,7 +388,7 @@ class _OperationButtons extends StatelessWidget {
             }),
         const SizedBox(height: 12),
         MenuButton(
-            title: 'Отмена'.toUpperCase(),
+            title: AppLocalizations.of(context)!.buttonCancel,
             color: ThemeHolder.of(context).warning,
             onPress: () {
               Navigator.of(context).pop();

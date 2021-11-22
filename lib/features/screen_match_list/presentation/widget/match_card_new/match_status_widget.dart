@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 import 'package:sport_stats_live/features/match/domain/entity/match.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MatchStatusWidget extends StatelessWidget {
   final Status status;
@@ -21,8 +22,6 @@ class MatchStatusWidget extends StatelessWidget {
         return const _NotStartedStatusWidget();
       case Status.canceled:
         return const _CancelledStatusWidget();
-      case Status.unknown:
-        return const _UnknownStatusWidget();
     }
   }
 }
@@ -42,7 +41,7 @@ class _InProcessStatusWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            "матч идет",
+            Status.inProcess.toName(context),
             style: ThemeHolder.of(context).textStyle.h5(color: textColor),
           ),
           const SizedBox(width: 4),
@@ -68,7 +67,7 @@ class _FinishedStatusWidget extends StatelessWidget {
     return _StatusCard(
       cardColor: ThemeHolder.of(context).card,
       child: Text(
-        "закончен",
+        Status.finished.toName(context),
         textAlign: TextAlign.center,
         style: ThemeHolder.of(context)
             .textStyle
@@ -86,7 +85,7 @@ class _NotStartedStatusWidget extends StatelessWidget {
     return _StatusCard(
       cardColor: ThemeHolder.of(context).card,
       child: Text(
-        "не начат",
+        Status.notStarted.toName(context),
         textAlign: TextAlign.center,
         style: ThemeHolder.of(context)
             .textStyle
@@ -104,7 +103,7 @@ class _CancelledStatusWidget extends StatelessWidget {
     return _StatusCard(
       cardColor: ThemeHolder.of(context).attention,
       child: Text(
-        "отменен",
+        Status.canceled.toName(context),
         textAlign: TextAlign.center,
         style: ThemeHolder.of(context)
             .textStyle
@@ -155,5 +154,20 @@ class _StatusCard extends StatelessWidget {
         color: cardColor,
       ),
     );
+  }
+}
+
+extension StatusX on Status {
+  String toName(BuildContext context) {
+    switch(this) {
+      case Status.inProcess:
+        return AppLocalizations.of(context)!.statusInProgress;
+    case Status.finished:
+      return AppLocalizations.of(context)!.statusFinished;
+      case Status.notStarted:
+        return AppLocalizations.of(context)!.statusNotStarted;
+      case Status.canceled:
+        return AppLocalizations.of(context)!.statusCancelled;
+    }
   }
 }

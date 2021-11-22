@@ -26,7 +26,7 @@ class Team {
         city = "",
         teamColor = TeamColor.gunMetalGrey,
         logo = Logo.round2,
-        sport = Sport.unknown;
+        sport = Sport.other;
 }
 
 enum HostStatus {

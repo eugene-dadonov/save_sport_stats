@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
-import 'package:sport_stats_live/features/screen_menu/presentation/widget/menu_button.dart';
+import 'package:sport_stats_live/core/widgets/menu_button.dart';
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 
 class DeleteDialog extends StatelessWidget {

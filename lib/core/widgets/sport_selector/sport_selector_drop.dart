@@ -63,7 +63,7 @@ class _SportSelectorDropdownState extends State<SportSelectorDropdown> {
                   ),
                 ).toList(),
             onChanged: (sport) {
-              currentSport = sport ?? Sport.unknown;
+              currentSport = sport ?? Sport.other;
               widget.onSportChanged.call(sport!);
             },
             isDense: false,
@@ -133,7 +133,7 @@ class SportSelectorItem extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(right: 16),
           child: Text(
-            sport.toSportName(),
+            sport.toSportName(context),
             style: ThemeHolder.of(context).textStyle.h3(color: foregroundColor),
           ),
         ),

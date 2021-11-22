@@ -37,9 +37,9 @@ class MatchConverter {
       guest: guest,
       attributes: attributes,
       date: dateTime,
-      status: status ?? Status.unknown,
+      status: status ?? Status.notStarted,
       score: score,
-      sport: sport ?? Sport.unknown,
+      sport: sport ?? Sport.other,
     );
   }
 
