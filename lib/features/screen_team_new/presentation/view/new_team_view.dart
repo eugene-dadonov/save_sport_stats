@@ -23,11 +23,12 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 final _formKey = GlobalKey();
 
-String? isNotNullOrEmpty(String? value) {
+String? isNotNullOrEmpty(BuildContext context, String? value) {
   if (value == null || value.length == 0) {
-    return "Поле должно быть заполнено!";
+    return AppLocalizations.of(context)!.errorFieldMustBeFilled;
   }
 }
+
 
 class TeamEditView extends StatelessWidget {
   final Team team;
@@ -93,7 +94,7 @@ class TeamEditView extends StatelessWidget {
                       .add(UpdateNameEvent(newName));
                 },
                 validator: (value) {
-                  return isNotNullOrEmpty(value);
+                  return isNotNullOrEmpty(context, value);
                 }),
             SliverToBoxAdapter(
               child: _Title(
@@ -109,7 +110,7 @@ class TeamEditView extends StatelessWidget {
                       .add(UpdateCityEvent(newCity));
                 },
                 validator: (value) {
-                  return isNotNullOrEmpty(value);
+                  return isNotNullOrEmpty(context, value);
                 }),
             SliverToBoxAdapter(
               child: Padding(
@@ -203,7 +204,7 @@ class _TopBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final title = this.title ?? "Новая команда";
+    final title = this.title ?? AppLocalizations.of(context)!.titleNewTeam;
     final isNewTeam = title == null;
 
     return Row(

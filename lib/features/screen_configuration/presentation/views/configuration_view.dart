@@ -9,6 +9,7 @@ import 'package:sport_stats_live/features/configuration/domain/parameter.dart';
 import 'package:sport_stats_live/features/screen_configuration/presentation/widgets/configuration/card.dart';
 import 'package:sport_stats_live/features/screen_configuration/presentation/widgets/parameter/parameters_card.dart';
 import 'package:sport_stats_live/features/screen_dialog_parameter_new/presentation/dialog/dialog_new_parameter.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ConfigurationsListView extends StatelessWidget {
   final List<Configuration> configurations;
@@ -26,19 +27,18 @@ class ConfigurationsListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textColor = ThemeHolder.of(context).main;
     return CustomScrollView(
       slivers: [
-        const SliverToBoxAdapter(
+        SliverToBoxAdapter(
           child: _Title(
-            title: "Наборы параметров",
+            title: AppLocalizations.of(context)!.titleParameters,
           ),
         ),
         SliverToBoxAdapter(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: StrokeFlatButton(
-              text: 'Новый набор',
+              text: AppLocalizations.of(context)!.titleNewConfiguration,
               onPress: () {},
               height: 60,
               color: ThemeHolder.of(context).secondary1,
@@ -67,19 +67,20 @@ class ConfigurationsListView extends StatelessWidget {
         if (configurations.isEmpty && configurationsMessage == null)
           SliverToBoxAdapter(
               child: _EmptyViewTitle(
-                  title: configurationsMessage ?? "Наборов параметров нет")),
+                  title: configurationsMessage ??
+                      AppLocalizations.of(context)!.messageNoConfigurations)),
 
         // // Параметры;
-        const SliverToBoxAdapter(
+        SliverToBoxAdapter(
           child: _Title(
-            title: "Параметры",
+            title: AppLocalizations.of(context)!.titleParameters,
           ),
         ),
         SliverToBoxAdapter(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: StrokeFlatButton(
-              text: 'Новый параметр',
+              text: AppLocalizations.of(context)!.titleNewParameter,
               onPress: () {
                 showParameterDialog(context, null);
               },
@@ -121,7 +122,7 @@ class ConfigurationsListView extends StatelessWidget {
         if (parameters.isEmpty && parametersMessage == null)
           SliverToBoxAdapter(
               child: _EmptyViewTitle(
-                  title: parametersMessage ?? "Параметров нет")),
+                  title: parametersMessage ?? AppLocalizations.of(context)!.messageNoParameters)),
       ],
     );
   }

@@ -2,18 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 import 'package:sport_stats_live/core/widgets/input_view/input_layout.dart';
+import 'package:sport_stats_live/core/widgets/menu_button.dart';
 import 'package:sport_stats_live/features/configuration/domain/bloc/parameters/bloc.dart';
 import 'package:sport_stats_live/features/configuration/domain/parameter.dart';
 import 'package:sport_stats_live/features/screen_dialog_parameter_new/bloc/bloc.dart';
 import 'package:sport_stats_live/features/screen_dialog_parameter_new/bloc/event.dart';
 import 'package:sport_stats_live/features/screen_dialog_parameter_new/bloc/state.dart';
-import 'package:sport_stats_live/features/screen_menu/presentation/widget/menu_button.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 final _titleKey = GlobalKey();
 
-String? isNotNullOrEmpty(String? value) {
+String? isNotNullOrEmpty(BuildContext context, String? value) {
   if (value == null || value.length == 0) {
-    return "Поле должно быть заполнено!";
+    return AppLocalizations.of(context)!.errorFieldMustBeFilled;
   }
 }
 
@@ -59,7 +60,7 @@ class ParameterEditDialog extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
-                "Произошла ошибка при загрузке параметра",
+                AppLocalizations.of(context)!.errorWhileLoadingParameter,
                 textAlign: TextAlign.center,
                 style:
                     ThemeHolder.of(context).textStyle.h3(color: warningColor),
@@ -97,15 +98,19 @@ class DialogView extends StatelessWidget {
         child: Column(
           children: [
             Text(
-              isNewParameter ? "Новый параметр" : parameter.name,
+              isNewParameter
+                  ? AppLocalizations.of(context)!.titleNewParameter
+                  : parameter.name,
               style: ThemeHolder.of(context).textStyle.h3(color: mainColor),
             ),
-            const Padding(
-              padding: EdgeInsets.all(8.0),
+            const SizedBox(height: 12),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
               child: _Title(
-                name: 'Название',
+                name: AppLocalizations.of(context)!.titleName,
               ),
             ),
+            const SizedBox(height: 12),
             Form(
               key: _titleKey,
               child: InputView(
@@ -113,10 +118,12 @@ class DialogView extends StatelessWidget {
                 textColor: mainColor,
                 borderColor: mainColor,
                 hintColor: secondaryColor,
-                hint: 'название параметра',
+                hint: AppLocalizations.of(context)!.hintParameterName,
                 text: parameter.name,
                 maxLength: 30,
-                validator: isNotNullOrEmpty,
+                validator: (value) {
+                  return isNotNullOrEmpty(context, value);
+                },
                 onValueChanged: (value) {
                   BlocProvider.of<ParameterEditBloc>(context)
                       .add(UpdateTitle(title: value));
@@ -124,14 +131,15 @@ class DialogView extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              height: 12,
+              height: 24,
             ),
+
             Row(
               mainAxisSize: MainAxisSize.max,
               children: [
                 Expanded(
                   child: MenuButton(
-                    title: 'Сохранить',
+                    title: AppLocalizations.of(context)!.buttonSave,
                     onPress: () {
                       if ((_titleKey.currentState as FormState).validate()) {
                         BlocProvider.of<ParameterEditBloc>(context)
@@ -144,7 +152,7 @@ class DialogView extends StatelessWidget {
                 ),
                 Expanded(
                   child: MenuButton(
-                    title: 'Отмена',
+                    title: AppLocalizations.of(context)!.buttonCancel,
                     onPress: () {
                       Navigator.of(context).pop();
                     },

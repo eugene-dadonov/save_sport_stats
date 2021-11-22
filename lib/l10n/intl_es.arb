@@ -1,6 +1,6 @@
 {
     "@@locale": "es",
-    "@@last_modified": "2021-11-22T13:47:24+00:00",
+    "@@last_modified": "2021-11-22T17:46:39+00:00",
     "sportFootball": "Fútbol",
     "sportVolleyball": "Vóleibol",
     "sportBasketball": "Baloncesto",
@@ -45,5 +45,20 @@
     "messageNoTeams": "Aún no tienes equipos agregados",
     "messageNoMatches": "Aún no has agregado coincidencias",
     "messageNoParameters": "Aún no ha agregado parámetros.",
-    "messageNoConfigurations": "Aún no tienes ninguna configuración agregada"
+    "messageNoConfigurations": "Aún no tienes ninguna configuración agregada",
+    "errorWhileLoadingParameter": "Se produjo un error al cargar el parámetro",
+    "errorWhileLoadingConfigurations": "Se produjo un error al cargar la configuración",
+    "errorWhileLoadingTeam": "Se produjo un error al cargar el equipo",
+    "errorWhileLoadingMatch": "Se produjo un error al cargar el partido",
+    "hintName": "Nombre",
+    "hintParameterName": " Nombre del parámetro",
+
+    "deleteDialogMessage" : "El equipo  {teamName} será eliminado.\n¿Está seguro?",
+    "@deleteDialogMessage" : {
+        "placeholders": {
+            "teamName": {}
+        }
+    },
+
+
 }

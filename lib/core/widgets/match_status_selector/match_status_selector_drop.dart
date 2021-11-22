@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:sport_stats_live/core/design/logos/icons.dart';
 import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 import 'package:sport_stats_live/core/widgets/app_icon.dart';
+import 'package:sport_stats_live/core/widgets/mappers/status_mapper.dart';
 import 'package:sport_stats_live/features/match/domain/bloc/state.dart';
 import 'package:sport_stats_live/features/match/domain/entity/match.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SportSelectorDropdown extends StatefulWidget {
   const SportSelectorDropdown({
@@ -123,21 +125,21 @@ class MatchStatusSelectorItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Text(
-            status.toTitle(),
+            status.toName(context),
             style: ThemeHolder.of(context).textStyle.h3(color: foregroundColor),
           ),
-          if(status == Status.inProcess)
-          Padding(
-            padding: const EdgeInsets.all(3.0),
-            child: Container(
-              height: 10,
-              width: 10,
-              decoration: BoxDecoration(
-                color: ThemeHolder.of(context).warning,
-                borderRadius: const BorderRadius.all(Radius.circular(20)),
+          if (status == Status.inProcess)
+            Padding(
+              padding: const EdgeInsets.all(3.0),
+              child: Container(
+                height: 10,
+                width: 10,
+                decoration: BoxDecoration(
+                  color: ThemeHolder.of(context).warning,
+                  borderRadius: const BorderRadius.all(Radius.circular(20)),
+                ),
               ),
             ),
-          ),
         ],
       ),
     );

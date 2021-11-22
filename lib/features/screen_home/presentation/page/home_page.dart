@@ -15,6 +15,7 @@ import 'package:sport_stats_live/features/screen_match_list/presentation/page/ma
 import 'package:sport_stats_live/features/screen_settings/presentation/page.dart';
 import 'package:sport_stats_live/features/screen_teams_list/presentation/page/team_list_page.dart';
 import 'package:sport_stats_live/features/team/domain/bloc/bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -81,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
           elevation: 2,
           shadowColor: ThemeHolder.of(context).cardShadow,
           title: Text(
-            "Матчи",
+            getTitle(context, appTab),
             style: ThemeHolder.of(context).textStyle.h2(color: textColor),
           ),
           leading: const _AppLogo(),
@@ -93,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
           elevation: 2,
           shadowColor: ThemeHolder.of(context).cardShadow,
           title: Text(
-            "Команды",
+            getTitle(context, appTab),
             style: ThemeHolder.of(context).textStyle.h2(color: textColor),
           ),
           leading: const _AppLogo(),
@@ -105,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
           elevation: 2,
           shadowColor: ThemeHolder.of(context).cardShadow,
           title: Text(
-            "Параметры",
+            getTitle(context, appTab),
             style: ThemeHolder.of(context).textStyle.h2(color: textColor),
           ),
           leading: const _AppLogo(),
@@ -117,7 +118,7 @@ class _HomeScreenState extends State<HomeScreen> {
           elevation: 2,
           shadowColor: ThemeHolder.of(context).cardShadow,
           title: Text(
-            "Настройки",
+            getTitle(context, appTab),
             style: ThemeHolder.of(context).textStyle.h2(color: textColor),
           ),
           leading: const _AppLogo(),
@@ -139,6 +140,19 @@ class _AppLogo extends StatelessWidget {
         height: 50,
       ),
     );
+  }
+}
+
+String getTitle(BuildContext context, AppTab appTab) {
+  switch (appTab) {
+    case AppTab.matches:
+      return AppLocalizations.of(context)!.titleMatches;
+    case AppTab.teams:
+      return AppLocalizations.of(context)!.titleTeams;
+    case AppTab.configuration:
+      return AppLocalizations.of(context)!.titleParameters;
+    case AppTab.settings:
+      return AppLocalizations.of(context)!.titleSettings;
   }
 }
 

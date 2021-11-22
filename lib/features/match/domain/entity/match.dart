@@ -49,18 +49,3 @@ enum Status {
   notStarted,
   canceled,
 }
-
-extension MatchStatusX on Status {
-  String toTitle() {
-    switch (this) {
-      case Status.inProcess:
-        return "матч идет";
-      case Status.finished:
-        return "закончен";
-      case Status.notStarted:
-        return "не начат";
-      case Status.canceled:
-        return "отменен";
-    }
-  }
-}
