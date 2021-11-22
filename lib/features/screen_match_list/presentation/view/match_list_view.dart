@@ -6,6 +6,7 @@ import 'package:sport_stats_live/features/match/domain/entity/match.dart';
 import 'package:sport_stats_live/features/screen_match_list/domain/bloc.dart';
 import 'package:sport_stats_live/features/screen_match_list/domain/event.dart';
 import 'package:sport_stats_live/features/screen_match_list/presentation/widget/match_card_new/match_card_new.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MatchListView extends StatelessWidget {
   final List<Match> matches;
@@ -24,7 +25,7 @@ class MatchListView extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: StrokeFlatButton(
-                text: 'Начать новый матч',
+                text: AppLocalizations.of(context)!.buttonNewMatch,
                 onPress: () {},
                 height: 100,
                 color: ThemeHolder.of(context).secondary1,

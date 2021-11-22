@@ -3,6 +3,7 @@ import 'package:sport_stats_live/core/design/logos/icons.dart';
 import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 import 'package:sport_stats_live/core/widgets/app_icon.dart';
 import 'package:sport_stats_live/features/screen_home/domain/bloc/state.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TabSelector extends StatelessWidget {
   final AppTab activeTab;
@@ -36,22 +37,22 @@ class TabSelector extends StatelessWidget {
             color: iconColor,
             height: 35,
           ),
-          label: getTitle(tab),
+          label: getTitle(context, tab),
         );
       }).toList(),
     );
   }
 
-  String getTitle(AppTab appTab) {
+  String getTitle(BuildContext context, AppTab appTab) {
     switch (appTab) {
       case AppTab.matches:
-        return "матчи";
+        return AppLocalizations.of(context)!.titleMatches;
       case AppTab.teams:
-        return "команды";
+        return AppLocalizations.of(context)!.titleTeams;
       case AppTab.configuration:
-        return "конфигурация";
+        return AppLocalizations.of(context)!.titleParameters;
       case AppTab.settings:
-        return "настройки";
+        return AppLocalizations.of(context)!.titleSettings;
     }
   }
 }

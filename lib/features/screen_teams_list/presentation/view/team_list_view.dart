@@ -4,6 +4,7 @@ import 'package:sport_stats_live/core/widgets/stroke_flat_button/stroke_flat_but
 import 'package:sport_stats_live/features/screen_teams_list/presentation/widget/team_card.dart';
 import 'package:sport_stats_live/features/screen_teams_list/presentation/widget/team_card_new.dart';
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TeamListView extends StatelessWidget {
   const TeamListView({
@@ -29,7 +30,7 @@ class TeamListView extends StatelessWidget {
               right: 16,
             ),
             child: StrokeFlatButton(
-              text: 'Новая команда',
+              text: AppLocalizations.of(context)!.buttonNewTeam,
               onPress: () {
                 onNewTeamClicked.call();
               },

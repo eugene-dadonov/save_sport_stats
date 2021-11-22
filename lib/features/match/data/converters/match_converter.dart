@@ -39,7 +39,7 @@ class MatchConverter {
       date: dateTime,
       status: status ?? Status.notStarted,
       score: score,
-      sport: sport ?? Sport.unknown,
+      sport: sport ?? Sport.other,
     );
   }
 
