@@ -25,10 +25,8 @@ class SettingsScreen extends StatelessWidget {
                   borderRadius: const BorderRadius.all(Radius.circular(10))),
               child: ListTile(
                 title: Text(
-                    AppLocalizations.of(context)!.titleDarkTheme,
-                  style: ThemeHolder.of(context)
-                      .textStyle
-                      .h3(color: main),
+                  AppLocalizations.of(context)!.titleDarkTheme,
+                  style: ThemeHolder.of(context).textStyle.h3(color: main),
                 ),
                 trailing: Switch(
                   activeColor: ThemeHolder.of(context).main,

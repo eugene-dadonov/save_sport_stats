@@ -20,6 +20,7 @@ class MenuButton extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: InkWell(
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
         onTap: onPress,
         splashColor: color.withOpacity(0.2),
         highlightColor: color.withOpacity(0.1),

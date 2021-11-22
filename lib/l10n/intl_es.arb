@@ -1,6 +1,6 @@
 {
     "@@locale": "es",
-    "@@last_modified": "2021-11-19T22:39:07+00:00",
+    "@@last_modified": "2021-11-22T13:47:24+00:00",
     "sportFootball": "Fútbol",
     "sportVolleyball": "Vóleibol",
     "sportBasketball": "Baloncesto",
@@ -36,5 +36,14 @@
     "statusInProgress": "encendido",
     "statusFinished": "terminado",
     "statusCancelled": "cancelado",
-    "statusNotStarted": " no empezado"
+    "statusNotStarted": " no empezado",
+    "titleNewTeam": "Nuevo equipo",
+    "titleNewParameter": "Nuevo parámetro",
+    "titleNewConfiguration": "Nueva configuracion",
+    "titleNewMatch": "Nuevo partido",
+    "errorFieldMustBeFilled": "¡El campo de texto debe estar lleno!",
+    "messageNoTeams": "Aún no tienes equipos agregados",
+    "messageNoMatches": "Aún no has agregado coincidencias",
+    "messageNoParameters": "Aún no ha agregado parámetros.",
+    "messageNoConfigurations": "Aún no tienes ninguna configuración agregada"
 }

@@ -48,5 +48,4 @@ enum Status {
   finished,
   notStarted,
   canceled,
-  unknown,
 }

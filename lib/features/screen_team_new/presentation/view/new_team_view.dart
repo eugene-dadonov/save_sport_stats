@@ -8,8 +8,8 @@ import 'package:sport_stats_live/core/widgets/app_icon.dart';
 import 'package:sport_stats_live/core/widgets/dialog/dialog.dart';
 import 'package:sport_stats_live/core/widgets/input_view/input_layout.dart';
 import 'package:sport_stats_live/core/widgets/logo/logo.dart';
+import 'package:sport_stats_live/core/widgets/menu_button.dart';
 import 'package:sport_stats_live/core/widgets/sport_selector/sport_selector_drop.dart';
-import 'package:sport_stats_live/features/screen_menu/presentation/widget/menu_button.dart';
 import 'package:sport_stats_live/features/screen_team_new/domain/bloc/bloc.dart';
 import 'package:sport_stats_live/features/screen_team_new/domain/bloc/event.dart';
 import 'package:sport_stats_live/features/screen_team_new/presentation/dialog/delete_view.dart';
@@ -378,7 +378,7 @@ class _OperationButtons extends StatelessWidget {
     return Column(
       children: [
         MenuButton(
-            title: AppLocalizations.of(context)!.buttonSave.toUpperCase(),
+            title: AppLocalizations.of(context)!.buttonSave,
             color: ThemeHolder.of(context).main,
             onPress: () {
               if ((_formKey.currentState as FormState).validate()) {
@@ -388,7 +388,7 @@ class _OperationButtons extends StatelessWidget {
             }),
         const SizedBox(height: 12),
         MenuButton(
-            title: AppLocalizations.of(context)!.buttonCancel.toUpperCase(),
+            title: AppLocalizations.of(context)!.buttonCancel,
             color: ThemeHolder.of(context).warning,
             onPress: () {
               Navigator.of(context).pop();
