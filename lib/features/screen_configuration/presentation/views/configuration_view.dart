@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 import 'package:sport_stats_live/core/widgets/dialog/dialog.dart';
 import 'package:sport_stats_live/core/widgets/stroke_flat_button/stroke_flat_button.dart';
+import 'package:sport_stats_live/features/configuration/domain/bloc/configuration/bloc.dart';
 import 'package:sport_stats_live/features/configuration/domain/bloc/parameters/bloc.dart';
 import 'package:sport_stats_live/features/configuration/domain/configuration.dart';
 import 'package:sport_stats_live/features/configuration/domain/parameter.dart';
 import 'package:sport_stats_live/features/screen_configuration/presentation/widgets/configuration/card.dart';
 import 'package:sport_stats_live/features/screen_configuration/presentation/widgets/parameter/parameters_card.dart';
+import 'package:sport_stats_live/features/screen_dialog_configuration_edit/presentation/page/configuration_edit_page.dart';
 import 'package:sport_stats_live/features/screen_dialog_parameter_new/presentation/dialog/dialog_new_parameter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -39,7 +42,12 @@ class ConfigurationsListView extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: StrokeFlatButton(
               text: AppLocalizations.of(context)!.titleNewConfiguration,
-              onPress: () {},
+              onPress: () {
+                openConfigurationEditDialog(
+                  context: context,
+                  configuration: null,
+                );
+              },
               height: 60,
               color: ThemeHolder.of(context).secondary1,
             ),
@@ -122,7 +130,8 @@ class ConfigurationsListView extends StatelessWidget {
         if (parameters.isEmpty && parametersMessage == null)
           SliverToBoxAdapter(
               child: _EmptyViewTitle(
-                  title: parametersMessage ?? AppLocalizations.of(context)!.messageNoParameters)),
+                  title: parametersMessage ??
+                      AppLocalizations.of(context)!.messageNoParameters)),
       ],
     );
   }
@@ -140,6 +149,24 @@ class ConfigurationsListView extends StatelessWidget {
               parameter: parameter,
             ),
           ),
+        );
+      },
+    );
+  }
+
+  Future<T?> openConfigurationEditDialog<T>({
+    required BuildContext context,
+    Configuration? configuration,
+  }) {
+    return showCupertinoModalBottomSheet(
+      topRadius: const Radius.circular(30),
+      context: context,
+      expand: true,
+      builder: (BuildContext context) {
+        return ConfigurationEditPage.page(
+          configuration: configuration,
+          parameterBloc: BlocProvider.of<ParameterBloc>(context),
+          configurationBloc: BlocProvider.of<ConfigurationBloc>(context),
         );
       },
     );
