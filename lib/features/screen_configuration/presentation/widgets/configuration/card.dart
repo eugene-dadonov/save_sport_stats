@@ -9,10 +9,12 @@ import 'package:sport_stats_live/features/configuration/domain/sport.dart';
 
 class ConfigurationCard extends StatelessWidget {
   final Configuration configuration;
+  final ValueChanged<Configuration> onTap;
 
   const ConfigurationCard({
     Key? key,
     required this.configuration,
+    required this.onTap,
   }) : super(key: key);
 
   @override
@@ -22,7 +24,9 @@ class ConfigurationCard extends StatelessWidget {
     final secondaryColor = ThemeHolder.of(context).secondary1;
 
     return ClickableCard(
-      onTap: () {},
+      onTap: () {
+        onTap.call(configuration);
+      },
       borderRadius: const BorderRadius.all(Radius.circular(10)),
       cardColor: backgroundColor,
       splashColor: ThemeHolder.of(context).secondary1,

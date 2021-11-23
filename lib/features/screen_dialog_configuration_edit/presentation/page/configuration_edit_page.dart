@@ -48,16 +48,20 @@ class ConfigurationEditPage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: cardColor,
-      body: BlocConsumer<ConfigurationEditScreenBloc, ConfigurationEditScreenState>(
+      body: BlocConsumer<ConfigurationEditScreenBloc,
+          ConfigurationEditScreenState>(
         listenWhen: (_, newState) => newState is TeamSavedState,
         listener: (BuildContext context, state) {
           Navigator.of(context).pop();
         },
         builder: (context, state) {
-          if (state is LoadingState) {
+          if (state is LoadingView) {
             return Container(color: Colors.orange);
-          } else if (state is TeamState) {
-            return const ConfigurationEditView();
+          } else if (state is ConfigurationView) {
+            return ConfigurationEditView(
+              configuration: state.configuration,
+              isNewConfiguration: state.isNewConfiguration,
+            );
           } else {
             return Container(
               color: Colors.red,

@@ -68,6 +68,12 @@ class ConfigurationsListView extends StatelessWidget {
                     const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                 child: ConfigurationCard(
                   configuration: configurations[index],
+                  onTap: (value) {
+                    openConfigurationEditDialog(
+                      context: context,
+                      configuration: value,
+                    );
+                  },
                 ),
               );
             }, childCount: configurations.length),
