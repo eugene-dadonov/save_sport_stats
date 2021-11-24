@@ -10,6 +10,8 @@ enum AppIcons {
   settings,
   logo,
   forward,
+  more,
+  drag,
 }
 
 extension LogoExtensionX on AppIcons {

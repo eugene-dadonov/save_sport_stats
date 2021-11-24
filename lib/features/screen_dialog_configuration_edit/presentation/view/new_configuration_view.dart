@@ -11,8 +11,12 @@ import 'package:sport_stats_live/core/widgets/edit_widgets/edit_title.dart';
 import 'package:sport_stats_live/core/widgets/input_view/input_layout.dart';
 import 'package:sport_stats_live/core/widgets/logo/logo.dart';
 import 'package:sport_stats_live/core/widgets/menu_button.dart';
+import 'package:sport_stats_live/core/widgets/parameter_item/parameter_item.dart';
 import 'package:sport_stats_live/core/widgets/sport_selector/sport_selector_drop.dart';
+import 'package:sport_stats_live/features/configuration/domain/bloc/parameters/bloc.dart';
 import 'package:sport_stats_live/features/configuration/domain/configuration.dart';
+import 'package:sport_stats_live/features/configuration/domain/parameter.dart';
+import 'package:sport_stats_live/features/screen_dialog_parameters_get/presentation/dialog/dialog_parameters_get.dart';
 import 'package:sport_stats_live/features/screen_team_new/domain/bloc/bloc.dart';
 import 'package:sport_stats_live/features/screen_team_new/domain/bloc/event.dart';
 import 'package:sport_stats_live/features/screen_team_new/presentation/dialog/delete_view.dart';
@@ -84,6 +88,45 @@ class ConfigurationEditView extends StatelessWidget {
                 },
               ),
             ),
+            SliverToBoxAdapter(
+              child: EditTitle(
+                title: AppLocalizations.of(context)!.titleParameters,
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: Column(
+                children: [
+                  for (var item in configuration.parameters)
+                    ParameterItem(
+                      parameter: item,
+                    )
+                ],
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: MenuButton(
+                title: 'добавить новые параметры',
+                color: ThemeHolder.of(context).main,
+                onPress: () {
+                  print("Start");
+                  showDialog(
+                    context: context,
+                    builder: (builderContext) {
+                      final width = MediaQuery.of(context).size.height;
+                      return AppDialog(
+                        child: SizedBox(
+                          width: width,
+                          child: ParametersToReturn.view(
+                              parameterBloc:
+                                  BlocProvider.of<ParameterBloc>(context),
+                              activeParameters: configuration.parameters),
+                        ),
+                      );
+                    },
+                  ).then((value) => print(value));
+                },
+              ),
+            )
           ],
         ),
       ),

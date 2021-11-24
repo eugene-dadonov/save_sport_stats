@@ -27,7 +27,7 @@ class ParameterBloc extends Bloc<ParametersEvent, ParametersState> {
         yield ParametersState.updated(parameters: parameters);
       }
     } on NoSuchParameter {
-      yield ParametersState.error(message: "Параметр не найдена!");
+      yield ParametersState.error(message: "Параметр не найден!");
     } catch (e) {
       yield ParametersState.error(message: e.toString());
     }
