@@ -20,19 +20,25 @@ class ParameterModelAdapter extends TypeAdapter<ParameterModel> {
       id: fields[0] as String,
       name: fields[1] as String,
       isDeletable: fields[2] as bool,
+      sport: fields[3] as String,
+      standardParameter: fields[4] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, ParameterModel obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
       ..write(obj.name)
       ..writeByte(2)
-      ..write(obj.isDeletable);
+      ..write(obj.isDeletable)
+      ..writeByte(3)
+      ..write(obj.sport)
+      ..writeByte(4)
+      ..write(obj.standardParameter);
   }
 
   @override

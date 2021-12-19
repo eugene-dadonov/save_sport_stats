@@ -19,6 +19,7 @@ class MenuButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       color: Colors.transparent,
+      borderRadius: const BorderRadius.all(Radius.circular(10)),
       child: InkWell(
         borderRadius: const BorderRadius.all(Radius.circular(10)),
         onTap: onPress,
@@ -29,7 +30,7 @@ class MenuButton extends StatelessWidget {
           child: Center(
             child: Text(
               title,
-              style: ThemeHolder.of(context).textStyle.h1(color: color),
+              style: ThemeHolder.of(context).textStyle.h2(color: color),
             ),
           ),
         ),

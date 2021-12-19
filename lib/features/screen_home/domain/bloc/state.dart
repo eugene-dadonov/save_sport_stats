@@ -4,4 +4,3 @@ enum AppTab {
   configuration,
   settings,
 }
-

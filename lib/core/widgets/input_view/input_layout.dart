@@ -10,6 +10,7 @@ class InputView extends StatefulWidget {
   final Color textColor;
   final Color fillColor;
   final Color borderColor;
+  final int maxLength;
 
   const InputView({
     Key? key,
@@ -21,6 +22,7 @@ class InputView extends StatefulWidget {
     required this.textColor,
     required this.fillColor,
     required this.borderColor,
+    this.maxLength = 50,
   }) : super(key: key);
 
   @override
@@ -47,7 +49,7 @@ class _InputViewState extends State<InputView> {
       textAlign: TextAlign.center,
       onChanged: widget.onValueChanged,
       validator: widget.validator,
-      maxLength: 50,
+      maxLength: widget.maxLength,
       keyboardType: TextInputType.name,
       decoration: _buildDecoration(),
     );

@@ -7,16 +7,50 @@ import 'package:uuid/uuid.dart';
 
 class MatchGenerator {
   static List<Match> createDemoMatches() {
-
     final teams = TeamGenerator.generateTeams();
 
-    final par1 =
-        Parameter(id: const Uuid().v1(), name: "Голы", isDeletable: false);
-    final par2 = Parameter(id: const Uuid().v1(), name: "Удары");
-    final par3 = Parameter(id: const Uuid().v1(), name: "Удары в створ");
-    final par4 = Parameter(id: const Uuid().v1(), name: "Фолы");
-    final par5 = Parameter(id: const Uuid().v1(), name: "Ауты");
-    final par6 = Parameter(id: const Uuid().v1(), name: "Угловые");
+    final par1 = Parameter(
+      id: "score_parameter_id",
+      name: "Голы",
+      isEternal: true,
+      standardParameter: StandardParameter.scores,
+      sport: Sport.other,
+    );
+
+    final par2 = Parameter(
+      id: const Uuid().v1(),
+      name: "Удары",
+      standardParameter: StandardParameter.shots,
+      sport: Sport.other,
+    );
+
+    final par3 = Parameter(
+      id: const Uuid().v1(),
+      name: "Удары в створ",
+      standardParameter: StandardParameter.shotsInTarget,
+      sport: Sport.other,
+    );
+
+    final par4 = Parameter(
+      id: const Uuid().v1(),
+      name: "Фолы",
+      standardParameter: StandardParameter.fouls,
+      sport: Sport.other,
+    );
+
+    final par5 = Parameter(
+      id: const Uuid().v1(),
+      name: "Желтые карточки",
+      standardParameter: StandardParameter.cardsYellow,
+      sport: Sport.other,
+    );
+
+    final par6 = Parameter(
+      id: const Uuid().v1(),
+      name: "Угловые",
+      standardParameter: StandardParameter.corners,
+      sport: Sport.other,
+    );
 
     // Cчет
     final score1 = Attribute(parameter: par1, host: 3, guest: 1);

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 import 'package:sport_stats_live/core/widgets/menu_button.dart';
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DeleteDialog extends StatelessWidget {
   const DeleteDialog({
@@ -39,9 +40,9 @@ class DeleteDialog extends StatelessWidget {
                 height: 24,
               ),
               Text(
-                'Команда ${team.name} будет удалена.\nВы уверены?',
+                AppLocalizations.of(context)!.deleteDialogMessage(team.name),
                 textAlign: TextAlign.center,
-                style: ThemeHolder.of(context).textStyle.h3(
+                style: ThemeHolder.of(context).textStyle.h4(
                       color: ThemeHolder.of(context).main,
                     ),
               ),
@@ -53,14 +54,14 @@ class DeleteDialog extends StatelessWidget {
                 children: [
                   Expanded(
                     child: MenuButton(
-                      title: 'Отмена',
+                      title: AppLocalizations.of(context)!.buttonCancel,
                       onPress: onDecline,
                       color: ThemeHolder.of(context).main,
                     ),
                   ),
                   Expanded(
                     child: MenuButton(
-                      title: 'Удалить',
+                      title: AppLocalizations.of(context)!.buttonDelete,
                       onPress: onAccept,
                       color: ThemeHolder.of(context).warning,
                     ),

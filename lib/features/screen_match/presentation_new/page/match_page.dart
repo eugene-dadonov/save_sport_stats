@@ -47,32 +47,29 @@ class MatchRedesignedPage extends StatefulWidget {
 class _MatchRedesignedPageState extends State<MatchRedesignedPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: ThemeHolder.of(context).background1,
-      body: BlocProvider(
-        create: (BuildContext context) {
-          final event = widget.openActiveMatch
-              ? OpenActiveMatchEvent()
-              : OpenMatchEvent(matchId: widget.matchId ?? "");
+    return BlocProvider(
+      create: (BuildContext context) {
+        final event = widget.openActiveMatch
+            ? OpenActiveMatchEvent()
+            : OpenMatchEvent(matchId: widget.matchId ?? "");
 
-          return MatchScreenBloc(
-            matchRepository: context.read<MatchRepositoryImpl>(),
-            matchBloc: context.read<MatchBloc>(),
-          )..add(event);
-        },
-        child: BlocBuilder<MatchScreenBloc, MatchScreenState>(
-            builder: (BuildContext context, MatchScreenState state) {
-          if (state is OnMatch) {
-            return SafeArea(child: ActiveMatchView(match: state.match));
-          } else if (state is OnError) {
-            return Center(child: Text(state.message));
-          } else if (state is OnNoActiveMatch) {
-            return const Center(child: Text("Нет активного матча!"));
-          } else {
-            return const Center(child: Text("Что-то странное"));
-          }
-        }),
-      ),
+        return MatchScreenBloc(
+          matchRepository: context.read<MatchRepositoryImpl>(),
+          matchBloc: context.read<MatchBloc>(),
+        )..add(event);
+      },
+      child: BlocBuilder<MatchScreenBloc, MatchScreenState>(
+          builder: (BuildContext context, MatchScreenState state) {
+        if (state is OnMatch) {
+          return ActiveMatchView(match: state.match);
+        } else if (state is OnError) {
+          return Center(child: Text(state.message));
+        } else if (state is OnNoActiveMatch) {
+          return const Center(child: Text("Нет активного матча!"));
+        } else {
+          return const Center(child: Text("Что-то странное"));
+        }
+      }),
     );
   }
 }
