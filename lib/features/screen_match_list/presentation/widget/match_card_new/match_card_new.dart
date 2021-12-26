@@ -3,6 +3,7 @@ import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart
 import 'package:sport_stats_live/core/widgets/logo/logo.dart';
 import 'package:sport_stats_live/core/widgets/score_counter.dart';
 import 'package:sport_stats_live/features/match/domain/entity/match.dart';
+import 'package:sport_stats_live/features/screen_match_list/presentation/hero_tags.dart';
 import 'package:sport_stats_live/features/screen_match_list/presentation/widget/match_card_new/match_date_widget.dart';
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -27,30 +28,33 @@ class MatchCardNew extends StatelessWidget {
     final guestColor =
         ThemeHolder.of(context).fromTeamColor(match.guest.teamColor);
 
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
-          stops: const [0.5, 0],
-          colors: [hostColor, guestColor],
-        ),
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
-        boxShadow: [
-          BoxShadow(
-              color: ThemeHolder.of(context).cardShadow,
-              blurRadius: 6,
-              spreadRadius: 1),
-        ],
-      ),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          splashColor: ThemeHolder.of(context).card.withOpacity(0.1),
-          highlightColor: ThemeHolder.of(context).card.withOpacity(0.1),
+    return Hero(
+      tag: "${HeroTags.background}${match.id}",
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+            stops: const [0.5, 0],
+            colors: [hostColor, guestColor],
+          ),
           borderRadius: const BorderRadius.all(Radius.circular(10)),
-          onTap: callback,
-          child: _CardForeground(match: match),
+          boxShadow: [
+            BoxShadow(
+                color: ThemeHolder.of(context).cardShadow,
+                blurRadius: 6,
+                spreadRadius: 1),
+          ],
+        ),
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            splashColor: ThemeHolder.of(context).card.withOpacity(0.1),
+            highlightColor: ThemeHolder.of(context).card.withOpacity(0.1),
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
+            onTap: callback,
+            child: _CardForeground(match: match),
+          ),
         ),
       ),
     );

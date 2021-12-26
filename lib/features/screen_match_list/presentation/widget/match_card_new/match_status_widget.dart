@@ -113,24 +113,6 @@ class _CancelledStatusWidget extends StatelessWidget {
   }
 }
 
-class _UnknownStatusWidget extends StatelessWidget {
-  const _UnknownStatusWidget({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return _StatusCard(
-      cardColor: ThemeHolder.of(context).teamsColor.metallic,
-      child: Text(
-        "неизвестно",
-        textAlign: TextAlign.center,
-        style: ThemeHolder.of(context)
-            .textStyle
-            .h5(color: ThemeHolder.of(context).teamsColor.darkSlate),
-      ),
-    );
-  }
-}
-
 class _StatusCard extends StatelessWidget {
   final Color cardColor;
   final Widget child;

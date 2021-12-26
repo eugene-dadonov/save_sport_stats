@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:sport_stats_live/core/design/logos/icons.dart';
 import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 import 'package:sport_stats_live/core/widgets/app_icon.dart';
+import 'package:sport_stats_live/core/widgets/mappers/sport_mapper.dart';
 import 'package:sport_stats_live/features/configuration/domain/sport.dart';
 
 import '../sport_icon.dart';
@@ -133,7 +134,7 @@ class SportSelectorItem extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(right: 16),
           child: Text(
-            sport.toSportName(context),
+            sport.toName(context),
             style: ThemeHolder.of(context).textStyle.h3(color: foregroundColor),
           ),
         ),

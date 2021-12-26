@@ -1,3 +1,4 @@
+import 'package:sport_stats_live/core/theming/data/colors/colors_cian_light.dart';
 import 'package:sport_stats_live/core/theming/data/colors/colors_dark.dart';
 import 'package:sport_stats_live/core/theming/data/colors/colors_light.dart';
 import 'package:sport_stats_live/core/theming/data/styles/text_styles.dart';
@@ -38,5 +39,20 @@ final AppThemeData dark = AppThemeData.darkBase(
   ok: ColorsDark.ok,
   warning: ColorsDark.cancel,
   attention: ColorsDark.softAttention,
+  textStyle: Exo2TextStyles(),
+);
+
+// Test
+final AppThemeData lightCian = AppThemeData.lightBase(
+  themeData: AppTheme.light,
+  main: ColorsCianLight.main,
+  background1: ColorsCianLight.background,
+  secondary1: ColorsCianLight.secondary1,
+  secondary2: ColorsCianLight.secondary2,
+  card: ColorsCianLight.card,
+  cardShadow: ColorsCianLight.cardShadow,
+  ok: ColorsCianLight.ok,
+  warning: ColorsCianLight.cancel,
+  attention: ColorsCianLight.softAttention,
   textStyle: Exo2TextStyles(),
 );

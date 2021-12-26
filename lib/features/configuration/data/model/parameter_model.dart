@@ -13,9 +13,17 @@ class ParameterModel extends HiveObject {
   @HiveField(2)
   final bool isDeletable;
 
+  @HiveField(3)
+  final String sport;
+
+  @HiveField(4)
+  final String standardParameter;
+
   ParameterModel({
     required this.id,
     required this.name,
     required this.isDeletable,
+    required this.sport,
+    required this.standardParameter,
   });
 }

@@ -23,9 +23,6 @@ class HiveMatchStorage extends MatchStorage {
     Hive.registerAdapter<AttributeModel>(AttributeModelAdapter());
     Hive.registerAdapter<TeamShotModel>(TeamShotModelAdapter());
 
-    Hive.registerAdapter<ParameterModel>(ParameterModelAdapter());
-    Hive.registerAdapter<ConfigurationModel>(ConfigurationModelAdapter());
-
     await Hive.openBox<MatchModel>(boxMatchStorage);
     await Hive.openBox<String>(boxActiveMatch);
   }

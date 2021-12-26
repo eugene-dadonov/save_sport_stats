@@ -19,11 +19,12 @@ class DeleteButton extends StatelessWidget {
       height: 45,
       child: ClickableCard(
         child: Padding(
-          padding: const EdgeInsets.all(12.0),
+          padding: const EdgeInsets.all(8.0),
           child: AppIcon(
             icon: AppIcons.delete,
             color: ThemeHolder.of(context).warning,
-            height: 20,
+            height: 30,
+            width: 30,
           ),
         ),
         borderRadius: BorderRadius.circular(7),

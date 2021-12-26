@@ -9,6 +9,9 @@ enum AppIcons {
   teams,
   settings,
   logo,
+  forward,
+  more,
+  drag,
 }
 
 extension LogoExtensionX on AppIcons {

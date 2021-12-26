@@ -20,19 +20,22 @@ class ConfigurationModelAdapter extends TypeAdapter<ConfigurationModel> {
       id: fields[0] as String,
       name: fields[1] as String,
       parameters: (fields[2] as List).cast<ParameterModel>(),
+      sport: fields[3] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, ConfigurationModel obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
       ..write(obj.name)
       ..writeByte(2)
-      ..write(obj.parameters);
+      ..write(obj.parameters)
+      ..writeByte(3)
+      ..write(obj.sport);
   }
 
   @override

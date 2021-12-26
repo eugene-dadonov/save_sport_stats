@@ -1,3 +1,4 @@
+import 'package:sport_stats_live/features/match/domain/entity/match.dart';
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 
 abstract class MatchScreenEvent {}
@@ -31,5 +32,13 @@ class UpdateScoreEvent extends MatchScreenEvent {
   UpdateScoreEvent({
     required this.hostStatus,
     required this.delta,
+  });
+}
+
+class UpdateStatusEvent extends MatchScreenEvent {
+  final Status status;
+
+  UpdateStatusEvent({
+    required this.status,
   });
 }

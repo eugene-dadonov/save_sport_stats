@@ -14,9 +14,13 @@ class ConfigurationModel extends HiveObject {
   @HiveField(2)
   final List<ParameterModel> parameters;
 
+  @HiveField(3)
+  final String sport;
+
   ConfigurationModel({
     required this.id,
     required this.name,
     required this.parameters,
+    required this.sport,
   });
 }
