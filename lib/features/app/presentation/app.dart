@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'core/theming/domain/presentation/app_theme.dart';
-import 'features/screen_home/presentation/page/home_page.dart';
+import '../../../core/theming/domain/presentation/app_theme.dart';
+import '../../screen_home/presentation/page/home_page.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MyApp extends StatelessWidget {
