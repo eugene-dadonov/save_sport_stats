@@ -4,11 +4,11 @@ import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart
 import 'package:sport_stats_live/features/match/data/repository/match_repository.dart';
 import 'package:sport_stats_live/features/match/domain/bloc/bloc.dart';
 import 'package:sport_stats_live/features/screen_match/presentation_new/page/match_page.dart';
-import 'package:sport_stats_live/features/screen_match_list/domain/bloc.dart';
-import 'package:sport_stats_live/features/screen_match_list/domain/event.dart';
-import 'package:sport_stats_live/features/screen_match_list/domain/state.dart';
-import 'package:sport_stats_live/features/screen_match_list/presentation/view/empty_match_list_view.dart';
-import 'package:sport_stats_live/features/screen_match_list/presentation/view/match_list_view.dart';
+import 'package:sport_stats_live/features/screen_match_list/presentation/bloc/bloc.dart';
+import 'package:sport_stats_live/features/screen_match_list/presentation/bloc/event.dart';
+import 'package:sport_stats_live/features/screen_match_list/presentation/bloc/state.dart';
+import 'package:sport_stats_live/features/screen_match_list/presentation/ui/view/empty_match_list_view.dart';
+import 'package:sport_stats_live/features/screen_match_list/presentation/ui/view/match_list_view.dart';
 
 class MatchListPage extends StatefulWidget {
   const MatchListPage({
@@ -66,15 +66,11 @@ class _MatchListPageState extends State<MatchListPage> {
           },
           builder: (BuildContext context, MatchListState state) {
             if (state is Data) {
-              return MatchListView(
-                matches: state.matches,
-              );
+              return MatchListView(matches: state.matches);
             } else if (state is EmptyList) {
               return const EmptyMatchesListView();
             } else if (state is Loading) {
-              return Container(
-                color: ThemeHolder.of(context).background1,
-              );
+              return Container(color: ThemeHolder.of(context).background1);
             } else {
               return Container(color: ThemeHolder.of(context).warning);
             }

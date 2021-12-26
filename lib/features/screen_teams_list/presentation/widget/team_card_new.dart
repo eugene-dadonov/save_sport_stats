@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 import 'package:sport_stats_live/core/widgets/logo/logo.dart';
-import 'package:sport_stats_live/features/configuration/domain/sport.dart';
-import 'package:sport_stats_live/features/screen_match_list/presentation/widget/match_card_new/sport_logo_icon.dart';
+import 'package:sport_stats_live/features/screen_match_list/presentation/ui/widget/match_card_new/sport_logo_icon.dart';
 import 'package:sport_stats_live/features/screen_teams_list/presentation/widget/team_card.dart';
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 

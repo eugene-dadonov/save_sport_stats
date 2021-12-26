@@ -11,7 +11,7 @@ import 'package:sport_stats_live/features/screen_home/domain/bloc/bloc.dart';
 import 'package:sport_stats_live/features/screen_home/domain/bloc/event.dart';
 import 'package:sport_stats_live/features/screen_home/domain/bloc/state.dart';
 import 'package:sport_stats_live/features/screen_home/presentation/tab_selector/tab_selector.dart';
-import 'package:sport_stats_live/features/screen_match_list/presentation/page/match_list_page.dart';
+import 'package:sport_stats_live/features/screen_match_list/presentation/ui/page/match_list_page.dart';
 import 'package:sport_stats_live/features/screen_settings/presentation/page.dart';
 import 'package:sport_stats_live/features/screen_teams_list/presentation/page/team_list_page.dart';
 import 'package:sport_stats_live/features/team/domain/bloc/bloc.dart';
@@ -26,7 +26,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late List<Widget> pages;
-  int _selectedIndex = 0;
 
   final PageController pageController = PageController(
     initialPage: 0,
@@ -55,17 +54,17 @@ class _HomeScreenState extends State<HomeScreen> {
           body: PageView(
             controller: pageController,
             onPageChanged: (index) {
-              BlocProvider.of<TabBloc>(context).add(TabUpdated(AppTab.values[index]));
+              BlocProvider.of<TabBloc>(context)
+                  .add(TabUpdated(AppTab.values[index]));
             },
             children: pages,
           ),
           bottomNavigationBar: TabSelector(
-            activeTab: activeTab,
-            onTabSelected: (tab) {
-              BlocProvider.of<TabBloc>(context).add(TabUpdated(tab));
-              pageController.jumpToPage(tab.index);
-            }
-          ),
+              activeTab: activeTab,
+              onTabSelected: (tab) {
+                BlocProvider.of<TabBloc>(context).add(TabUpdated(tab));
+                pageController.jumpToPage(tab.index);
+              }),
         );
       },
     );
@@ -155,4 +154,3 @@ String getTitle(BuildContext context, AppTab appTab) {
       return AppLocalizations.of(context)!.titleSettings;
   }
 }
-

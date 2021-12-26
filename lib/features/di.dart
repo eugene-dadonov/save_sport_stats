@@ -68,6 +68,8 @@ class DependencyInjector {
     _singleton(() => AppBloc(dependencies: dependencies));
   }
 
+
+
   _factory<T extends Object>(T Function() creator) {
     dependencies.registerFactory<T>(creator);
   }
