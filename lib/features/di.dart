@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:sport_stats_live/app/presentation/bloc/app_bloc.dart';
+import 'package:sport_stats_live/core/base/navigation/navigation_bloc.dart';
 import 'package:sport_stats_live/features/configuration/data/repository/configuration_repository.dart';
 import 'package:sport_stats_live/features/configuration/data/repository/parameter_repository.dart';
 import 'package:sport_stats_live/features/configuration/domain/repository/configuration_repository.dart';
@@ -29,8 +30,7 @@ class DependencyInjector {
   }
 
   _registerStorages(bool withTestMatches) {
-    _singleton<ConfigurationStorage>(
-        () => HiveConfigurationStorage()..init());
+    _singleton<ConfigurationStorage>(() => HiveConfigurationStorage()..init());
     _singleton<ParameterStorage>(() => HiveParameterStorage()..init());
     _singleton<MatchStorage>(() => HiveMatchStorage()..init());
     _singleton<TeamStorage>(() => HiveTeamStorage()..init());
@@ -61,14 +61,17 @@ class DependencyInjector {
   }
 
   _registerBlocs() {
-
+    _singleton<BlocNavigator>(() => BlocNavigator());
   }
 
   _registerAppBloc() {
-    _singleton(() => AppBloc(dependencies: dependencies));
+    _singleton(
+      () => AppBloc(
+        dependencies: dependencies,
+        navigator: dependencies(),
+      ),
+    );
   }
-
-
 
   _factory<T extends Object>(T Function() creator) {
     dependencies.registerFactory<T>(creator);
