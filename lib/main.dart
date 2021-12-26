@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:sport_stats_live/features/app/presentation/app.dart';
 import 'package:sport_stats_live/core/theming/data/themes/themes.dart';
 import 'package:sport_stats_live/core/theming/domain/bloc/state.dart';
 import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
@@ -10,6 +9,7 @@ import 'package:sport_stats_live/features/configuration/data/storage/configurati
 import 'package:sport_stats_live/features/configuration/data/storage/parameter_hive_storage.dart';
 import 'package:sport_stats_live/features/configuration/domain/bloc/parameters/bloc.dart';
 import 'package:sport_stats_live/features/team/domain/bloc/bloc.dart';
+import 'app/presentation/app.dart';
 import 'core/theming/domain/bloc/bloc.dart';
 import 'features/configuration/data/repository/configuration_repository.dart';
 import 'features/configuration/data/repository/parameter_repository.dart';
@@ -39,11 +39,6 @@ void main() async {
   final hiveMatchStorage = HiveMatchStorage();
   await hiveMatchStorage.init();
   await hiveMatchStorage.createDemoMatches();
-
-  hiveMatchStorage.showMatches();
-  hiveTeamStorage.showTeams();
-  hiveConfigurationStorage.showLog();
-  hiveParametersStorage.showLog();
 
   runApp(
     _RepositoriesProvider(
