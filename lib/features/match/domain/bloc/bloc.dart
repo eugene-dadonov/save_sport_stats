@@ -52,8 +52,8 @@ class MatchBloc extends Bloc<MatchEvent, MatchState> {
     List<Match> matches = [];
     Match? activeMatch;
     try {
-      matches = await matchRepository.getAllMatches();
-      activeMatch = await matchRepository.getActiveMatch();
+      // matches = await matchRepository.getAllMatches();
+      // activeMatch = await matchRepository.getActiveMatch();
     } finally {
       if (matches.isEmpty) {
         yield MatchState.empty();

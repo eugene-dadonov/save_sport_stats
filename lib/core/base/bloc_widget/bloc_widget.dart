@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_stats_live/app/presentation/bloc/app_bloc.dart';
-import 'package:sport_stats_live/core/base/bloc/base_cubit.dart';
+import 'package:sport_stats_live/core/base/domain/bloc/base_cubit.dart';
 
 abstract class WidgetBloc<T extends CubitCustom> extends StatelessWidget {
   final T? blocValue;

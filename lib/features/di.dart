@@ -6,6 +6,8 @@ import 'package:sport_stats_live/features/configuration/data/repository/paramete
 import 'package:sport_stats_live/features/configuration/domain/repository/configuration_repository.dart';
 import 'package:sport_stats_live/features/configuration/domain/repository/parameter_repository.dart';
 import 'package:sport_stats_live/features/match/domain/match_interactor.dart';
+import 'package:sport_stats_live/features/screen_match_list/presentation/bloc/cubit_matches_screen.dart';
+import 'package:sport_stats_live/features/screen_match_list/presentation/bloc/cubit_matches_view.dart';
 import 'package:sport_stats_live/features/team/data/repository/team_repository_impl.dart';
 import 'package:sport_stats_live/features/team/data/storage/hive_team_storage.dart';
 import 'package:sport_stats_live/features/team/data/storage/team_storage.dart';
@@ -69,6 +71,16 @@ class DependencyInjector {
 
   _registerBlocs() {
     _singleton<BlocNavigator>(() => BlocNavigator());
+
+    _factory<BlocMatchesView>(() => BlocMatchesView(
+          dependencies(),
+          app: dependencies(),
+          matchBloc: dependencies(),
+        ));
+
+    _factory<BlocMatchesScreen>(() => BlocMatchesScreen(
+          app: dependencies(),
+        ));
   }
 
   _registerAppBloc() {

@@ -1,10 +1,10 @@
-import 'error.dart';
+import 'base_error.dart';
 
 abstract class Transporter<T> {
   late final T? _data;
-  late final ErrorBase? _error;
+  late final BaseError? _error;
 
-  Transporter({T? data, ErrorBase? error}) {
+  Transporter({T? data, BaseError? error}) {
     _data = data;
     _error = error;
   }
@@ -17,8 +17,8 @@ class DataTransporter<T> extends Transporter<T> {
 }
 
 class ErrorTransporter<T> extends Transporter<T> {
-  ErrorBase get error => _error!;
+  BaseError get error => _error!;
 
-  ErrorTransporter({required ErrorBase error})
+  ErrorTransporter({required BaseError error})
       : super(data: null, error: error);
 }

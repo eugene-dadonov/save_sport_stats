@@ -1,10 +1,10 @@
-class ErrorBase {
+class BaseError {
   final String? message;
   final int? code;
 
   final StackTrace? stack;
 
-  ErrorBase({this.message, this.stack, this.code});
+  BaseError({required this.message, this.stack, this.code});
 
   @override
   String toString() {

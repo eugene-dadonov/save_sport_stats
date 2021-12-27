@@ -10,6 +10,8 @@ import 'package:sport_stats_live/features/screen_match_list/presentation/bloc/st
 import 'package:sport_stats_live/features/screen_match_list/presentation/ui/view/empty_match_list_view.dart';
 import 'package:sport_stats_live/features/screen_match_list/presentation/ui/view/match_list_view.dart';
 
+import '../screen_matches.dart';
+
 class MatchListPage extends StatefulWidget {
   const MatchListPage({
     Key? key,
@@ -22,7 +24,8 @@ class MatchListPage extends StatefulWidget {
     return MaterialPageRoute<void>(
       builder: (_) => BlocProvider.value(
         value: matchBloc,
-        child: const MatchListPage(),
+        /// Если что, то поменяно тут:
+        child: const ScreenMatches(),
       ),
     );
   }
@@ -30,7 +33,9 @@ class MatchListPage extends StatefulWidget {
   static Widget view(MatchBloc matchBloc) {
     return BlocProvider.value(
       value: matchBloc,
-      child: const MatchListPage(),
+      // child: const MatchListPage(),
+      /// Если что, то поменяно тут:
+      child: const ScreenMatches(),
     );
   }
 }

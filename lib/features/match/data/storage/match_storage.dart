@@ -5,11 +5,11 @@ abstract class MatchStorage {
 
   Future<List<Match>> getAllMatches();
 
-  Future<void> saveMatch(Match match);
+  Future<bool> saveMatch(Match match);
 
-  Future<Match?> getActiveMatch();
+  Future<Match> getActiveMatch();
 
   Future<bool> deleteMatch(String id);
 
-  Future<void> updateActiveMatchWithId(String id);
+  Future<bool> updateActiveMatchWithId(String id);
 }

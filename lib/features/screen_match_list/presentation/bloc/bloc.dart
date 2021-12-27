@@ -32,7 +32,7 @@ class MatchListBloc extends Bloc<MatchListEvent, MatchListState> {
     try {
       if (event is OnInitialization) {
         print("Bloc: OnInitialization");
-        _matches = await matchRepository.getAllMatches();
+        // _matches = await matchRepository.getAllMatches();
         yield Data(matches: _matches);
       } else if (event is OnOpenMatch) {
         print("Bloc: OnOpenMatch");

@@ -1,4 +1,5 @@
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:sport_stats_live/core/base/data/exception/exceptions.dart';
 import 'package:sport_stats_live/features/configuration/data/model/configuration_model.dart';
 import 'package:sport_stats_live/features/configuration/data/model/parameter_model.dart';
 import 'package:sport_stats_live/features/match/data/converters/match_converter.dart';
@@ -56,11 +57,12 @@ class HiveMatchStorage extends MatchStorage {
   }
 
   @override
-  Future<void> saveMatch(Match match) async {
+  Future<bool> saveMatch(Match match) async {
     final box = Hive.box<MatchModel>(boxMatchStorage);
     MatchModel matchModel = MatchConverter.toModel(match);
 
     await box.put(matchModel.id, matchModel);
+    return true;
   }
 
   @override
@@ -74,34 +76,36 @@ class HiveMatchStorage extends MatchStorage {
     final box = Hive.box<MatchModel>(boxMatchStorage);
     final matchModel = box.get(id);
     if (matchModel == null) {
-      throw NoSuchMatch(id: id);
+      throw NoElementWithSuchId(errorMessage: "No match with this id: $id!");
     } else {
       return MatchConverter.fromModel(matchModel);
     }
   }
 
   @override
-  Future<Match?> getActiveMatch() async {
+  Future<Match> getActiveMatch() async {
     final activeMatchBox = Hive.box<String>(boxActiveMatch);
     final String? activeMatchId = activeMatchBox.get(activeMatchKey);
     if (activeMatchId == null) {
-      throw NoActiveMatch();
+      throw NoElementWithSuchId(errorMessage: "No Active match saved!");
     }
 
     final matchBox = Hive.box<MatchModel>(boxMatchStorage);
     final matchModel = matchBox.get(activeMatchId);
 
     if (matchModel == null) {
-      throw NoSuchMatch(id: activeMatchId);
+      throw NoElementWithSuchId(
+          errorMessage: "No match with this id: $activeMatchId!");
     } else {
       return MatchConverter.fromModel(matchModel);
     }
   }
 
   @override
-  Future<void> updateActiveMatchWithId(String id) async {
+  Future<bool> updateActiveMatchWithId(String id) async {
     final box = Hive.box<String>(boxActiveMatch);
     await box.put(activeMatchKey, id);
+    return true;
   }
 
   @override
