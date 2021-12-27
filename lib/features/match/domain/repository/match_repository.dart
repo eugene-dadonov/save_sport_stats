@@ -1,3 +1,4 @@
+import 'package:sport_stats_live/core/base/entity/transporter.dart';
 import 'package:sport_stats_live/features/match/domain/entity/match.dart';
 
 abstract class MatchRepository {

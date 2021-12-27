@@ -5,6 +5,7 @@ import 'package:sport_stats_live/features/configuration/data/repository/configur
 import 'package:sport_stats_live/features/configuration/data/repository/parameter_repository.dart';
 import 'package:sport_stats_live/features/configuration/domain/repository/configuration_repository.dart';
 import 'package:sport_stats_live/features/configuration/domain/repository/parameter_repository.dart';
+import 'package:sport_stats_live/features/match/domain/match_interactor.dart';
 import 'package:sport_stats_live/features/team/data/repository/team_repository_impl.dart';
 import 'package:sport_stats_live/features/team/data/storage/hive_team_storage.dart';
 import 'package:sport_stats_live/features/team/data/storage/team_storage.dart';
@@ -25,6 +26,7 @@ class DependencyInjector {
   prepareDependencies(bool showInto) {
     _registerStorages(true);
     _registerRepositories();
+    _registerInteractors();
     _registerBlocs();
     _registerAppBloc();
   }
@@ -58,6 +60,11 @@ class DependencyInjector {
 
     _singleton<ParameterRepository>(
         () => ParameterRepositoryImpl(storage: dependencies()));
+  }
+
+  _registerInteractors() {
+    _factory<MatchInteractor>(
+        () => MatchInteractor(repository: dependencies()));
   }
 
   _registerBlocs() {
