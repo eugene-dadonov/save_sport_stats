@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:sport_stats_live/features/screen_home/presentation/page/home.dart';
-import 'package:sport_stats_live/features/screen_home/presentation/page/home_page.dart';
+import 'package:sport_stats_live/locales/locale_helper/l10n.dart';
 import '../../../core/theming/domain/presentation/app_theme.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -11,8 +11,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
+      localizationsDelegates: const [
+        HelperLocale.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
       theme: ThemeData(
         highlightColor: ThemeHolder.of(context).main.withOpacity(0.2),
         backgroundColor: ThemeHolder.of(context).background1,
@@ -26,9 +30,10 @@ class MyApp extends StatelessWidget {
         ),
       ),
       onGenerateTitle: (context) {
-        return AppLocalizations.of(context)!.titleApp;
+        return HelperLocale.of(context).titleApp;
       },
       home: HomeScreen(),
+      // home: Container(color: Colors.red),
     );
   }
 }

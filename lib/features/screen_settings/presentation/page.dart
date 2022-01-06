@@ -1,11 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_stats_live/core/theming/data/themes/themes.dart';
-import 'package:sport_stats_live/core/theming/domain/bloc/bloc.dart';
-import 'package:sport_stats_live/core/theming/domain/bloc/event.dart';
 import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:sport_stats_live/locales/locale_helper/l10n.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -25,7 +22,7 @@ class SettingsScreen extends StatelessWidget {
                   borderRadius: const BorderRadius.all(Radius.circular(10))),
               child: ListTile(
                 title: Text(
-                  AppLocalizations.of(context)!.titleDarkTheme,
+                  HelperLocale.of(context).titleDarkTheme,
                   style: ThemeHolder.of(context).textStyle.h3(color: main),
                 ),
                 trailing: Switch(

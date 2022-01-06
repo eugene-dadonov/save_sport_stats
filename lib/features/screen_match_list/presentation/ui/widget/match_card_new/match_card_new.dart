@@ -6,8 +6,6 @@ import 'package:sport_stats_live/features/match/domain/entity/match.dart';
 import 'package:sport_stats_live/features/screen_match_list/presentation/hero_tags.dart';
 import 'package:sport_stats_live/features/screen_match_list/presentation/ui/widget/match_card_new/match_date_widget.dart';
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import 'match_status_widget.dart';
 import 'sport_logo_icon.dart';
 

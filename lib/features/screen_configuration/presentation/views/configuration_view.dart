@@ -12,7 +12,7 @@ import 'package:sport_stats_live/features/screen_configuration/presentation/widg
 import 'package:sport_stats_live/features/screen_configuration/presentation/widgets/parameter/parameters_card.dart';
 import 'package:sport_stats_live/features/screen_dialog_configuration_edit/presentation/page/configuration_edit_page.dart';
 import 'package:sport_stats_live/features/screen_dialog_parameter_new/presentation/dialog/dialog_new_parameter.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:sport_stats_live/locales/locale_helper/l10n.dart';
 
 class ConfigurationsListView extends StatelessWidget {
   final List<Configuration> configurations;
@@ -34,14 +34,14 @@ class ConfigurationsListView extends StatelessWidget {
       slivers: [
         SliverToBoxAdapter(
           child: _Title(
-            title: AppLocalizations.of(context)!.titleParameters,
+            title: HelperLocale.of(context).titleParameters,
           ),
         ),
         SliverToBoxAdapter(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: StrokeFlatButton(
-              text: AppLocalizations.of(context)!.titleNewConfiguration,
+              text: HelperLocale.of(context).titleNewConfiguration,
               onPress: () {
                 openConfigurationEditDialog(
                   context: context,
@@ -82,19 +82,19 @@ class ConfigurationsListView extends StatelessWidget {
           SliverToBoxAdapter(
               child: _EmptyViewTitle(
                   title: configurationsMessage ??
-                      AppLocalizations.of(context)!.messageNoConfigurations)),
+                      HelperLocale.of(context).messageNoConfigurations)),
 
         // // Параметры;
         SliverToBoxAdapter(
           child: _Title(
-            title: AppLocalizations.of(context)!.titleParameters,
+            title: HelperLocale.of(context).titleParameters,
           ),
         ),
         SliverToBoxAdapter(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: StrokeFlatButton(
-              text: AppLocalizations.of(context)!.titleNewParameter,
+              text: HelperLocale.of(context).titleNewParameter,
               onPress: () {
                 showParameterDialog(context, null);
               },
@@ -137,7 +137,7 @@ class ConfigurationsListView extends StatelessWidget {
           SliverToBoxAdapter(
               child: _EmptyViewTitle(
                   title: parametersMessage ??
-                      AppLocalizations.of(context)!.messageNoParameters)),
+                      HelperLocale.of(context).messageNoParameters)),
       ],
     );
   }

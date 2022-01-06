@@ -43,6 +43,12 @@ flutter_icons:
   android: true
   ios: true
 
+flutter_intl:
+  main_locale: ru
+  class_name: HelperLocale
+  output_dir: lib/locales/locale_helper
+  arb_dir: lib/locales
+  enabled: true
 
 dev_dependencies:
   flutter_test:

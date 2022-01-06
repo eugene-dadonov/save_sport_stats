@@ -101,6 +101,8 @@ class DependencyInjector {
   }
 
   _registerAppBloc() {
+    print("AppBloc DI start");
+
     _singleton(
       () => AppBloc(
         dependencies: dependencies,
@@ -118,6 +120,8 @@ class DependencyInjector {
         bottomTab: dependencies(),
       ),
     );
+
+    print("AppBloc DI finished");
   }
 
   _factory<T extends Object>(T Function() creator) {

@@ -7,7 +7,7 @@ import 'package:sport_stats_live/features/screen_dialog_parameters_get/domain/bl
 import 'package:sport_stats_live/features/screen_dialog_parameters_get/domain/bloc/event.dart';
 import 'package:sport_stats_live/features/screen_dialog_parameters_get/domain/model/parameter_to_return.dart';
 import 'package:sport_stats_live/features/screen_dialog_parameters_get/presentation/widget/parameter_selecter_item.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:sport_stats_live/locales/locale_helper/l10n.dart';
 
 class ParameterDialogContentView extends StatelessWidget {
   const ParameterDialogContentView({
@@ -39,7 +39,7 @@ class ParameterDialogContentView extends StatelessWidget {
             ),
             child: Center(
               child: Text(
-                AppLocalizations.of(context)!.titleParameters,
+                HelperLocale.of(context).titleParameters,
                 style: ThemeHolder.of(context).textStyle.h2(color: colorMain),
               ),
             ),
@@ -71,7 +71,7 @@ class ParameterDialogContentView extends StatelessWidget {
                           Navigator.of(context).pop<List<Parameter>>([]);
                         },
                         color: ThemeHolder.of(context).warning,
-                        title: AppLocalizations.of(context)!.buttonCancel,
+                        title: HelperLocale.of(context).buttonCancel,
                       ),
                     ),
                     Expanded(
@@ -81,7 +81,7 @@ class ParameterDialogContentView extends StatelessWidget {
                             .add(ReturnParameters());
                       },
                       color: colorMain,
-                      title: AppLocalizations.of(context)!.buttonSave,
+                      title: HelperLocale.of(context).buttonSave,
                     )),
                   ],
                 ),

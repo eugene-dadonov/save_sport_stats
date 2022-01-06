@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:sport_stats_live/core/design/logos/sport_logo.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 enum Sport {
   football,
@@ -37,6 +35,4 @@ extension SportLogoExtension on Sport {
         return SportLogo.other;
     }
   }
-
-
 }

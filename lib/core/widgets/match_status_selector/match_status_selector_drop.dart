@@ -6,7 +6,6 @@ import 'package:sport_stats_live/core/widgets/app_icon.dart';
 import 'package:sport_stats_live/core/widgets/mappers/status_mapper.dart';
 import 'package:sport_stats_live/features/match/domain/bloc/state.dart';
 import 'package:sport_stats_live/features/match/domain/entity/match.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SportSelectorDropdown extends StatefulWidget {
   const SportSelectorDropdown({

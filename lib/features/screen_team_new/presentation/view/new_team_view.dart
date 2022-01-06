@@ -19,13 +19,13 @@ import 'package:sport_stats_live/features/screen_team_new/presentation/widgets/d
 import 'package:sport_stats_live/features/team/domain/bloc/bloc.dart';
 import 'package:sport_stats_live/features/team/domain/bloc/event.dart';
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:sport_stats_live/locales/locale_helper/l10n.dart';
 
 final _formKey = GlobalKey();
 
 String? isNotNullOrEmpty(BuildContext context, String? value) {
   if (value == null || value.length == 0) {
-    return AppLocalizations.of(context)!.errorFieldMustBeFilled;
+    return HelperLocale.of(context).errorFieldMustBeFilled;
   }
 }
 
@@ -62,7 +62,7 @@ class TeamEditView extends StatelessWidget {
             ),
             SliverToBoxAdapter(
               child: _Title(
-                name: AppLocalizations.of(context)!.titleSport,
+                name: HelperLocale.of(context).titleSport,
               ),
             ),
             SliverToBoxAdapter(
@@ -81,13 +81,13 @@ class TeamEditView extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.only(top: 10),
                 child: _Title(
-                  name: AppLocalizations.of(context)!.titleName,
+                  name: HelperLocale.of(context).titleName,
                 ),
               ),
             ),
             _buildInputElement(
                 context: context,
-                hint: AppLocalizations.of(context)!.hintEnterName,
+                hint: HelperLocale.of(context).hintEnterName,
                 text: team.name,
                 onValueChanged: (newName) {
                   BlocProvider.of<TeamEditBloc>(context)
@@ -98,13 +98,13 @@ class TeamEditView extends StatelessWidget {
                 }),
             SliverToBoxAdapter(
               child: _Title(
-                name: AppLocalizations.of(context)!.titleCity,
+                name: HelperLocale.of(context).titleCity,
               ),
             ),
             _buildInputElement(
                 context: context,
                 text: team.city,
-                hint: AppLocalizations.of(context)!.hintEnterCity,
+                hint: HelperLocale.of(context).hintEnterCity,
                 onValueChanged: (newCity) {
                   BlocProvider.of<TeamEditBloc>(context)
                       .add(UpdateCityEvent(newCity));
@@ -121,13 +121,13 @@ class TeamEditView extends StatelessWidget {
                   children: [
                     Expanded(
                       child: _Title(
-                        name: AppLocalizations.of(context)!.titleLogo,
+                        name: HelperLocale.of(context).titleLogo,
                       ),
                     ),
                     const SizedBox(width: 24),
                     Expanded(
                       child: _Title(
-                        name: AppLocalizations.of(context)!.titleColor,
+                        name: HelperLocale.of(context).titleColor,
                       ),
                     ),
                   ],
@@ -204,7 +204,7 @@ class _TopBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final title = this.title ?? AppLocalizations.of(context)!.titleNewTeam;
+    final title = this.title ?? HelperLocale.of(context).titleNewTeam;
     final isNewTeam = title == null;
 
     return Row(
@@ -379,7 +379,7 @@ class _OperationButtons extends StatelessWidget {
     return Column(
       children: [
         MenuButton(
-            title: AppLocalizations.of(context)!.buttonSave,
+            title: HelperLocale.of(context).buttonSave,
             color: ThemeHolder.of(context).main,
             onPress: () {
               if ((_formKey.currentState as FormState).validate()) {
@@ -389,7 +389,7 @@ class _OperationButtons extends StatelessWidget {
             }),
         const SizedBox(height: 12),
         MenuButton(
-            title: AppLocalizations.of(context)!.buttonCancel,
+            title: HelperLocale.of(context).buttonCancel,
             color: ThemeHolder.of(context).warning,
             onPress: () {
               Navigator.of(context).pop();

@@ -4,7 +4,7 @@ import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart
 import 'package:sport_stats_live/core/widgets/app_icon.dart';
 import 'package:sport_stats_live/features/screen_home/presentation/bloc/app_tab.dart';
 import 'package:sport_stats_live/features/screen_match_list/presentation/ui/screen_matches.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:sport_stats_live/locales/locale_helper/l10n.dart';
 
 class HomeScreenOld extends StatefulWidget {
   const HomeScreenOld({Key? key}) : super(key: key);
@@ -135,12 +135,12 @@ class _AppLogo extends StatelessWidget {
 String getTitle(BuildContext context, AppTab appTab) {
   switch (appTab) {
     case AppTab.matches:
-      return AppLocalizations.of(context)!.titleMatches;
+      return HelperLocale.of(context).titleMatches;
     case AppTab.teams:
-      return AppLocalizations.of(context)!.titleTeams;
+      return HelperLocale.of(context).titleTeams;
     case AppTab.configuration:
-      return AppLocalizations.of(context)!.titleParameters;
+      return HelperLocale.of(context).titleParameters;
     case AppTab.settings:
-      return AppLocalizations.of(context)!.titleSettings;
+      return HelperLocale.of(context).titleSettings;
   }
 }

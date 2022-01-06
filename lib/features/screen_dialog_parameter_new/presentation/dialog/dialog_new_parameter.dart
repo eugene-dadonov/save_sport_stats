@@ -8,13 +8,13 @@ import 'package:sport_stats_live/features/configuration/domain/parameter.dart';
 import 'package:sport_stats_live/features/screen_dialog_parameter_new/bloc/bloc.dart';
 import 'package:sport_stats_live/features/screen_dialog_parameter_new/bloc/event.dart';
 import 'package:sport_stats_live/features/screen_dialog_parameter_new/bloc/state.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:sport_stats_live/locales/locale_helper/l10n.dart';
 
 final _titleKey = GlobalKey();
 
 String? isNotNullOrEmpty(BuildContext context, String? value) {
   if (value == null || value.length == 0) {
-    return AppLocalizations.of(context)!.errorFieldMustBeFilled;
+    return HelperLocale.of(context).errorFieldMustBeFilled;
   }
 }
 
@@ -60,7 +60,7 @@ class ParameterEditDialog extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
-                AppLocalizations.of(context)!.errorWhileLoadingParameter,
+                HelperLocale.of(context).errorWhileLoadingParameter,
                 textAlign: TextAlign.center,
                 style:
                     ThemeHolder.of(context).textStyle.h3(color: warningColor),
@@ -99,7 +99,7 @@ class DialogView extends StatelessWidget {
           children: [
             Text(
               isNewParameter
-                  ? AppLocalizations.of(context)!.titleNewParameter
+                  ? HelperLocale.of(context).titleNewParameter
                   : parameter.name,
               style: ThemeHolder.of(context).textStyle.h3(color: mainColor),
             ),
@@ -107,7 +107,7 @@ class DialogView extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: _Title(
-                name: AppLocalizations.of(context)!.titleName,
+                name: HelperLocale.of(context).titleName,
               ),
             ),
             const SizedBox(height: 12),
@@ -118,7 +118,7 @@ class DialogView extends StatelessWidget {
                 textColor: mainColor,
                 borderColor: mainColor,
                 hintColor: secondaryColor,
-                hint: AppLocalizations.of(context)!.hintParameterName,
+                hint: HelperLocale.of(context).hintParameterName,
                 text: parameter.name,
                 maxLength: 30,
                 validator: (value) {
@@ -139,7 +139,7 @@ class DialogView extends StatelessWidget {
               children: [
                 Expanded(
                   child: MenuButton(
-                    title: AppLocalizations.of(context)!.buttonSave,
+                    title: HelperLocale.of(context).buttonSave,
                     onPress: () {
                       if ((_titleKey.currentState as FormState).validate()) {
                         BlocProvider.of<ParameterEditBloc>(context)
@@ -152,7 +152,7 @@ class DialogView extends StatelessWidget {
                 ),
                 Expanded(
                   child: MenuButton(
-                    title: AppLocalizations.of(context)!.buttonCancel,
+                    title: HelperLocale.of(context).buttonCancel,
                     onPress: () {
                       Navigator.of(context).pop();
                     },

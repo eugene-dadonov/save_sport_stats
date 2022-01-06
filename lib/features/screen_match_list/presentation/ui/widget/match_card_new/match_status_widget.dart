@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 import 'package:sport_stats_live/features/match/domain/entity/match.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:sport_stats_live/locales/locale_helper/l10n.dart';
 
 class MatchStatusWidget extends StatelessWidget {
   final Status status;
@@ -143,13 +143,13 @@ extension StatusX on Status {
   String toName(BuildContext context) {
     switch(this) {
       case Status.inProcess:
-        return AppLocalizations.of(context)!.statusInProgress;
+        return HelperLocale.of(context).statusInProgress;
     case Status.finished:
-      return AppLocalizations.of(context)!.statusFinished;
+      return HelperLocale.of(context).statusFinished;
       case Status.notStarted:
-        return AppLocalizations.of(context)!.statusNotStarted;
+        return HelperLocale.of(context).statusNotStarted;
       case Status.canceled:
-        return AppLocalizations.of(context)!.statusCancelled;
+        return HelperLocale.of(context).statusCancelled;
     }
   }
 }

@@ -1,38 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sport_stats_live/core/design/logos/icons.dart';
-import 'package:sport_stats_live/core/design/logos/logos.dart';
-import 'package:sport_stats_live/core/theming/data/themes/app_theme_data.dart';
 import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
-import 'package:sport_stats_live/core/widgets/app_icon.dart';
 import 'package:sport_stats_live/core/widgets/dialog/dialog.dart';
 import 'package:sport_stats_live/core/widgets/edit_widgets/edit_input_view.dart';
 import 'package:sport_stats_live/core/widgets/edit_widgets/edit_title.dart';
-import 'package:sport_stats_live/core/widgets/input_view/input_layout.dart';
-import 'package:sport_stats_live/core/widgets/logo/logo.dart';
 import 'package:sport_stats_live/core/widgets/menu_button.dart';
 import 'package:sport_stats_live/core/widgets/parameter_item/parameter_item.dart';
 import 'package:sport_stats_live/core/widgets/sport_selector/sport_selector_drop.dart';
 import 'package:sport_stats_live/features/configuration/domain/bloc/parameters/bloc.dart';
 import 'package:sport_stats_live/features/configuration/domain/configuration.dart';
-import 'package:sport_stats_live/features/configuration/domain/parameter.dart';
 import 'package:sport_stats_live/features/screen_dialog_parameters_get/presentation/dialog/dialog_parameters_get.dart';
-import 'package:sport_stats_live/features/screen_team_new/domain/bloc/bloc.dart';
-import 'package:sport_stats_live/features/screen_team_new/domain/bloc/event.dart';
-import 'package:sport_stats_live/features/screen_team_new/presentation/dialog/delete_view.dart';
-import 'package:sport_stats_live/features/screen_team_new/presentation/dialog/selector_color_view.dart';
-import 'package:sport_stats_live/features/screen_team_new/presentation/dialog/selector_logo_view.dart';
 import 'package:sport_stats_live/features/screen_team_new/presentation/widgets/delete_button.dart';
-import 'package:sport_stats_live/features/team/domain/bloc/bloc.dart';
-import 'package:sport_stats_live/features/team/domain/bloc/event.dart';
-import 'package:sport_stats_live/features/team/domain/entity/team.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:sport_stats_live/locales/locale_helper/l10n.dart';
 
 final _formKey = GlobalKey();
 
 String? isNotNullOrEmpty(BuildContext context, String? value) {
   if (value == null || value.length == 0) {
-    return AppLocalizations.of(context)!.errorFieldMustBeFilled;
+    return HelperLocale.of(context).errorFieldMustBeFilled;
   }
 }
 
@@ -64,7 +49,7 @@ class ConfigurationEditView extends StatelessWidget {
             const SliverPadding(padding: EdgeInsets.only(top: 16)),
             SliverToBoxAdapter(
               child: EditTitle(
-                title: AppLocalizations.of(context)!.titleSport,
+                title: HelperLocale.of(context).titleSport,
               ),
             ),
             SliverToBoxAdapter(
@@ -74,14 +59,14 @@ class ConfigurationEditView extends StatelessWidget {
             ),
             SliverToBoxAdapter(
               child: EditTitle(
-                title: AppLocalizations.of(context)!.titleName,
+                title: HelperLocale.of(context).titleName,
               ),
             ),
             SliverToBoxAdapter(
               child: EditInputView(
                 // TODO: Добавить новую строчку
                 text: configuration.name,
-                hint: AppLocalizations.of(context)!.titleNewConfiguration,
+                hint: HelperLocale.of(context).titleNewConfiguration,
                 onValueChanged: (String value) {},
                 validator: (value) {
                   isNotNullOrEmpty.call(context, value);
@@ -90,7 +75,7 @@ class ConfigurationEditView extends StatelessWidget {
             ),
             SliverToBoxAdapter(
               child: EditTitle(
-                title: AppLocalizations.of(context)!.titleParameters,
+                title: HelperLocale.of(context).titleParameters,
               ),
             ),
             SliverToBoxAdapter(
@@ -147,7 +132,7 @@ class _TopBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final title = isNewConfiguration
-        ? AppLocalizations.of(context)!.titleNewConfiguration
+        ? HelperLocale.of(context).titleNewConfiguration
         : configuration.name;
     final colorMain = ThemeHolder.of(context).main;
 

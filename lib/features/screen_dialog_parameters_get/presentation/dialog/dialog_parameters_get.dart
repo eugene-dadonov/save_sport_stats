@@ -3,15 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 import 'package:sport_stats_live/features/configuration/domain/bloc/parameters/bloc.dart';
 import 'package:sport_stats_live/features/configuration/domain/parameter.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sport_stats_live/features/screen_dialog_parameters_get/domain/bloc/bloc.dart';
 import 'package:sport_stats_live/features/screen_dialog_parameters_get/domain/bloc/event.dart';
 import 'package:sport_stats_live/features/screen_dialog_parameters_get/domain/bloc/state.dart';
 import 'package:sport_stats_live/features/screen_dialog_parameters_get/presentation/view/view_content.dart';
+import 'package:sport_stats_live/locales/locale_helper/l10n.dart';
 
 String? isNotNullOrEmpty(BuildContext context, String? value) {
   if (value == null || value.length == 0) {
-    return AppLocalizations.of(context)!.errorFieldMustBeFilled;
+    return HelperLocale.of(context).errorFieldMustBeFilled;
   }
 }
 
@@ -64,7 +64,7 @@ class ParametersToReturn extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
-                AppLocalizations.of(context)!.errorWhileLoadingParameter,
+                HelperLocale.of(context).errorWhileLoadingParameter,
                 textAlign: TextAlign.center,
                 style:
                     ThemeHolder.of(context).textStyle.h3(color: warningColor),

@@ -1,28 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:sport_stats_live/features/configuration/domain/sport.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:sport_stats_live/locales/locale_helper/l10n.dart';
 
 extension SportX on Sport {
   String toName(BuildContext context) {
     switch (this) {
       case Sport.football:
-        return AppLocalizations.of(context)!.sportFootball;
+        return HelperLocale.of(context).sportFootball;
       case Sport.cricket:
-        return AppLocalizations.of(context)!.sportCricket;
+        return HelperLocale.of(context).sportCricket;
       case Sport.fieldHockey:
-        return AppLocalizations.of(context)!.sportIceHockey;
+        return HelperLocale.of(context).sportIceHockey;
       case Sport.basketball:
-        return AppLocalizations.of(context)!.sportBasketball;
+        return HelperLocale.of(context).sportBasketball;
       case Sport.volleyball:
-        return AppLocalizations.of(context)!.sportVolleyball;
+        return HelperLocale.of(context).sportVolleyball;
       case Sport.rugby:
-        return AppLocalizations.of(context)!.sportRugby;
+        return HelperLocale.of(context).sportRugby;
       case Sport.baseball:
-        return AppLocalizations.of(context)!.sportBaseball;
+        return HelperLocale.of(context).sportBaseball;
       case Sport.iceHockey:
-        return AppLocalizations.of(context)!.sportIceHockey;
+        return HelperLocale.of(context).sportIceHockey;
       case Sport.other:
-        return AppLocalizations.of(context)!.sportOther;
+        return HelperLocale.of(context).sportOther;
     }
   }
 }
