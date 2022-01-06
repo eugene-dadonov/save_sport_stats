@@ -41,9 +41,7 @@ class MatchListView extends StatelessWidget {
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: MatchCardNew(
                     match: match,
-                    callback: () {
-                      context.read<MatchListBloc>().add(OnOpenMatch(match.id));
-                    },
+                    callback: () {},
                   ),
                 );
               },

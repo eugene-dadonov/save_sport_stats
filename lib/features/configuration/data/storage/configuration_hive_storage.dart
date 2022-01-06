@@ -29,7 +29,7 @@ class HiveConfigurationStorage extends ConfigurationStorage {
         await confsBox.put(conf.id, conf);
       }
     } else {
-      print('TeamBox: Box already has ${confsBox.length} items');
+      print('Configuration: Box already has ${confsBox.length} items');
     }
   }
 

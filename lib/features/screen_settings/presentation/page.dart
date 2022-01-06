@@ -33,7 +33,7 @@ class SettingsScreen extends StatelessWidget {
                   value: ThemeHolder.of(context).isDark,
                   onChanged: (value) {
                     final theme = value ? AppTheme.dark : AppTheme.light;
-                    BlocProvider.of<ThemeBloc>(context).add(ThemeEvent(theme));
+                    // BlocProvider.of<ThemeBloc>(context).add(ThemeEvent(theme));
                   },
                 ),
               ),

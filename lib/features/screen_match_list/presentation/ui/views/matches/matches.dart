@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_stats_live/core/base/bloc_widget/bloc_widget.dart';
 import 'package:sport_stats_live/core/base/domain/bloc/base_state.dart';
 import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
+import 'package:sport_stats_live/features/match/domain/entity/match.dart';
 import 'package:sport_stats_live/features/screen_match_list/presentation/bloc/cubit_matches_view.dart';
 
 const double _defaultHeight = 200;
@@ -17,7 +18,7 @@ class ViewMatches extends WidgetBloc<BlocMatchesView> {
         if (state is LoadingState) {
           return const _LoadingView();
         } else if (state is MatchesContentState) {
-          return _MatchListView(matches: []);
+          return _MatchListView(matches: state.matches);
         } else if (state is EmptyState) {
           return const _EmptyView();
         } else if (state is ErrorState) {

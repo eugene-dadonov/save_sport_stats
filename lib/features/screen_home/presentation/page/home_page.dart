@@ -12,6 +12,7 @@ import 'package:sport_stats_live/features/screen_home/domain/bloc/event.dart';
 import 'package:sport_stats_live/features/screen_home/domain/bloc/state.dart';
 import 'package:sport_stats_live/features/screen_home/presentation/tab_selector/tab_selector.dart';
 import 'package:sport_stats_live/features/screen_match_list/presentation/ui/page/match_list_page.dart';
+import 'package:sport_stats_live/features/screen_match_list/presentation/ui/screen_matches.dart';
 import 'package:sport_stats_live/features/screen_settings/presentation/page.dart';
 import 'package:sport_stats_live/features/screen_teams_list/presentation/page/team_list_page.dart';
 import 'package:sport_stats_live/features/team/domain/bloc/bloc.dart';
@@ -35,13 +36,13 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     pages = <Widget>[
-      MatchListPage.view(context.read<MatchBloc>()),
-      TeamsListPage.view(BlocProvider.of<TeamsBloc>(context)),
-      ConfigurationScreen.view(
-        configurationBloc: BlocProvider.of<ConfigurationBloc>(context),
-        parameterBloc: BlocProvider.of<ParameterBloc>(context),
-      ),
-      const SettingsScreen(),
+      const ScreenMatches(),
+      // TeamsListPage.view(BlocProvider.of<TeamsBloc>(context)),
+      // ConfigurationScreen.view(
+      //   configurationBloc: BlocProvider.of<ConfigurationBloc>(context),
+      //   parameterBloc: BlocProvider.of<ParameterBloc>(context),
+      // ),
+      // const SettingsScreen(),
     ];
   }
 

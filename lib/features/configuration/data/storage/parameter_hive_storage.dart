@@ -28,7 +28,7 @@ class HiveParameterStorage extends ParameterStorage {
         await parsBox.put(par.id, par);
       }
     } else {
-      print('TeamBox: Box already has ${parsBox.length} items');
+      print('Parameters: Box already has ${parsBox.length} items');
     }
   }
 
