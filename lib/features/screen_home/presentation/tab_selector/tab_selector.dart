@@ -12,11 +12,9 @@ import 'package:sport_stats_live/features/screen_home/presentation/bloc/app_tab.
 class BottomTab extends WidgetBloc<BlocBottomTab> {
   const BottomTab({
     Key? key,
-    required this.activeTab,
     required this.onTabSelected,
   }) : super(key: key);
 
-  final AppTab activeTab;
   final Function(AppTab) onTabSelected;
 
   @override
@@ -30,11 +28,15 @@ class BottomTab extends WidgetBloc<BlocBottomTab> {
         selectedLabelStyle:
             ThemeHolder.of(context).textStyle.h4(color: activeColor),
         backgroundColor: ThemeHolder.of(context).card,
-        currentIndex: AppTab.values.indexOf(activeTab),
-        onTap: (index) => onTabSelected(AppTab.values[index]),
+        currentIndex: state.index,
+        onTap: (index) {
+          final newTab = AppTab.values[index];
+          bloc.switchTo(newTab);
+          onTabSelected(newTab);
+        },
         items: AppTab.values.map((tab) {
           final iconColor =
-              tab.index == activeTab.index ? activeColor : inactiveColor;
+              tab.index == state.index ? activeColor : inactiveColor;
           return BottomNavigationBarItem(
             backgroundColor: backgroundColor,
             icon: AppIcon(

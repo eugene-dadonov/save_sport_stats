@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sport_stats_live/features/screen_home/presentation/page/home.dart';
 import 'package:sport_stats_live/features/screen_home/presentation/page/home_page.dart';
 import '../../../core/theming/domain/presentation/app_theme.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
       onGenerateTitle: (context) {
         return AppLocalizations.of(context)!.titleApp;
       },
-      home: const HomeScreen(),
+      home: HomeScreen(),
     );
   }
 }

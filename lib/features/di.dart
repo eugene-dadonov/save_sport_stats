@@ -9,6 +9,8 @@ import 'package:sport_stats_live/features/configuration/data/repository/paramete
 import 'package:sport_stats_live/features/configuration/domain/repository/configuration_repository.dart';
 import 'package:sport_stats_live/features/configuration/domain/repository/parameter_repository.dart';
 import 'package:sport_stats_live/features/match/domain/match_interactor.dart';
+import 'package:sport_stats_live/features/screen_home/presentation/bloc/bottom_tab.dart';
+import 'package:sport_stats_live/features/screen_home/presentation/bloc/home.dart';
 import 'package:sport_stats_live/features/screen_match_list/presentation/bloc/cubit_matches_screen.dart';
 import 'package:sport_stats_live/features/screen_match_list/presentation/bloc/cubit_matches_view.dart';
 import 'package:sport_stats_live/features/team/data/repository/team_repository_impl.dart';
@@ -107,6 +109,15 @@ class DependencyInjector {
     );
 
     _singleton<BlocTheme>(() => BlocTheme(app: dependencies()));
+
+    _singleton<BlocBottomTab>(() => BlocBottomTab(app: dependencies()));
+
+    _singleton<BlocHome>(
+      () => BlocHome(
+        app: dependencies(),
+        bottomTab: dependencies(),
+      ),
+    );
   }
 
   _factory<T extends Object>(T Function() creator) {

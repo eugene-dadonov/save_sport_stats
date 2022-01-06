@@ -6,14 +6,14 @@ import 'package:sport_stats_live/features/screen_home/presentation/bloc/app_tab.
 import 'package:sport_stats_live/features/screen_match_list/presentation/ui/screen_matches.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class HomeScreenOld extends StatefulWidget {
+  const HomeScreenOld({Key? key}) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<HomeScreenOld> createState() => _HomeScreenOldState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenOldState extends State<HomeScreenOld> {
   late List<Widget> pages;
 
   final PageController pageController = PageController(
