@@ -1,21 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_stats_live/core/design/logos/icons.dart';
 import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 import 'package:sport_stats_live/core/widgets/app_icon.dart';
-import 'package:sport_stats_live/features/configuration/domain/bloc/configuration/bloc.dart';
-import 'package:sport_stats_live/features/configuration/domain/bloc/parameters/bloc.dart';
-import 'package:sport_stats_live/features/match/domain/bloc/bloc.dart';
-import 'package:sport_stats_live/features/screen_configuration/presentation/page.dart';
-import 'package:sport_stats_live/features/screen_home/domain/bloc/bloc.dart';
-import 'package:sport_stats_live/features/screen_home/domain/bloc/event.dart';
-import 'package:sport_stats_live/features/screen_home/domain/bloc/state.dart';
-import 'package:sport_stats_live/features/screen_home/presentation/tab_selector/tab_selector.dart';
-import 'package:sport_stats_live/features/screen_match_list/presentation/ui/page/match_list_page.dart';
+import 'package:sport_stats_live/features/screen_home/presentation/bloc/app_tab.dart';
 import 'package:sport_stats_live/features/screen_match_list/presentation/ui/screen_matches.dart';
-import 'package:sport_stats_live/features/screen_settings/presentation/page.dart';
-import 'package:sport_stats_live/features/screen_teams_list/presentation/page/team_list_page.dart';
-import 'package:sport_stats_live/features/team/domain/bloc/bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -48,27 +36,28 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TabBloc, AppTab>(
-      builder: (context, activeTab) {
-        return Scaffold(
-          appBar: _buildAppBar(context, activeTab),
-          body: PageView(
-            controller: pageController,
-            onPageChanged: (index) {
-              BlocProvider.of<TabBloc>(context)
-                  .add(TabUpdated(AppTab.values[index]));
-            },
-            children: pages,
-          ),
-          bottomNavigationBar: TabSelector(
-              activeTab: activeTab,
-              onTabSelected: (tab) {
-                BlocProvider.of<TabBloc>(context).add(TabUpdated(tab));
-                pageController.jumpToPage(tab.index);
-              }),
-        );
-      },
-    );
+    return Container();
+    // return BlocBuilder<TabBloc, AppTab>(
+    //   builder: (context, activeTab) {
+    //     return Scaffold(
+    //       appBar: _buildAppBar(context, activeTab),
+    //       body: PageView(
+    //         controller: pageController,
+    //         onPageChanged: (index) {
+    //           // BlocProvider.of<TabBloc>(context)
+    //           //     .add(TabUpdated(AppTab.values[index]));
+    //         },
+    //         children: pages,
+    //       ),
+    //       bottomNavigationBar: BottomTab(
+    //           activeTab: activeTab,
+    //           onTabSelected: (tab) {
+    //             // BlocProvider.of<TabBloc>(context).add(TabUpdated(tab));
+    //             // pageController.jumpToPage(tab.index);
+    //           }),
+    //     );
+    //   },
+    // );
   }
 
   AppBar _buildAppBar(BuildContext context, AppTab appTab) {
