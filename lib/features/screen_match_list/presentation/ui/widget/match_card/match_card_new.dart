@@ -4,16 +4,16 @@ import 'package:sport_stats_live/core/widgets/logo/logo.dart';
 import 'package:sport_stats_live/core/widgets/score_counter.dart';
 import 'package:sport_stats_live/features/match/domain/entity/match.dart';
 import 'package:sport_stats_live/features/screen_match_list/presentation/hero_tags.dart';
-import 'package:sport_stats_live/features/screen_match_list/presentation/ui/widget/match_card_new/match_date_widget.dart';
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
+import 'match_date_widget.dart';
 import 'match_status_widget.dart';
 import 'sport_logo_icon.dart';
 
-class MatchCardNew extends StatelessWidget {
+class MatchCard extends StatelessWidget {
   final Match match;
   final VoidCallback callback;
 
-  const MatchCardNew({
+  const MatchCard({
     Key? key,
     required this.match,
     required this.callback,

@@ -14,6 +14,7 @@ import 'package:sport_stats_live/features/screen_home/presentation/bloc/bottom_t
 import 'package:sport_stats_live/features/screen_home/presentation/bloc/home.dart';
 import 'package:sport_stats_live/features/screen_match_list/presentation/bloc/cubit_matches_screen.dart';
 import 'package:sport_stats_live/features/screen_match_list/presentation/bloc/cubit_matches_view.dart';
+import 'package:sport_stats_live/features/screen_match_list/presentation/bloc/cubit_start_new_match_view.dart';
 import 'package:sport_stats_live/features/team/data/repository/team_repository_impl.dart';
 import 'package:sport_stats_live/features/team/data/storage/hive_team_storage.dart';
 import 'package:sport_stats_live/features/team/data/storage/team_storage.dart';
@@ -103,6 +104,9 @@ class DependencyInjector {
     _factory<MatchBloc>(() => MatchBloc(
           matchRepository: dependencies(),
         ));
+
+    _factory<BlocStartNewMatchView>(
+        () => BlocStartNewMatchView(app: dependencies()));
   }
 
   _registerAppBloc() {
