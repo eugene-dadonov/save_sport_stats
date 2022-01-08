@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sport_stats_live/core/base/bloc_widget/bloc_widget.dart';
+import 'package:sport_stats_live/core/base/domain/bloc/base_state.dart';
 import 'package:sport_stats_live/core/design/logos/icons.dart';
 import 'package:sport_stats_live/core/design/logos/logos.dart';
 import 'package:sport_stats_live/core/theming/data/themes/app_theme_data.dart';
@@ -10,7 +13,9 @@ import 'package:sport_stats_live/core/widgets/input_view/input_layout.dart';
 import 'package:sport_stats_live/core/widgets/logo/logo.dart';
 import 'package:sport_stats_live/core/widgets/menu_button.dart';
 import 'package:sport_stats_live/core/widgets/sport_selector/sport_selector_drop.dart';
+import 'package:sport_stats_live/features/screen_dialog_parameter_new/presentation/dialog/dialog_new_parameter.dart';
 import 'package:sport_stats_live/features/screen_team_new/presentation/bloc/bloc.dart';
+import 'package:sport_stats_live/features/screen_team_new/presentation/bloc/cubit_new_team_screen.dart';
 import 'package:sport_stats_live/features/screen_team_new/presentation/bloc/event.dart';
 import 'package:sport_stats_live/features/screen_team_new/presentation/dialog/delete_view.dart';
 import 'package:sport_stats_live/features/screen_team_new/presentation/dialog/selector_color_view.dart';
@@ -21,174 +26,299 @@ import 'package:sport_stats_live/features/team/domain/bloc/event.dart';
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 import 'package:sport_stats_live/locales/locale_helper/l10n.dart';
 
-final _formKey = GlobalKey();
+const double _defaultHeight = 200;
 
-String? isNotNullOrEmpty(BuildContext context, String? value) {
-  if (value == null || value.length == 0) {
-    return HelperLocale.of(context).errorFieldMustBeFilled;
+class ScreenNewTeam extends WidgetBloc<CubitNewTeamScreen> {
+  const ScreenNewTeam({
+    Key? key,
+    required this.team,
+  }) : super(key: key);
+
+  final Team team;
+
+  @override
+  Widget buildUI(BuildContext context, CubitNewTeamScreen bloc) {
+    return BlocBuilder<CubitNewTeamScreen, ViewState>(
+      builder: (context, state) {
+        if (state is LoadingState) {
+          return const _LoadingView();
+        } else if (state is NewTeamState) {
+          return _NewTeamContent(team: state.team);
+        } else if (state is ErrorState) {
+          return _ErrorView(errorMessage: state.errorMessage);
+        } else {
+          return const _ErrorView(errorMessage: "Неизвестная ошибка");
+        }
+      },
+    );
   }
 }
 
-class TeamEditView extends StatelessWidget {
-  final Team team;
-  final String? title;
-
-  const TeamEditView({
-    Key? key,
-    required this.team,
-    required this.title,
-  }) : super(key: key);
+class _LoadingView extends StatelessWidget {
+  const _LoadingView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return _buildForm(context, team, title);
-  }
+    return const SizedBox(
+      height: _defaultHeight,
 
-  Widget _buildForm(BuildContext context, Team team, String? title) {
-    return Form(
-      key: _formKey,
+      /// TODO: Заменить на нормальную загрузку
+      child: CircularProgressIndicator(),
+    );
+  }
+}
+
+class _ErrorView extends StatelessWidget {
+  const _ErrorView({
+    Key? key,
+    required this.errorMessage,
+    this.horizontalPadding = 0.0,
+    this.verticalPadding = 0.0,
+  }) : super(key: key);
+
+  final String errorMessage;
+
+  final double horizontalPadding;
+  final double verticalPadding;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: _defaultHeight,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24),
-        child: CustomScrollView(
-          shrinkWrap: true,
-          physics: const RangeMaintainingScrollPhysics(),
-          slivers: [
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 32),
-                child: _TopBar(title: title, team: team),
-              ),
+        padding: EdgeInsets.symmetric(
+          horizontal: horizontalPadding,
+          vertical: verticalPadding,
+        ),
+        child: Center(
+          child: Text(
+            errorMessage,
+            style: ThemeHolder.of(context).textStyle.h3(),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+final _formKey = GlobalKey();
+
+class _NewTeamContent extends StatelessWidget {
+  const _NewTeamContent({
+    Key? key,
+    required this.team,
+  }) : super(key: key);
+
+  final Team team;
+
+  @override
+  Widget build(BuildContext context) {
+    final title = "Test title";
+
+    return Scaffold(
+      backgroundColor: ThemeHolder.of(context).card,
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            /// TopBar
+            Padding(
+              padding: const EdgeInsets.only(top: 16),
+              child: _TopBar(title: title, team: team),
             ),
-            SliverToBoxAdapter(
-              child: _Title(
-                name: HelperLocale.of(context).titleSport,
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 10),
-                child: SportSelectorDropdown(
-                  selectedSport: team.sport,
-                  onSportChanged: (sport) {
-                    BlocProvider.of<TeamEditBloc>(context)
-                        .add(UpdateSportEvent(sport));
-                  },
-                ),
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 10),
-                child: _Title(
-                  name: HelperLocale.of(context).titleName,
-                ),
-              ),
-            ),
-            _buildInputElement(
-                context: context,
-                hint: HelperLocale.of(context).hintEnterName,
-                text: team.name,
-                onValueChanged: (newName) {
+
+            /// Type of Sport
+            _Title(name: HelperLocale.of(context).titleSport),
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: SportSelectorDropdown(
+                selectedSport: team.sport,
+                onSportChanged: (sport) {
                   BlocProvider.of<TeamEditBloc>(context)
-                      .add(UpdateNameEvent(newName));
+                      .add(UpdateSportEvent(sport));
                 },
-                validator: (value) {
-                  return isNotNullOrEmpty(context, value);
-                }),
-            SliverToBoxAdapter(
+              ),
+            ),
+
+            /// Team Name
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
               child: _Title(
-                name: HelperLocale.of(context).titleCity,
+                name: HelperLocale.of(context).titleName,
               ),
             ),
-            _buildInputElement(
-                context: context,
-                text: team.city,
-                hint: HelperLocale.of(context).hintEnterCity,
-                onValueChanged: (newCity) {
-                  BlocProvider.of<TeamEditBloc>(context)
-                      .add(UpdateCityEvent(newCity));
-                },
-                validator: (value) {
-                  return isNotNullOrEmpty(context, value);
-                }),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 10, top: 6),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: _Title(
-                        name: HelperLocale.of(context).titleLogo,
-                      ),
-                    ),
-                    const SizedBox(width: 24),
-                    Expanded(
-                      child: _Title(
-                        name: HelperLocale.of(context).titleColor,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+            const SizedBox(height: 10),
+            DecoratedInputView(
+              hint: HelperLocale.of(context).hintEnterName,
+              text: team.name,
+              onValueChanged: (newName) {
+                BlocProvider.of<TeamEditBloc>(context)
+                    .add(UpdateNameEvent(newName));
+              },
+              validator: (value) {
+                return isNotNullOrEmpty(context, value);
+              },
             ),
-            SliverToBoxAdapter(
+
+            /// Team City
+            _Title(name: HelperLocale.of(context).titleCity),
+            const SizedBox(height: 10),
+            DecoratedInputView(
+              text: team.city,
+              hint: HelperLocale.of(context).hintEnterCity,
+              onValueChanged: (newCity) {
+                BlocProvider.of<TeamEditBloc>(context)
+                    .add(UpdateCityEvent(newCity));
+              },
+              validator: (value) {
+                return isNotNullOrEmpty(context, value);
+              },
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 10, top: 6),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  _LogoSelector(team: team),
-                  const SizedBox(width: 24),
-                  _ColorSelector(team: team),
-                ],
-              ),
-            ),
-            SliverFillRemaining(
-              hasScrollBody: false,
-              fillOverscroll: false,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Flexible(
-                    child: Container(),
-                    fit: FlexFit.loose,
+                  Expanded(
+                    child: _Title(
+                      name: HelperLocale.of(context).titleLogo,
+                    ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.only(bottom: 28, top: 16),
-                    child: _OperationButtons(),
-                  )
+                  const SizedBox(width: 24),
+                  Expanded(
+                    child: _Title(
+                      name: HelperLocale.of(context).titleColor,
+                    ),
+                  ),
                 ],
               ),
             ),
+
+            // Row(
+            //   mainAxisSize: MainAxisSize.max,
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: [
+            //     _LogoSelector(team: team),
+            //     const SizedBox(width: 24),
+            //     _ColorSelector(team: team),
+            //   ],
+            // ),
+
+
+
+
+            const _OperationButtons()
           ],
         ),
       ),
     );
   }
+}
 
-  SliverToBoxAdapter _buildInputElement({
-    required BuildContext context,
-    required String hint,
-    required String? text,
-    required ValueChanged<String> onValueChanged,
-    FormFieldValidator<String>? validator,
-  }) {
-    return SliverToBoxAdapter(
-      child: SizedBox(
-        child: InputView(
-          text: text ?? "",
-          hint: hint.toLowerCase(),
-          textColor: ThemeHolder.of(context).main,
-          fillColor: ThemeHolder.of(context).background1,
-          borderColor: ThemeHolder.of(context).secondary1,
-          hintColor: ThemeHolder.of(context).secondary2,
-          onValueChanged: onValueChanged,
-          validator: validator,
-        ),
+Widget _buildForm(BuildContext context, Team team, String? title) {
+  return Form(
+    key: _formKey,
+    child: Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24),
+      child: CustomScrollView(
+        shrinkWrap: true,
+        physics: const RangeMaintainingScrollPhysics(),
+        slivers: [
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 10, top: 6),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: _Title(
+                      name: HelperLocale.of(context).titleLogo,
+                    ),
+                  ),
+                  const SizedBox(width: 24),
+                  Expanded(
+                    child: _Title(
+                      name: HelperLocale.of(context).titleColor,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                _LogoSelector(team: team),
+                const SizedBox(width: 24),
+                _ColorSelector(team: team),
+              ],
+            ),
+          ),
+          SliverFillRemaining(
+            hasScrollBody: false,
+            fillOverscroll: false,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Flexible(
+                  child: Container(),
+                  fit: FlexFit.loose,
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(bottom: 28, top: 16),
+                  child: _OperationButtons(),
+                )
+              ],
+            ),
+          ),
+        ],
       ),
+    ),
+  );
+}
+
+class DecoratedInputView extends StatelessWidget {
+  const DecoratedInputView({
+    Key? key,
+    required this.hint,
+    this.text,
+    required this.onValueChanged,
+    this.validator,
+  }) : super(key: key);
+
+  final String hint;
+  final String? text;
+  final ValueChanged<String> onValueChanged;
+  final FormFieldValidator<String>? validator;
+
+  @override
+  Widget build(BuildContext context) {
+    return InputView(
+      text: text ?? "",
+      hint: hint.toLowerCase(),
+      textColor: ThemeHolder.of(context).main,
+      fillColor: ThemeHolder.of(context).background1,
+      borderColor: ThemeHolder.of(context).secondary1,
+      hintColor: ThemeHolder.of(context).secondary2,
+      onValueChanged: onValueChanged,
+      validator: validator,
     );
   }
+}
+
+Widget _buildInputElement({
+  required BuildContext context,
+  required String hint,
+  required String? text,
+  required ValueChanged<String> onValueChanged,
+  FormFieldValidator<String>? validator,
+}) {
+  return SizedBox();
 }
 
 class _TopBar extends StatelessWidget {

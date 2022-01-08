@@ -17,6 +17,7 @@ import 'package:sport_stats_live/features/screen_match_list/presentation/bloc/cu
 import 'package:sport_stats_live/features/screen_match_list/presentation/bloc/cubit_matches_view.dart';
 import 'package:sport_stats_live/features/screen_match_list/presentation/bloc/cubit_start_new_match_view.dart';
 import 'package:sport_stats_live/features/screen_settings/bloc/settings_cubit.dart';
+import 'package:sport_stats_live/features/screen_team_new/presentation/bloc/cubit_new_team_screen.dart';
 import 'package:sport_stats_live/features/screen_teams_list/presentation/bloc/cubit_add_new_team_view.dart';
 import 'package:sport_stats_live/features/screen_teams_list/presentation/bloc/cubit_screen_teams.dart';
 import 'package:sport_stats_live/features/team/data/repository/team_repository_impl.dart';
@@ -119,6 +120,9 @@ class DependencyInjector {
           app: dependencies(),
           teamInteractor: dependencies(),
         ));
+
+    /// New Team
+    _factory<CubitNewTeamScreen>(() => CubitNewTeamScreen(app: dependencies()));
   }
 
   _addMatchesBlocs() {
