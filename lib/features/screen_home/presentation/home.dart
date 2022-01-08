@@ -8,7 +8,7 @@ import 'package:sport_stats_live/features/screen_home/presentation/bottom_tab/bo
 import 'package:sport_stats_live/features/screen_home/presentation/toolbar/toolbar.dart';
 import 'package:sport_stats_live/features/screen_match_list/presentation/ui/screen_matches.dart';
 import 'package:sport_stats_live/features/screen_settings/presentation/screen_settings.dart';
-import 'package:sport_stats_live/features/screen_teams_list/presentation/ui/views/teams.dart';
+import 'package:sport_stats_live/features/screen_teams_list/presentation/ui/screen_teams.dart';
 
 class HomeScreen extends WidgetBloc<BlocHome> {
   HomeScreen({Key? key}) : super(key: key);

@@ -48,12 +48,12 @@ class TeamsBloc extends Bloc<TeamsEvent, TeamsState> {
   Stream<TeamsState> _getTeams() async* {
     List<Team> teams;
     try {
-      teams = await teamRepository.getTeams();
-      if (teams.isEmpty) {
-        yield TeamsState.empty();
-      } else {
-        yield TeamsState.success(teams: teams);
-      }
+      // teams = await teamRepository.getTeams();
+      // if (teams.isEmpty) {
+      //   yield TeamsState.empty();
+      // } else {
+      //   yield TeamsState.success(teams: teams);
+      // }
     } catch (e) {
       yield TeamsState.error();
     }

@@ -26,26 +26,26 @@ class TeamEditBloc extends Bloc<TeamEditEvent, TeamEditState> {
   @override
   Stream<TeamEditState> mapEventToState(TeamEditEvent event) async* {
     try {
-      if (event is StartEvent) {
-        yield TeamState(team: team, title: title);
-      } else if (event is UpdateNameEvent) {
-        team.name = event.name;
-        yield TeamState(team: team, title: title);
-      } else if (event is UpdateCityEvent) {
-        team.city = event.city;
-        yield TeamState(team: team, title: title);
-      } else if (event is UpdateColorEvent) {
-        team.teamColor = event.color;
-        yield TeamState(team: team, title: title);
-      } else if (event is UpdateLogoEvent) {
-        team.logo = event.logo;
-        yield TeamState(team: team, title: title);
-      } else if (event is UpdateSportEvent) {
-        team.sport = event.sport;
-        yield TeamState(team: team, title: title);
-      } else if (event is SaveTeamEvent) {
-        updateTeam(team);
-      }
+      // if (event is StartEvent) {
+      //   yield TeamState(team: team, title: title);
+      // } else if (event is UpdateNameEvent) {
+      //   team.name = event.name;
+      //   yield TeamState(team: team, title: title);
+      // } else if (event is UpdateCityEvent) {
+      //   team.city = event.city;
+      //   yield TeamState(team: team, title: title);
+      // } else if (event is UpdateColorEvent) {
+      //   team.teamColor = event.color;
+      //   yield TeamState(team: team, title: title);
+      // } else if (event is UpdateLogoEvent) {
+      //   team.logo = event.logo;
+      //   yield TeamState(team: team, title: title);
+      // } else if (event is UpdateSportEvent) {
+      //   team.sport = event.sport;
+      //   yield TeamState(team: team, title: title);
+      // } else if (event is SaveTeamEvent) {
+      //   updateTeam(team);
+      // }
     } catch (e) {}
   }
 

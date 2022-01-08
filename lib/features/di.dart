@@ -17,11 +17,13 @@ import 'package:sport_stats_live/features/screen_match_list/presentation/bloc/cu
 import 'package:sport_stats_live/features/screen_match_list/presentation/bloc/cubit_matches_view.dart';
 import 'package:sport_stats_live/features/screen_match_list/presentation/bloc/cubit_start_new_match_view.dart';
 import 'package:sport_stats_live/features/screen_settings/bloc/settings_cubit.dart';
+import 'package:sport_stats_live/features/screen_teams_list/presentation/bloc/cubit_add_new_team_view.dart';
 import 'package:sport_stats_live/features/screen_teams_list/presentation/bloc/cubit_screen_teams.dart';
 import 'package:sport_stats_live/features/team/data/repository/team_repository_impl.dart';
 import 'package:sport_stats_live/features/team/data/storage/hive_team_storage.dart';
 import 'package:sport_stats_live/features/team/data/storage/team_storage.dart';
 import 'package:sport_stats_live/features/team/domain/repository/team_repository.dart';
+import 'package:sport_stats_live/features/team/domain/team_interactor.dart';
 import 'configuration/data/storage/configuration_hive_storage.dart';
 import 'configuration/data/storage/configuration_storage.dart';
 import 'configuration/data/storage/parameter_hive_storage.dart';
@@ -30,6 +32,7 @@ import 'match/data/repository/match_repository.dart';
 import 'match/data/storage/hive_match_storage.dart';
 import 'match/data/storage/match_storage.dart';
 import 'match/domain/repository/match_repository.dart';
+import 'screen_teams_list/presentation/bloc/cubit_teams.dart';
 
 class DependencyInjector {
   GetIt dependencies = GetIt.instance;
@@ -91,6 +94,8 @@ class DependencyInjector {
   _registerInteractors() {
     _factory<MatchInteractor>(
         () => MatchInteractor(repository: dependencies()));
+
+    _factory<TeamInteractor>(() => TeamInteractor(repository: dependencies()));
   }
 
   _registerMainBlocs() {
@@ -107,6 +112,13 @@ class DependencyInjector {
 
   _addTeamsBlocs() {
     _factory<CubitTeamsScreen>(() => CubitTeamsScreen(app: dependencies()));
+
+    _factory<BlocAddNewTeamView>(() => BlocAddNewTeamView(app: dependencies()));
+
+    _factory<CubitTeamsView>(() => CubitTeamsView(
+          app: dependencies(),
+          teamInteractor: dependencies(),
+        ));
   }
 
   _addMatchesBlocs() {
