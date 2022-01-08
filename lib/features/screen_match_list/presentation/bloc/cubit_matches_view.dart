@@ -33,6 +33,7 @@ class BlocMatchesView extends CubitCell<ViewState> {
 
     if (result is DataTransporter<List<Match>>) {
       _matches = result.data;
+      _matches = [];
       if (_matches.isNotEmpty) {
         emit(MatchesContentState(matches: _matches));
       } else {

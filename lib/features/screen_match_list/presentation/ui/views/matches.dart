@@ -35,11 +35,22 @@ class ViewMatches extends WidgetBloc<BlocMatchesView> {
             matchGap: matchGap,
           );
         } else if (state is EmptyState) {
-          return const _EmptyView();
+          return _EmptyView(
+            horizontalPadding: horizontalPadding,
+            verticalPadding: verticalPadding,
+          );
         } else if (state is ErrorState) {
-          return _ErrorView(errorMessage: state.errorMessage);
+          return _ErrorView(
+            errorMessage: state.errorMessage,
+            horizontalPadding: horizontalPadding,
+            verticalPadding: verticalPadding,
+          );
         } else {
-          return const _ErrorView(errorMessage: "Неизвестная ошибка");
+          return _ErrorView(
+            errorMessage: "Неизвестная ошибка",
+            horizontalPadding: horizontalPadding,
+            verticalPadding: verticalPadding,
+          );
         }
       },
     );
@@ -61,17 +72,44 @@ class _LoadingView extends StatelessWidget {
 }
 
 class _EmptyView extends StatelessWidget {
-  const _EmptyView({Key? key}) : super(key: key);
+  const _EmptyView({
+    Key? key,
+    this.horizontalPadding = 0.0,
+    this.verticalPadding = 0.0,
+    this.matchGap = 0.0,
+  }) : super(key: key);
+
+  final double horizontalPadding;
+  final double verticalPadding;
+  final double matchGap;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: _defaultHeight,
       child: Center(
-        child: Text(
-          "У вас еще нет матчей.\nДобавьте их скорее!",
-          style: ThemeHolder.of(context).textStyle.h3(),
-          textAlign: TextAlign.center,
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: horizontalPadding,
+            vertical: verticalPadding,
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.keyboard_arrow_up,
+                color: ThemeHolder.of(context).secondary2,
+                size: 60,
+              ),
+              Text(
+                "У вас еще нет матчей.\nДобавьте их скорее!",
+                style: ThemeHolder.of(context)
+                    .textStyle
+                    .h3(color: ThemeHolder.of(context).secondary1),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -82,19 +120,32 @@ class _ErrorView extends StatelessWidget {
   const _ErrorView({
     Key? key,
     required this.errorMessage,
+    this.horizontalPadding = 0.0,
+    this.verticalPadding = 0.0,
+    this.matchGap = 0.0,
   }) : super(key: key);
 
   final String errorMessage;
+
+  final double horizontalPadding;
+  final double verticalPadding;
+  final double matchGap;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: _defaultHeight,
-      child: Center(
-        child: Text(
-          errorMessage,
-          style: ThemeHolder.of(context).textStyle.h3(),
-          textAlign: TextAlign.center,
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: horizontalPadding,
+          vertical: verticalPadding,
+        ),
+        child: Center(
+          child: Text(
+            errorMessage,
+            style: ThemeHolder.of(context).textStyle.h3(),
+            textAlign: TextAlign.center,
+          ),
         ),
       ),
     );
