@@ -4,7 +4,7 @@ import 'package:sport_stats_live/core/base/domain/bloc/base_state.dart';
 import 'package:sport_stats_live/features/screen_home/presentation/bloc/app_tab.dart';
 import 'package:sport_stats_live/features/screen_home/presentation/bloc/bottom_tab.dart';
 
-class HomeState extends ViewState {
+class HomeState extends ContentState {
   final AppTab appTab;
 
   HomeState({required this.appTab});
@@ -17,7 +17,9 @@ class BlocHome extends CubitCell<HomeState> {
   BlocHome({
     required AppBloc app,
     required this.bottomTab,
-  }) : super(app, HomeState(appTab: AppTab.matches));
+  }) : super(app, HomeState(appTab: AppTab.matches)) {
+   print("BlocHome inited");
+  }
 
   final BlocBottomTab bottomTab;
 

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_stats_live/core/base/bloc_widget/bloc_widget.dart';
 import 'package:sport_stats_live/core/theming/data/themes/themes.dart';
 import 'package:sport_stats_live/core/theming/domain/bloc/cubit.dart';
@@ -8,9 +7,15 @@ import 'package:sport_stats_live/features/di.dart';
 import 'app/presentation/app.dart';
 
 void main() async {
-  DependencyInjector().prepareDependencies(false);
-  // runApp(const ThemeBuilder(child: MyApp()));
-  runApp(ThemeHolder(child: MyApp(), theme: themes[AppTheme.light]!));
+  final di = DependencyInjector();
+  await di.prepareDependencies(false);
+
+  runApp(
+    ThemeHolder(
+      child: MyApp(di: di),
+      theme: themes[AppTheme.light]!,
+    ),
+  );
 }
 
 class ThemeBuilder extends WidgetBloc<BlocTheme> {

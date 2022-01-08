@@ -1,9 +1,10 @@
 import 'package:sport_stats_live/features/team/data/storage/hive_team_storage.dart';
+import 'package:sport_stats_live/features/team/data/storage/team_storage.dart';
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 import 'package:sport_stats_live/features/team/domain/repository/team_repository.dart';
 
 class TeamRepositoryImpl extends TeamRepository {
-  final HiveTeamStorage teamStorage;
+  final TeamStorage teamStorage;
 
   TeamRepositoryImpl({required this.teamStorage});
 

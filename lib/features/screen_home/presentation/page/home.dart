@@ -18,13 +18,13 @@ class HomeScreen extends WidgetBloc<BlocHome> {
     return BlocBuilder<BlocHome, HomeState>(
       builder: (_, state) {
         return Scaffold(
-          // bottomNavigationBar: BottomTab(onTabSelected: bloc.switchTo),
-          // body: PageView(
-          //   onPageChanged: (index) {
-          //     bloc.switchTo(AppTab.values[index]);
-          //   },
-          //   children: screens,
-          // ),
+          bottomNavigationBar: BottomTab(onTabSelected: bloc.switchTo),
+          body: PageView(
+            onPageChanged: (index) {
+              bloc.switchTo(AppTab.values[index]);
+            },
+            children: screens,
+          ),
         );
       },
     );

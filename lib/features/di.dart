@@ -8,6 +8,7 @@ import 'package:sport_stats_live/features/configuration/data/repository/configur
 import 'package:sport_stats_live/features/configuration/data/repository/parameter_repository.dart';
 import 'package:sport_stats_live/features/configuration/domain/repository/configuration_repository.dart';
 import 'package:sport_stats_live/features/configuration/domain/repository/parameter_repository.dart';
+import 'package:sport_stats_live/features/match/domain/bloc/bloc.dart';
 import 'package:sport_stats_live/features/match/domain/match_interactor.dart';
 import 'package:sport_stats_live/features/screen_home/presentation/bloc/bottom_tab.dart';
 import 'package:sport_stats_live/features/screen_home/presentation/bloc/home.dart';
@@ -98,6 +99,10 @@ class DependencyInjector {
           app: dependencies(),
           blocMatchesView: dependencies(),
         ));
+
+    _factory<MatchBloc>(() => MatchBloc(
+          matchRepository: dependencies(),
+        ));
   }
 
   _registerAppBloc() {
@@ -120,8 +125,6 @@ class DependencyInjector {
         bottomTab: dependencies(),
       ),
     );
-
-    print("AppBloc DI finished");
   }
 
   _factory<T extends Object>(T Function() creator) {
