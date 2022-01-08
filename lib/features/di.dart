@@ -17,6 +17,7 @@ import 'package:sport_stats_live/features/screen_match_list/presentation/bloc/cu
 import 'package:sport_stats_live/features/screen_match_list/presentation/bloc/cubit_matches_view.dart';
 import 'package:sport_stats_live/features/screen_match_list/presentation/bloc/cubit_start_new_match_view.dart';
 import 'package:sport_stats_live/features/screen_settings/bloc/settings_cubit.dart';
+import 'package:sport_stats_live/features/screen_teams_list/presentation/bloc/cubit_screen_teams.dart';
 import 'package:sport_stats_live/features/team/data/repository/team_repository_impl.dart';
 import 'package:sport_stats_live/features/team/data/storage/hive_team_storage.dart';
 import 'package:sport_stats_live/features/team/data/storage/team_storage.dart';
@@ -41,6 +42,7 @@ class DependencyInjector {
     _registerAppBloc();
 
     _addSettingsBlocs();
+    _addTeamsBlocs();
     _addMatchesBlocs();
   }
 
@@ -101,6 +103,10 @@ class DependencyInjector {
 
   _addSettingsBlocs() {
     _factory<CubitSettings>(() => CubitSettings(app: dependencies()));
+  }
+
+  _addTeamsBlocs() {
+    _factory<CubitTeamsScreen>(() => CubitTeamsScreen(app: dependencies()));
   }
 
   _addMatchesBlocs() {
