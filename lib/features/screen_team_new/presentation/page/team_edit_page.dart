@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
-import 'package:sport_stats_live/features/screen_team_new/domain/bloc/bloc.dart';
-import 'package:sport_stats_live/features/screen_team_new/domain/bloc/event.dart';
-import 'package:sport_stats_live/features/screen_team_new/domain/bloc/state.dart';
+import 'package:sport_stats_live/features/screen_team_new/presentation/bloc/bloc.dart';
+import 'package:sport_stats_live/features/screen_team_new/presentation/bloc/event.dart';
+import 'package:sport_stats_live/features/screen_team_new/presentation/bloc/state.dart';
 import 'package:sport_stats_live/features/screen_team_new/presentation/view/new_team_view.dart';
 import 'package:sport_stats_live/features/team/domain/bloc/bloc.dart';
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';

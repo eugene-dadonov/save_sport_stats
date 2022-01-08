@@ -1,9 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sport_stats_live/features/screen_team_new/domain/bloc/event.dart';
-import 'package:sport_stats_live/features/screen_team_new/domain/bloc/state.dart';
+import 'package:sport_stats_live/features/screen_team_new/presentation/bloc/state.dart';
 import 'package:sport_stats_live/features/team/domain/bloc/bloc.dart';
 import 'package:sport_stats_live/features/team/domain/bloc/event.dart';
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
+
+import 'event.dart';
 
 class TeamEditBloc extends Bloc<TeamEditEvent, TeamEditState> {
   TeamEditBloc({
