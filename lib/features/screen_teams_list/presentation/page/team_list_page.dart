@@ -4,10 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 import 'package:sport_stats_live/features/screen_team_new/presentation/page/team_edit_page.dart';
-import 'package:sport_stats_live/features/screen_teams_list/domain/bloc/bloc.dart';
-import 'package:sport_stats_live/features/screen_teams_list/domain/bloc/event.dart'
-    as event;
-import 'package:sport_stats_live/features/screen_teams_list/domain/bloc/state.dart';
+import 'package:sport_stats_live/features/screen_teams_list/presentation/bloc/bloc.dart';
+import 'package:sport_stats_live/features/screen_teams_list/presentation/bloc/event.dart';
+import 'package:sport_stats_live/features/screen_teams_list/presentation/bloc/state.dart';
 import 'package:sport_stats_live/features/screen_teams_list/presentation/view/empty_view.dart';
 import 'package:sport_stats_live/features/screen_teams_list/presentation/view/loading_view.dart';
 import 'package:sport_stats_live/features/screen_teams_list/presentation/view/team_list_view.dart';
@@ -45,7 +44,7 @@ class TeamsListPage extends StatelessWidget {
           return TeamsListBloc(
             teamRepository: context.read<TeamRepositoryImpl>(),
             teamsBloc: context.read<TeamsBloc>(),
-          )..add(event.Init());
+          )..add(Init());
         },
         child: BlocConsumer<TeamsListBloc, TeamListState>(
           buildWhen: (_, newState) => newState is ListState,
@@ -60,14 +59,14 @@ class TeamsListPage extends StatelessWidget {
                       onTeamClicked: (team) {
                         context
                             .read<TeamsListBloc>()
-                            .add(event.OnOpenTeam(team));
+                            .add(OnOpenTeam(team));
                       },
                       onNewTeamClicked: () {
-                        context.read<TeamsListBloc>().add(event.OnNewTeam());
+                        context.read<TeamsListBloc>().add(OnNewTeam());
                       });
                 case TeamListStatus.empty:
                   return EmptyTeamListView(onNewTeamClicked: () {
-                    context.read<TeamsListBloc>().add(event.OnNewTeam());
+                    context.read<TeamsListBloc>().add(OnNewTeam());
                   });
                 case TeamListStatus.error:
                   return Container(

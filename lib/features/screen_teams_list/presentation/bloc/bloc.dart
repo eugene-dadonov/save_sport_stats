@@ -1,12 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sport_stats_live/features/screen_teams_list/domain/bloc/event.dart';
-import 'package:sport_stats_live/features/screen_teams_list/domain/bloc/state.dart';
+import 'package:sport_stats_live/features/screen_teams_list/presentation/bloc/state.dart';
 import 'package:sport_stats_live/features/team/domain/bloc/bloc.dart';
 import 'package:sport_stats_live/features/team/domain/bloc/state.dart' as team_state;
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 import 'package:sport_stats_live/features/team/domain/repository/team_repository.dart';
+
+import 'event.dart';
 
 class TeamsListBloc extends Bloc<TeamListEvent, TeamListState> {
   final TeamRepository teamRepository;
