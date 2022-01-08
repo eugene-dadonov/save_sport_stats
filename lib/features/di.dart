@@ -99,6 +99,7 @@ class DependencyInjector {
     _factory<BlocMatchesScreen>(() => BlocMatchesScreen(
           app: dependencies(),
           blocMatchesView: dependencies(),
+          blocStartNewMatchView: dependencies(),
         ));
 
     _factory<MatchBloc>(() => MatchBloc(

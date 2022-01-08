@@ -33,21 +33,22 @@ class BlocMatchesView extends CubitCell<ViewState> {
 
     if (result is DataTransporter<List<Match>>) {
       _matches = result.data;
-      _matches = [];
       if (_matches.isNotEmpty) {
         emit(MatchesContentState(matches: _matches));
       } else {
         emit(EmptyState());
       }
     } else if (result is ErrorTransporter<List<Match>>) {
-      emit(
-        ErrorState(
+      emit(ErrorState(
           errorMessage: result.error.message ??
-              "Произошла ошибка при загрузке списка матчей",
-        ),
-      );
+              "Произошла ошибка при загрузке списка матчей"));
     }
   }
 
   navigateToMatch(String matchId) {}
+
+  Future<void> refresh() async {
+    emit(LoadingState());
+    await _initialization();
+  }
 }

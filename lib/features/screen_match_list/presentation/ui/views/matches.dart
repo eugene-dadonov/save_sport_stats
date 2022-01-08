@@ -97,10 +97,11 @@ class _EmptyView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(
-                Icons.keyboard_arrow_up,
+                Icons.arrow_upward_sharp,
                 color: ThemeHolder.of(context).secondary2,
-                size: 60,
+                size: 40,
               ),
+              const SizedBox(height: 20),
               Text(
                 "У вас еще нет матчей.\nДобавьте их скорее!",
                 style: ThemeHolder.of(context)

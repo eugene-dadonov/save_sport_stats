@@ -13,4 +13,8 @@ class BlocStartNewMatchView extends CubitCell<ContentState> {
   }) : super(app, ContentState());
 
   navigateToNewMatch(String matchId) {}
+
+  Future<void> refresh() async {
+    ContentState();
+  }
 }
