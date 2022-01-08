@@ -21,7 +21,6 @@ import 'package:sport_stats_live/features/team/data/repository/team_repository_i
 import 'package:sport_stats_live/features/team/data/storage/hive_team_storage.dart';
 import 'package:sport_stats_live/features/team/data/storage/team_storage.dart';
 import 'package:sport_stats_live/features/team/domain/repository/team_repository.dart';
-
 import 'configuration/data/storage/configuration_hive_storage.dart';
 import 'configuration/data/storage/configuration_storage.dart';
 import 'configuration/data/storage/parameter_hive_storage.dart';
@@ -38,8 +37,11 @@ class DependencyInjector {
     await _registerStorages(true);
     _registerRepositories();
     _registerInteractors();
-    _registerMatchesBlocs();
+    _registerMainBlocs();
     _registerAppBloc();
+
+    _addSettingsBlocs();
+    _addMatchesBlocs();
   }
 
   _registerStorages(bool withTestMatches) async {
@@ -89,36 +91,36 @@ class DependencyInjector {
         () => MatchInteractor(repository: dependencies()));
   }
 
-  _registerMatchesBlocs() {
+  _registerMainBlocs() {
     _singleton<BlocNavigator>(() => BlocNavigator());
 
+    _factory<MatchBloc>(() => MatchBloc(
+          matchRepository: dependencies(),
+        ));
+  }
+
+  _addSettingsBlocs() {
+    _factory<CubitSettings>(() => CubitSettings(app: dependencies()));
+  }
+
+  _addMatchesBlocs() {
     _factory<BlocMatchesView>(() => BlocMatchesView(
           dependencies(),
           app: dependencies(),
           matchBloc: dependencies(),
         ));
 
+    _factory<BlocStartNewMatchView>(
+        () => BlocStartNewMatchView(app: dependencies()));
+
     _factory<BlocMatchesScreen>(() => BlocMatchesScreen(
           app: dependencies(),
           blocMatchesView: dependencies(),
           blocStartNewMatchView: dependencies(),
         ));
-
-    _factory<CubitSettings>(() => CubitSettings(
-          app: dependencies(),
-        ));
-
-    _factory<MatchBloc>(() => MatchBloc(
-          matchRepository: dependencies(),
-        ));
-
-    _factory<BlocStartNewMatchView>(
-        () => BlocStartNewMatchView(app: dependencies()));
   }
 
   _registerAppBloc() {
-    print("AppBloc DI start");
-
     _singleton(
       () => AppBloc(
         dependencies: dependencies,
