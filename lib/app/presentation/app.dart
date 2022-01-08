@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:sport_stats_live/features/di.dart';
-import 'package:sport_stats_live/features/screen_home/presentation/page/home.dart';
+import 'package:sport_stats_live/features/screen_home/presentation/home.dart';
 import 'package:sport_stats_live/locales/locale_helper/l10n.dart';
 import '../../../core/theming/domain/presentation/app_theme.dart';
 import 'bloc/app_bloc.dart';

@@ -11,6 +11,7 @@ import 'package:sport_stats_live/features/configuration/domain/repository/parame
 import 'package:sport_stats_live/features/match/domain/bloc/bloc.dart';
 import 'package:sport_stats_live/features/match/domain/match_interactor.dart';
 import 'package:sport_stats_live/features/screen_home/presentation/bloc/bottom_tab.dart';
+import 'package:sport_stats_live/features/screen_home/presentation/bloc/cubit_toolbar.dart';
 import 'package:sport_stats_live/features/screen_home/presentation/bloc/home.dart';
 import 'package:sport_stats_live/features/screen_match_list/presentation/bloc/cubit_matches_screen.dart';
 import 'package:sport_stats_live/features/screen_match_list/presentation/bloc/cubit_matches_view.dart';
@@ -123,6 +124,8 @@ class DependencyInjector {
     _singleton<BlocTheme>(() => BlocTheme(app: dependencies()));
 
     _singleton<BlocBottomTab>(() => BlocBottomTab(app: dependencies()));
+
+    _singleton<BlocToolbar>(() => BlocToolbar(app: dependencies()));
 
     _singleton<BlocHome>(
       () => BlocHome(
