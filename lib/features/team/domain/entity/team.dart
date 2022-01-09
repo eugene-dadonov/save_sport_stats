@@ -29,6 +29,23 @@ class Team extends Equatable {
         logo = Logo.round2,
         sport = Sport.other;
 
+  Team copyWith({
+    String? name,
+    Logo? logo,
+    TeamColor? teamColor,
+    String? city,
+    Sport? sport,
+  }) {
+    return Team(
+      uid: uid,
+      name: name ?? this.name,
+      city: city ?? this.city,
+      sport: sport ?? this.sport,
+      logo: logo ?? this.logo,
+      teamColor: teamColor ?? this.teamColor,
+    );
+  }
+
   @override
   List<Object?> get props => [uid, name, logo, teamColor, city, sport];
 }

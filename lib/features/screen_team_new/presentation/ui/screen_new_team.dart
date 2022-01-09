@@ -14,9 +14,7 @@ import 'package:sport_stats_live/core/widgets/logo/logo.dart';
 import 'package:sport_stats_live/core/widgets/menu_button.dart';
 import 'package:sport_stats_live/core/widgets/sport_selector/sport_selector_drop.dart';
 import 'package:sport_stats_live/features/screen_dialog_parameter_new/presentation/dialog/dialog_new_parameter.dart';
-import 'package:sport_stats_live/features/screen_team_new/presentation/bloc/bloc.dart';
 import 'package:sport_stats_live/features/screen_team_new/presentation/bloc/cubit_new_team_screen.dart';
-import 'package:sport_stats_live/features/screen_team_new/presentation/bloc/event.dart';
 import 'package:sport_stats_live/features/screen_team_new/presentation/dialog/delete_view.dart';
 import 'package:sport_stats_live/features/screen_team_new/presentation/dialog/selector_color_view.dart';
 import 'package:sport_stats_live/features/screen_team_new/presentation/dialog/selector_logo_view.dart';
@@ -43,7 +41,10 @@ class ScreenNewTeam extends WidgetBloc<CubitNewTeamScreen> {
         if (state is LoadingState) {
           return const _LoadingView();
         } else if (state is NewTeamState) {
-          return _NewTeamContent(team: state.team);
+          return _NewTeamContent(
+            team: state.team,
+            bloc: bloc,
+          );
         } else if (state is ErrorState) {
           return _ErrorView(errorMessage: state.errorMessage);
         } else {
@@ -108,9 +109,11 @@ class _NewTeamContent extends StatelessWidget {
   const _NewTeamContent({
     Key? key,
     required this.team,
+    required this.bloc,
   }) : super(key: key);
 
   final Team team;
+  final CubitNewTeamScreen bloc;
 
   @override
   Widget build(BuildContext context) {
@@ -135,8 +138,7 @@ class _NewTeamContent extends StatelessWidget {
               child: SportSelectorDropdown(
                 selectedSport: team.sport,
                 onSportChanged: (sport) {
-                  BlocProvider.of<TeamEditBloc>(context)
-                      .add(UpdateSportEvent(sport));
+                  bloc.updateTeamSport(sport);
                 },
               ),
             ),
@@ -153,8 +155,7 @@ class _NewTeamContent extends StatelessWidget {
               hint: HelperLocale.of(context).hintEnterName,
               text: team.name,
               onValueChanged: (newName) {
-                BlocProvider.of<TeamEditBloc>(context)
-                    .add(UpdateNameEvent(newName));
+                bloc.updateName(newName);
               },
               validator: (value) {
                 return isNotNullOrEmpty(context, value);
@@ -168,8 +169,7 @@ class _NewTeamContent extends StatelessWidget {
               text: team.city,
               hint: HelperLocale.of(context).hintEnterCity,
               onValueChanged: (newCity) {
-                BlocProvider.of<TeamEditBloc>(context)
-                    .add(UpdateCityEvent(newCity));
+                bloc.updateCity(newCity);
               },
               validator: (value) {
                 return isNotNullOrEmpty(context, value);
@@ -196,90 +196,35 @@ class _NewTeamContent extends StatelessWidget {
               ),
             ),
 
-            // Row(
-            //   mainAxisSize: MainAxisSize.max,
-            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //   children: [
-            //     _LogoSelector(team: team),
-            //     const SizedBox(width: 24),
-            //     _ColorSelector(team: team),
-            //   ],
-            // ),
-
-
-
-
-            const _OperationButtons()
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                _LogoSelector(
+                  team: team,
+                  onLogoSelected: (logo) {
+                    bloc.updateTeamLogo(logo);
+                  },
+                ),
+                const SizedBox(width: 24),
+                _ColorSelector(
+                  team: team,
+                  onColorSelected: (color) {
+                    bloc.updateTeamColor(color);
+                  },
+                ),
+              ],
+            ),
+            _OperationButtons(
+              onSave: () {
+                bloc.saveTeam();
+              },
+            )
           ],
         ),
       ),
     );
   }
-}
-
-Widget _buildForm(BuildContext context, Team team, String? title) {
-  return Form(
-    key: _formKey,
-    child: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24),
-      child: CustomScrollView(
-        shrinkWrap: true,
-        physics: const RangeMaintainingScrollPhysics(),
-        slivers: [
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 10, top: 6),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: _Title(
-                      name: HelperLocale.of(context).titleLogo,
-                    ),
-                  ),
-                  const SizedBox(width: 24),
-                  Expanded(
-                    child: _Title(
-                      name: HelperLocale.of(context).titleColor,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                _LogoSelector(team: team),
-                const SizedBox(width: 24),
-                _ColorSelector(team: team),
-              ],
-            ),
-          ),
-          SliverFillRemaining(
-            hasScrollBody: false,
-            fillOverscroll: false,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Flexible(
-                  child: Container(),
-                  fit: FlexFit.loose,
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(bottom: 28, top: 16),
-                  child: _OperationButtons(),
-                )
-              ],
-            ),
-          ),
-        ],
-      ),
-    ),
-  );
 }
 
 class DecoratedInputView extends StatelessWidget {
@@ -309,16 +254,6 @@ class DecoratedInputView extends StatelessWidget {
       validator: validator,
     );
   }
-}
-
-Widget _buildInputElement({
-  required BuildContext context,
-  required String hint,
-  required String? text,
-  required ValueChanged<String> onValueChanged,
-  FormFieldValidator<String>? validator,
-}) {
-  return SizedBox();
 }
 
 class _TopBar extends StatelessWidget {
@@ -421,7 +356,10 @@ class _LogoSelector extends StatelessWidget {
   const _LogoSelector({
     Key? key,
     required this.team,
+    required this.onLogoSelected,
   }) : super(key: key);
+
+  final ValueChanged<Logo> onLogoSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -447,8 +385,7 @@ class _LogoSelector extends StatelessWidget {
                   currentColor: selectedColor,
                   selectedLogo: selectedLogo,
                   onLogoSelected: (logo) {
-                    BlocProvider.of<TeamEditBloc>(context)
-                        .add(UpdateLogoEvent(logo));
+                    onLogoSelected.call(logo);
                     Navigator.of(context).pop();
                   },
                 ),
@@ -467,7 +404,10 @@ class _ColorSelector extends StatelessWidget {
   const _ColorSelector({
     Key? key,
     required this.team,
+    required this.onColorSelected,
   }) : super(key: key);
+
+  final ValueChanged<TeamColor> onColorSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -486,8 +426,7 @@ class _ColorSelector extends StatelessWidget {
                 child: DialogColorSelectorView(
                   currentColor: team?.teamColor ?? TeamColor.gunMetalGrey,
                   onColorSelected: (color) {
-                    BlocProvider.of<TeamEditBloc>(context)
-                        .add(UpdateColorEvent(color));
+                    onColorSelected.call(color);
                     Navigator.of(context).pop();
                   },
                 ),
@@ -501,7 +440,14 @@ class _ColorSelector extends StatelessWidget {
 }
 
 class _OperationButtons extends StatelessWidget {
-  const _OperationButtons({Key? key}) : super(key: key);
+  const _OperationButtons({
+    Key? key,
+    required this.onSave,
+    this.onCancel,
+  }) : super(key: key);
+
+  final VoidCallback onSave;
+  final VoidCallback? onCancel;
 
   @override
   Widget build(BuildContext context) {
@@ -512,17 +458,19 @@ class _OperationButtons extends StatelessWidget {
             color: ThemeHolder.of(context).main,
             onPress: () {
               if ((_formKey.currentState as FormState).validate()) {
-                BlocProvider.of<TeamEditBloc>(context).add(SaveTeamEvent());
+                onSave.call();
                 Navigator.of(context).pop();
               }
             }),
         const SizedBox(height: 12),
         MenuButton(
-            title: HelperLocale.of(context).buttonCancel,
-            color: ThemeHolder.of(context).warning,
-            onPress: () {
-              Navigator.of(context).pop();
-            })
+          title: HelperLocale.of(context).buttonCancel,
+          color: ThemeHolder.of(context).warning,
+          onPress: () {
+            onCancel?.call();
+            Navigator.of(context).pop();
+          },
+        )
       ],
     );
   }

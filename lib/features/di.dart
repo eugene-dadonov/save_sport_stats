@@ -122,7 +122,10 @@ class DependencyInjector {
         ));
 
     /// New Team
-    _factory<CubitNewTeamScreen>(() => CubitNewTeamScreen(app: dependencies()));
+    _factory<CubitNewTeamScreen>(() => CubitNewTeamScreen(
+          app: dependencies(),
+          interactor: dependencies(),
+        ));
   }
 
   _addMatchesBlocs() {
