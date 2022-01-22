@@ -18,7 +18,8 @@ class HomeScreen extends WidgetBloc<BlocHome> {
   final List<Widget> screens = [
     const ScreenMatches(),
     const ScreenTeams(),
-    ScreenNewTeam(team: Team.blank()),
+    Container(),
+    // ScreenNewTeam(team: Team.blank()),
     const ScreenSettings(),
   ];
 
@@ -30,14 +31,30 @@ class HomeScreen extends WidgetBloc<BlocHome> {
           backgroundColor: ThemeHolder.of(context).background1,
           appBar: const ViewToolbar(),
           bottomNavigationBar: BottomTab(onTabSelected: bloc.switchTo),
-          body: PageView(
-            onPageChanged: (index) {
-              bloc.switchTo(AppTab.values[index]);
-            },
-            children: screens,
-          ),
+          body: buildScreen(state.appTab),
         );
       },
+    );
+  }
+
+  Widget buildScreen(AppTab appTab) {
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 200),
+      child: Builder(
+        key: ValueKey(appTab),
+        builder: (context) {
+          switch (appTab) {
+            case AppTab.matches:
+              return screens[0];
+            case AppTab.teams:
+              return screens[1];
+            case AppTab.configuration:
+              return screens[2];
+            case AppTab.settings:
+              return screens[3];
+          }
+        },
+      ),
     );
   }
 }

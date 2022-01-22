@@ -55,6 +55,44 @@ class ViewMatches extends WidgetBloc<BlocMatchesView> {
       },
     );
   }
+
+  Widget buildView(ViewState state) {
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 200),
+      child: Builder(
+        key: ValueKey(state.runtimeType),
+        builder: (context) {
+          if (state is LoadingState) {
+            return const _LoadingView();
+          } else if (state is MatchesContentState) {
+            return _MatchListView(
+              matches: state.matches,
+              horizontalPadding: horizontalPadding,
+              verticalPadding: verticalPadding,
+              matchGap: matchGap,
+            );
+          } else if (state is EmptyState) {
+            return _EmptyView(
+              horizontalPadding: horizontalPadding,
+              verticalPadding: verticalPadding,
+            );
+          } else if (state is ErrorState) {
+            return _ErrorView(
+              errorMessage: state.errorMessage,
+              horizontalPadding: horizontalPadding,
+              verticalPadding: verticalPadding,
+            );
+          } else {
+            return _ErrorView(
+              errorMessage: "Неизвестная ошибка",
+              horizontalPadding: horizontalPadding,
+              verticalPadding: verticalPadding,
+            );
+          }
+        },
+      ),
+    );
+  }
 }
 
 class _LoadingView extends StatelessWidget {

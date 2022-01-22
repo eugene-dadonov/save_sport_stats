@@ -18,7 +18,7 @@ class BlocHome extends CubitCell<HomeState> {
     required AppBloc app,
     required this.bottomTab,
   }) : super(app, HomeState(appTab: AppTab.matches)) {
-   print("BlocHome inited");
+    print("BlocHome inited");
   }
 
   final BlocBottomTab bottomTab;
