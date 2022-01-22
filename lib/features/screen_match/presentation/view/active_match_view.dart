@@ -5,8 +5,8 @@ import 'package:sport_stats_live/core/widgets/match_status_selector/match_status
 import 'package:sport_stats_live/features/match/domain/entity/match.dart';
 import 'package:sport_stats_live/features/screen_match/domain/bloc/bloc.dart';
 import 'package:sport_stats_live/features/screen_match/domain/bloc/event.dart';
-import 'package:sport_stats_live/features/screen_match/presentation_new/widget/parameter_card/parameter_card.dart';
-import 'package:sport_stats_live/features/screen_match/presentation_new/widget/table.dart';
+import 'package:sport_stats_live/features/screen_match/presentation/widget/parameter_card/parameter_card.dart';
+import 'package:sport_stats_live/features/screen_match/presentation/widget/table.dart';
 
 class ActiveMatchView extends StatelessWidget {
   final Match match;

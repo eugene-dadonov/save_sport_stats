@@ -6,9 +6,10 @@ import 'package:sport_stats_live/core/widgets/score_counter.dart';
 import 'package:sport_stats_live/features/match/domain/entity/match.dart';
 import 'package:sport_stats_live/features/screen_match/domain/bloc/bloc.dart';
 import 'package:sport_stats_live/features/screen_match/domain/bloc/event.dart';
-import 'package:sport_stats_live/features/screen_match/presentation_new/widget/double_button.dart';
 import 'package:sport_stats_live/features/screen_match_list/presentation/hero_tags.dart';
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
+
+import 'double_button.dart';
 
 class ScoreTable extends StatelessWidget {
   const ScoreTable({

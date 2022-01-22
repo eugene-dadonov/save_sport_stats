@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 import 'package:sport_stats_live/features/match/data/repository/match_repository.dart';
 import 'package:sport_stats_live/features/match/domain/bloc/bloc.dart';
 import 'package:sport_stats_live/features/screen_match/domain/bloc/bloc.dart';
 import 'package:sport_stats_live/features/screen_match/domain/bloc/event.dart';
 import 'package:sport_stats_live/features/screen_match/domain/bloc/state.dart';
-import 'package:sport_stats_live/features/screen_match/presentation_new/view/active_match_view.dart';
+import 'package:sport_stats_live/features/screen_match/presentation/view/active_match_view.dart';
 
 class MatchRedesignedPage extends StatefulWidget {
   final String? matchId;
