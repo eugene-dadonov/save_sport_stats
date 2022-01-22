@@ -39,19 +39,4 @@ class ScreenTeams extends WidgetBloc<CubitTeamsScreen> {
       },
     );
   }
-//
-// Future<T?> openTeamEditDialog<T>({
-//   required BuildContext context,
-//   Team? team,
-// }) {
-//   return showCupertinoModalBottomSheet(
-//     topRadius: const Radius.circular(30),
-//     context: context,
-//     expand: true,
-//     builder: (BuildContext context) {
-//       return TeamEditPage.page(
-//           teamsBloc: context.read<TeamsBloc>(), team: team);
-//     },
-//   );
-// }
 }

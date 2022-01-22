@@ -2,11 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:sport_stats_live/core/base/bloc_widget/bloc_widget.dart';
 import 'package:sport_stats_live/core/base/domain/bloc/base_state.dart';
 import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
+import 'package:sport_stats_live/features/screen_team_new/presentation/ui/screen_new_team.dart';
 import 'package:sport_stats_live/features/screen_teams_list/presentation/bloc/cubit_teams.dart';
 import 'package:sport_stats_live/features/screen_teams_list/presentation/widget/team_card_new.dart';
+import 'package:sport_stats_live/features/team/domain/bloc/bloc.dart';
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 
 const double _defaultHeight = 200;
@@ -179,7 +182,9 @@ class _TeamListView extends StatelessWidget {
       itemBuilder: (context, index) {
         return TeamCardNew(
           team: teams[index],
-          onCardClick: (Team team) {},
+          onCardClick: (Team team) {
+            openTeamEditDialog(context: context, team: team);
+          },
         );
       },
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -187,6 +192,20 @@ class _TeamListView extends StatelessWidget {
         crossAxisSpacing: teamsGap,
         mainAxisSpacing: teamsGap,
       ),
+    );
+  }
+
+  Future<T?> openTeamEditDialog<T>({
+    required BuildContext context,
+    required Team team,
+  }) {
+    return showCupertinoModalBottomSheet(
+      topRadius: const Radius.circular(30),
+      context: context,
+      expand: true,
+      builder: (BuildContext context) {
+        return ScreenNewTeam(team: team);
+      },
     );
   }
 }

@@ -19,7 +19,6 @@ class HomeScreen extends WidgetBloc<BlocHome> {
     const ScreenMatches(),
     const ScreenTeams(),
     Container(),
-    // ScreenNewTeam(team: Team.blank()),
     const ScreenSettings(),
   ];
 
