@@ -1,23 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 import 'package:sport_stats_live/core/widgets/logo/logo.dart';
 import 'package:sport_stats_live/core/widgets/score_counter.dart';
 import 'package:sport_stats_live/features/match/domain/entity/match.dart';
-import 'package:sport_stats_live/features/screen_match/domain/bloc/bloc.dart';
-import 'package:sport_stats_live/features/screen_match/domain/bloc/event.dart';
 import 'package:sport_stats_live/features/screen_match_list/presentation/hero_tags.dart';
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 
 import 'double_button.dart';
 
+typedef OnScoreUpdated = Function(
+  HostStatus hostStatus,
+  int delta,
+);
+
 class ScoreTable extends StatelessWidget {
+  final Match match;
+  final OnScoreUpdated? onScoreUpdated;
+
   const ScoreTable({
     Key? key,
     required this.match,
+    this.onScoreUpdated,
   }) : super(key: key);
-
-  final Match match;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +34,7 @@ class ScoreTable extends StatelessWidget {
               score: match.score.host,
               team: match.host,
               hostStatus: HostStatus.host,
+              onScoreUpdated: onScoreUpdated,
             ),
           ),
           Expanded(
@@ -37,6 +42,7 @@ class ScoreTable extends StatelessWidget {
               team: match.guest,
               score: match.score.guest,
               hostStatus: HostStatus.guest,
+              onScoreUpdated: onScoreUpdated,
             ),
           ),
         ],
@@ -49,12 +55,14 @@ class _HostHalf extends StatelessWidget {
   final Team team;
   final int score;
   final HostStatus hostStatus;
+  final OnScoreUpdated? onScoreUpdated;
 
   const _HostHalf({
     Key? key,
     required this.team,
     required this.score,
     required this.hostStatus,
+    this.onScoreUpdated,
   }) : super(key: key);
 
   @override
@@ -132,20 +140,10 @@ class _HostHalf extends StatelessWidget {
                       width: 100,
                       borderWidth: 2,
                       plusClicked: () {
-                        BlocProvider.of<MatchScreenBloc>(context).add(
-                          UpdateScoreEvent(
-                            hostStatus: hostStatus,
-                            delta: 1,
-                          ),
-                        );
+                        onScoreUpdated?.call(hostStatus, 1);
                       },
                       minusClicked: () {
-                        BlocProvider.of<MatchScreenBloc>(context).add(
-                          UpdateScoreEvent(
-                            hostStatus: hostStatus,
-                            delta: -1,
-                          ),
-                        );
+                        onScoreUpdated?.call(hostStatus, -1);
                       },
                     ),
                   ),

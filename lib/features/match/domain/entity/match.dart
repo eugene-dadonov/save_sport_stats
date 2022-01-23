@@ -1,8 +1,9 @@
+import 'package:equatable/equatable.dart';
 import 'package:sport_stats_live/features/configuration/domain/sport.dart';
 import 'package:sport_stats_live/features/match/domain/entity/attribute.dart';
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 
-class Match {
+class Match extends Equatable {
   final String id;
   final Team host;
   final Team guest;
@@ -12,7 +13,7 @@ class Match {
   final Status status;
   final Sport sport;
 
-  Match({
+  const Match({
     required this.id,
     required this.host,
     required this.guest,
@@ -23,14 +24,15 @@ class Match {
     required this.sport,
   });
 
-  Match copyWith(
-          {Team? host,
-          Team? guest,
-          Attribute? score,
-          List<Attribute>? attributes,
-          DateTime? date,
-          Status? status,
-          Sport? sport}) =>
+  Match copyWith({
+    Team? host,
+    Team? guest,
+    Attribute? score,
+    List<Attribute>? attributes,
+    DateTime? date,
+    Status? status,
+    Sport? sport,
+  }) =>
       Match(
         id: id,
         host: host ?? this.host,
@@ -41,6 +43,18 @@ class Match {
         score: score ?? this.score,
         sport: sport ?? this.sport,
       );
+
+  @override
+  List<Object?> get props => [
+        id,
+        host,
+        guest,
+        status,
+        date,
+        attributes,
+        score,
+        sport,
+      ];
 }
 
 enum Status {

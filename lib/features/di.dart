@@ -13,6 +13,7 @@ import 'package:sport_stats_live/features/match/domain/match_interactor.dart';
 import 'package:sport_stats_live/features/screen_home/presentation/bloc/bottom_tab.dart';
 import 'package:sport_stats_live/features/screen_home/presentation/bloc/cubit_toolbar.dart';
 import 'package:sport_stats_live/features/screen_home/presentation/bloc/home.dart';
+import 'package:sport_stats_live/features/screen_match/presentation_new/bloc/cubit_match_screen.dart';
 import 'package:sport_stats_live/features/screen_match_list/presentation/bloc/cubit_matches_screen.dart';
 import 'package:sport_stats_live/features/screen_match_list/presentation/bloc/cubit_matches_view.dart';
 import 'package:sport_stats_live/features/screen_match_list/presentation/bloc/cubit_start_new_match_view.dart';
@@ -142,6 +143,11 @@ class DependencyInjector {
           app: dependencies(),
           blocMatchesView: dependencies(),
           blocStartNewMatchView: dependencies(),
+        ));
+
+    _factory<BlocMatchScreen>(() => BlocMatchScreen(
+          dependencies(),
+          app: dependencies(),
         ));
   }
 

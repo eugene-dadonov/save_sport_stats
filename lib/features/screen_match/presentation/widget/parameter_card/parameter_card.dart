@@ -1,13 +1,16 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 import 'package:sport_stats_live/features/match/domain/entity/attribute.dart';
-import 'package:sport_stats_live/features/screen_match/domain/bloc/bloc.dart';
-import 'package:sport_stats_live/features/screen_match/domain/bloc/event.dart';
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 
 import '../double_button.dart';
+
+typedef OnAttributeUpdated = Function(
+  String parameterId,
+  HostStatus hostStatus,
+  int delta,
+);
 
 class AttributeCard extends StatelessWidget {
   const AttributeCard({
@@ -15,11 +18,14 @@ class AttributeCard extends StatelessWidget {
     required this.attribute,
     required this.teamOne,
     required this.teamTwo,
+    this.onAttributeUpdated,
   }) : super(key: key);
 
   final Attribute attribute;
   final Team teamOne;
   final Team teamTwo;
+
+  final OnAttributeUpdated? onAttributeUpdated;
 
   @override
   Widget build(BuildContext context) {
@@ -79,21 +85,17 @@ class AttributeCard extends StatelessWidget {
                   height: 40,
                   width: 100,
                   plusClicked: () {
-                    BlocProvider.of<MatchScreenBloc>(context).add(
-                      UpdateAttributeEvent(
-                        parameterId: attribute.parameter.id,
-                        hostStatus: HostStatus.host,
-                        delta: 1,
-                      ),
+                    onAttributeUpdated?.call(
+                      attribute.parameter.id,
+                      HostStatus.host,
+                      1,
                     );
                   },
                   minusClicked: () {
-                    BlocProvider.of<MatchScreenBloc>(context).add(
-                      UpdateAttributeEvent(
-                        parameterId: attribute.parameter.id,
-                        hostStatus: HostStatus.host,
-                        delta: -1,
-                      ),
+                    onAttributeUpdated?.call(
+                      attribute.parameter.id,
+                      HostStatus.host,
+                      -1,
                     );
                   },
                 ),
@@ -111,21 +113,17 @@ class AttributeCard extends StatelessWidget {
                   height: 40,
                   width: 100,
                   plusClicked: () {
-                    BlocProvider.of<MatchScreenBloc>(context).add(
-                      UpdateAttributeEvent(
-                        parameterId: attribute.parameter.id,
-                        hostStatus: HostStatus.guest,
-                        delta: 1,
-                      ),
+                    onAttributeUpdated?.call(
+                      attribute.parameter.id,
+                      HostStatus.guest,
+                      1,
                     );
                   },
                   minusClicked: () {
-                    BlocProvider.of<MatchScreenBloc>(context).add(
-                      UpdateAttributeEvent(
-                        parameterId: attribute.parameter.id,
-                        hostStatus: HostStatus.guest,
-                        delta: -1,
-                      ),
+                    onAttributeUpdated?.call(
+                      attribute.parameter.id,
+                      HostStatus.guest,
+                      -1,
                     );
                   },
                 )

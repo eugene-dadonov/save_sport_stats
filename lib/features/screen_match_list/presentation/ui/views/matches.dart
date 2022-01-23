@@ -4,6 +4,8 @@ import 'package:sport_stats_live/core/base/bloc_widget/bloc_widget.dart';
 import 'package:sport_stats_live/core/base/domain/bloc/base_state.dart';
 import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 import 'package:sport_stats_live/features/match/domain/entity/match.dart';
+import 'package:sport_stats_live/features/screen_match/presentation_new/bloc/cubit_match_screen.dart';
+import 'package:sport_stats_live/features/screen_match/presentation_new/ui/match_screen.dart';
 import 'package:sport_stats_live/features/screen_match_list/presentation/bloc/cubit_matches_view.dart';
 import 'package:sport_stats_live/features/screen_match_list/presentation/ui/widget/match_card/match_card_new.dart';
 
@@ -219,7 +221,13 @@ class _MatchListView extends StatelessWidget {
       itemBuilder: (context, index) {
         return MatchCard(
           match: matches[index],
-          callback: () {},
+          callback: () {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) {
+                return const ScreenMatches();
+              },
+            ));
+          },
         );
       },
       separatorBuilder: (BuildContext context, int index) {

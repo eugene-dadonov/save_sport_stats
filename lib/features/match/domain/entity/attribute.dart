@@ -1,7 +1,8 @@
+import 'package:equatable/equatable.dart';
 import 'package:sport_stats_live/features/configuration/domain/parameter.dart';
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
 
-class Attribute {
+class Attribute extends Equatable {
   final Parameter parameter;
   int host;
   int guest;
@@ -35,4 +36,7 @@ class Attribute {
   double getPercentOfHost() => host / (host + guest);
 
   double getPercentOfGuest() => guest / (host + guest);
+
+  @override
+  List<Object?> get props => [host, guest, parameter];
 }
