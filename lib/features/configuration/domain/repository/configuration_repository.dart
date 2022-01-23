@@ -1,11 +1,12 @@
+import 'package:sport_stats_live/core/base/domain/entity/transporter.dart';
 import 'package:sport_stats_live/features/configuration/domain/configuration.dart';
 
 abstract class ConfigurationRepository {
-  Future<void> saveConfiguration(Configuration configuration);
+  Future<Transporter<bool>> saveConfiguration(Configuration configuration);
 
-  Future<List<Configuration>> getConfigurations();
+  Future<Transporter<List<Configuration>>> getConfigurations();
 
-  Future<Configuration> getConfigurationById(String id);
+  Future<Transporter<Configuration>> getConfigurationById(String id);
 
-  void delete(String id);
+  Future<Transporter<bool>> delete(String id);
 }

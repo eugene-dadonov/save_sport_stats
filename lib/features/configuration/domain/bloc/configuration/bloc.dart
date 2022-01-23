@@ -15,23 +15,23 @@ class ConfigurationBloc extends Bloc<ConfigurationEvent, ConfigurationState> {
 
   @override
   Stream<ConfigurationState> mapEventToState(ConfigurationEvent event) async* {
-    try {
-      if (event is Init) {
-        final configurations = await repository.getConfigurations();
-        yield ConfigurationState.updated(configurations: configurations);
-      } else if (event is SaveConfiguration) {
-        await repository.saveConfiguration(event.configuration);
-        final configurations = await repository.getConfigurations();
-        yield ConfigurationState.updated(configurations: configurations);
-      } else if (event is DeleteConfiguration) {
-        repository.delete(event.id);
-        final configurations = await repository.getConfigurations();
-        yield ConfigurationState.updated(configurations: configurations);
-      }
-    } on NoSuchConfiguration {
-      yield ConfigurationState.error(message: "Конфигурация не найдена!");
-    } catch (e) {
-      yield ConfigurationState.error(message: e.toString());
-    }
+    // try {
+    //   if (event is Init) {
+    //     final configurations = await repository.getConfigurations();
+    //     yield ConfigurationState.updated(configurations: configurations);
+    //   } else if (event is SaveConfiguration) {
+    //     await repository.saveConfiguration(event.configuration);
+    //     final configurations = await repository.getConfigurations();
+    //     yield ConfigurationState.updated(configurations: configurations);
+    //   } else if (event is DeleteConfiguration) {
+    //     repository.delete(event.id);
+    //     final configurations = await repository.getConfigurations();
+    //     yield ConfigurationState.updated(configurations: configurations);
+    //   }
+    // } on NoSuchConfiguration {
+    //   yield ConfigurationState.error(message: "Конфигурация не найдена!");
+    // } catch (e) {
+    //   yield ConfigurationState.error(message: e.toString());
+    // }
   }
 }
