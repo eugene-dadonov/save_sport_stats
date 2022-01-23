@@ -1,11 +1,13 @@
+import 'package:sport_stats_live/core/base/domain/entity/transporter.dart';
+
 import '../parameter.dart';
 
 abstract class ParameterRepository {
-  Future<void> saveParameter(Parameter parameter);
+  Future<Transporter<bool>> saveParameter(Parameter parameter);
 
-  Future<List<Parameter>> getParameters();
+  Future<Transporter<List<Parameter>>> getParameters();
 
-  Future<Parameter> getParameterById(String id);
+  Future<Transporter<Parameter>> getParameterById(String id);
 
-  void delete(String id);
+  Future<Transporter<bool>> delete(String id);
 }

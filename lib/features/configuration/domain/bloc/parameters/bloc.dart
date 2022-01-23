@@ -13,23 +13,23 @@ class ParameterBloc extends Bloc<ParametersEvent, ParametersState> {
 
   @override
   Stream<ParametersState> mapEventToState(ParametersEvent event) async* {
-    try {
-      if (event is Init) {
-        final parameters = await repository.getParameters();
-        yield ParametersState.updated(parameters: parameters);
-      } else if (event is SaveParameter) {
-        await repository.saveParameter(event.parameter);
-        final parameters = await repository.getParameters();
-        yield ParametersState.updated(parameters: parameters);
-      } else if (event is DeleteParameter) {
-        repository.delete(event.id);
-        final parameters = await repository.getParameters();
-        yield ParametersState.updated(parameters: parameters);
-      }
-    } on NoSuchParameter {
-      yield ParametersState.error(message: "Параметр не найден!");
-    } catch (e) {
-      yield ParametersState.error(message: e.toString());
-    }
+    // try {
+    //   if (event is Init) {
+    //     final parameters = await repository.getParameters();
+    //     yield ParametersState.updated(parameters: parameters);
+    //   } else if (event is SaveParameter) {
+    //     await repository.saveParameter(event.parameter);
+    //     final parameters = await repository.getParameters();
+    //     yield ParametersState.updated(parameters: parameters);
+    //   } else if (event is DeleteParameter) {
+    //     repository.delete(event.id);
+    //     final parameters = await repository.getParameters();
+    //     yield ParametersState.updated(parameters: parameters);
+    //   }
+    // } on NoSuchParameter {
+    //   yield ParametersState.error(message: "Параметр не найден!");
+    // } catch (e) {
+    //   yield ParametersState.error(message: e.toString());
+    // }
   }
 }
