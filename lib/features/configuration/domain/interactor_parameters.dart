@@ -2,10 +2,10 @@ import 'package:sport_stats_live/core/base/domain/entity/transporter.dart';
 import 'package:sport_stats_live/features/configuration/domain/parameter.dart';
 import 'package:sport_stats_live/features/configuration/domain/repository/parameter_repository.dart';
 
-class InteractorConfiguration {
+class InteractorParameters {
   final ParameterRepository _repository;
 
-  InteractorConfiguration(this._repository);
+  InteractorParameters(this._repository);
 
   Future<Transporter<List<Parameter>>> getAll() => _repository.getParameters();
 

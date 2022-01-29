@@ -3,7 +3,6 @@ import 'package:sport_stats_live/core/base/domain/bloc/base_cubit.dart';
 import 'package:sport_stats_live/core/base/domain/bloc/base_state.dart';
 import 'package:sport_stats_live/core/base/domain/entity/transporter.dart';
 import 'package:sport_stats_live/features/team/domain/entity/team.dart';
-import 'package:sport_stats_live/features/team/domain/repository/team_repository.dart';
 import 'package:sport_stats_live/features/team/domain/team_interactor.dart';
 
 class TeamsContentState extends ContentState {

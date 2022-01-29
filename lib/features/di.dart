@@ -6,10 +6,14 @@ import 'package:sport_stats_live/core/base/navigation/navigation_bloc.dart';
 import 'package:sport_stats_live/core/theming/domain/bloc/cubit.dart';
 import 'package:sport_stats_live/features/configuration/data/repository/configuration_repository.dart';
 import 'package:sport_stats_live/features/configuration/data/repository/parameter_repository.dart';
+import 'package:sport_stats_live/features/configuration/domain/interactor_configuration.dart';
+import 'package:sport_stats_live/features/configuration/domain/interactor_parameters.dart';
 import 'package:sport_stats_live/features/configuration/domain/repository/configuration_repository.dart';
 import 'package:sport_stats_live/features/configuration/domain/repository/parameter_repository.dart';
 import 'package:sport_stats_live/features/match/domain/bloc/bloc.dart';
 import 'package:sport_stats_live/features/match/domain/match_interactor.dart';
+import 'package:sport_stats_live/features/screen_configuration/new_presentation/bloc/screen_cubit.dart';
+import 'package:sport_stats_live/features/screen_configuration/new_presentation/bloc/view_cubit_configurations.dart';
 import 'package:sport_stats_live/features/screen_home/presentation/bloc/bottom_tab.dart';
 import 'package:sport_stats_live/features/screen_home/presentation/bloc/cubit_toolbar.dart';
 import 'package:sport_stats_live/features/screen_home/presentation/bloc/home.dart';
@@ -47,8 +51,11 @@ class DependencyInjector {
     _registerAppBloc();
 
     _addSettingsBlocs();
+    _addConfigurationsBlocs();
     _addTeamsBlocs();
     _addMatchesBlocs();
+
+    _registerBlocHome();
   }
 
   _registerStorages(bool withTestMatches) async {
@@ -97,6 +104,12 @@ class DependencyInjector {
     _factory<MatchInteractor>(
         () => MatchInteractor(repository: dependencies()));
 
+    _singleton<InteractorConfiguration>(
+        () => InteractorConfiguration(dependencies()));
+
+    _singleton<InteractorParameters>(
+        () => InteractorParameters(dependencies()));
+
     _factory<TeamInteractor>(() => TeamInteractor(repository: dependencies()));
   }
 
@@ -110,6 +123,16 @@ class DependencyInjector {
 
   _addSettingsBlocs() {
     _factory<CubitSettings>(() => CubitSettings(app: dependencies()));
+  }
+
+  _addConfigurationsBlocs() {
+    _singleton<CubitConfigurationsView>(
+        () => CubitConfigurationsView(dependencies(), app: dependencies()));
+
+    _singleton<CubitConfigurationsScreen>(() => CubitConfigurationsScreen(
+          app: dependencies(),
+          cubitConfigurationsView: dependencies(),
+        ));
   }
 
   _addTeamsBlocs() {
@@ -164,7 +187,9 @@ class DependencyInjector {
     _singleton<BlocBottomTab>(() => BlocBottomTab(app: dependencies()));
 
     _singleton<BlocToolbar>(() => BlocToolbar(app: dependencies()));
+  }
 
+  _registerBlocHome() {
     _singleton<BlocHome>(
       () => BlocHome(
         app: dependencies(),

@@ -1,20 +1,15 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:sport_stats_live/core/base/bloc_widget/bloc_widget.dart';
 import 'package:sport_stats_live/core/base/domain/bloc/base_state.dart';
 import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
-import 'package:sport_stats_live/features/screen_team_new/presentation/ui/screen_new_team.dart';
-import 'package:sport_stats_live/features/screen_teams_list/presentation/bloc/cubit_teams.dart';
-import 'package:sport_stats_live/features/screen_teams_list/presentation/widget/team_card_new.dart';
-import 'package:sport_stats_live/features/team/domain/entity/team.dart';
+import 'package:sport_stats_live/features/screen_configuration/new_presentation/bloc/view_cubit_configurations.dart';
+import 'package:sport_stats_live/features/screen_configuration/new_presentation/ui/widget/configurations_list.dart';
 
 const double _defaultHeight = 200;
 
-class ViewTeams extends WidgetBloc<CubitTeamsView> {
-  const ViewTeams({
+class ViewConfigurations extends WidgetBloc<CubitConfigurationsView> {
+  const ViewConfigurations({
     Key? key,
     required this.horizontalPadding,
     required this.verticalPadding,
@@ -26,17 +21,18 @@ class ViewTeams extends WidgetBloc<CubitTeamsView> {
   final double teamsGap;
 
   @override
-  Widget buildUI(BuildContext context, CubitTeamsView bloc) {
-    return BlocBuilder<CubitTeamsView, ViewState>(
+  Widget buildUI(BuildContext context, CubitConfigurationsView bloc) {
+    return BlocBuilder<CubitConfigurationsView, ViewState>(
       builder: (context, state) {
         if (state is LoadingState) {
           return const _LoadingView();
-        } else if (state is TeamsContentState) {
-          return _TeamListView(
-            teams: state.teams,
+        } else if (state is ConfigurationsState) {
+          return ConfigurationsListView(
+            configurations: state.configurations,
+            onTap: (configuration) {},
             horizontalPadding: horizontalPadding,
             verticalPadding: verticalPadding,
-            teamsGap: teamsGap,
+            cardGap: teamsGap,
           );
         } else if (state is EmptyState) {
           return _EmptyView(
@@ -149,62 +145,6 @@ class _ErrorView extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class _TeamListView extends StatelessWidget {
-  final List<Team> teams;
-
-  const _TeamListView({
-    Key? key,
-    required this.teams,
-    this.horizontalPadding = 0.0,
-    this.verticalPadding = 0.0,
-    this.teamsGap = 0.0,
-  }) : super(key: key);
-
-  final double horizontalPadding;
-  final double verticalPadding;
-  final double teamsGap;
-
-  @override
-  Widget build(BuildContext context) {
-    return GridView.builder(
-      shrinkWrap: true,
-      primary: false,
-      itemCount: teams.length,
-      padding: EdgeInsets.symmetric(
-        vertical: verticalPadding,
-        horizontal: horizontalPadding,
-      ),
-      itemBuilder: (context, index) {
-        return TeamCardNew(
-          team: teams[index],
-          onCardClick: (Team team) {
-            openTeamEditDialog(context: context, team: team);
-          },
-        );
-      },
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: teamsGap,
-        mainAxisSpacing: teamsGap,
-      ),
-    );
-  }
-
-  Future<T?> openTeamEditDialog<T>({
-    required BuildContext context,
-    required Team team,
-  }) {
-    return showCupertinoModalBottomSheet(
-      topRadius: const Radius.circular(30),
-      context: context,
-      expand: true,
-      builder: (BuildContext context) {
-        return ScreenNewTeam(team: team);
-      },
     );
   }
 }

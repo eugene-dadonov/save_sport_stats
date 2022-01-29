@@ -1,9 +1,10 @@
+import 'package:equatable/equatable.dart';
 import 'package:sport_stats_live/features/configuration/domain/sport.dart';
 import 'package:uuid/uuid.dart';
 
 import 'parameter.dart';
 
-class Configuration {
+class Configuration extends Equatable {
   final String id;
   final String name;
   final List<Parameter> parameters;
@@ -21,4 +22,7 @@ class Configuration {
     required this.sport,
     required this.parameters,
   }) : id = const Uuid().v1();
+
+  @override
+  List<Object?> get props => [id, name, parameters, sport];
 }
