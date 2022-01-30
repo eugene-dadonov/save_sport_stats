@@ -14,6 +14,7 @@ import 'package:sport_stats_live/features/match/domain/bloc/bloc.dart';
 import 'package:sport_stats_live/features/match/domain/match_interactor.dart';
 import 'package:sport_stats_live/features/screen_configuration/new_presentation/bloc/screen_cubit.dart';
 import 'package:sport_stats_live/features/screen_configuration/new_presentation/bloc/view_cubit_configurations.dart';
+import 'package:sport_stats_live/features/screen_configuration/new_presentation/bloc/view_cubit_parameters.dart';
 import 'package:sport_stats_live/features/screen_home/presentation/bloc/bottom_tab.dart';
 import 'package:sport_stats_live/features/screen_home/presentation/bloc/cubit_toolbar.dart';
 import 'package:sport_stats_live/features/screen_home/presentation/bloc/home.dart';
@@ -129,9 +130,13 @@ class DependencyInjector {
     _singleton<CubitConfigurationsView>(
         () => CubitConfigurationsView(dependencies(), app: dependencies()));
 
+    _singleton<CubitParametersView>(
+        () => CubitParametersView(dependencies(), app: dependencies()));
+
     _singleton<CubitConfigurationsScreen>(() => CubitConfigurationsScreen(
           app: dependencies(),
           cubitConfigurationsView: dependencies(),
+          cubitParametersView: dependencies(),
         ));
   }
 

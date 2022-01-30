@@ -1,7 +1,8 @@
+import 'package:equatable/equatable.dart';
 import 'package:sport_stats_live/features/configuration/domain/sport.dart';
 import 'package:uuid/uuid.dart';
 
-class Parameter {
+class Parameter extends Equatable {
   final String id;
   final String name;
   final bool isEternal;
@@ -40,6 +41,9 @@ class Parameter {
         standardParameter: standardParameter,
         sport: sport ?? this.sport,
       );
+
+  @override
+  List<Object?> get props => [id, name, isEternal, standardParameter, sport];
 }
 
 enum StandardParameter {

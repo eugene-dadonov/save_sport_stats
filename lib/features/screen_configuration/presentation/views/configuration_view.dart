@@ -9,7 +9,7 @@ import 'package:sport_stats_live/features/configuration/domain/bloc/parameters/b
 import 'package:sport_stats_live/features/configuration/domain/configuration.dart';
 import 'package:sport_stats_live/features/configuration/domain/parameter.dart';
 import 'package:sport_stats_live/features/screen_configuration/presentation/widgets/configuration/card.dart';
-import 'package:sport_stats_live/features/screen_configuration/presentation/widgets/parameter/parameters_card.dart';
+import 'package:sport_stats_live/features/screen_configuration/new_presentation/ui/widget/parameters_card.dart';
 import 'package:sport_stats_live/features/screen_dialog_configuration_edit/presentation/page/configuration_edit_page.dart';
 import 'package:sport_stats_live/features/screen_dialog_parameter_new/presentation/dialog/dialog_new_parameter.dart';
 import 'package:sport_stats_live/locales/locale_helper/l10n.dart';
