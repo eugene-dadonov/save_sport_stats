@@ -1,6 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
 
+class DialogTitle extends StatelessWidget {
+  final String title;
+  final EdgeInsets padding;
+
+  const DialogTitle({
+    Key? key,
+    required this.title,
+    required this.padding,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: padding,
+      child: Text(
+        title,
+        style: ThemeHolder.of(context).textStyle.h2(),
+        textAlign: TextAlign.center,
+      ),
+    );
+  }
+}
+
 class StyledTitle extends StatelessWidget {
   final String title;
   final EdgeInsets padding;

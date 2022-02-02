@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
+import 'package:sport_stats_live/core/widgets/title/title.dart';
 
 class BottomSheetToolbar extends StatelessWidget {
   final bool withBackButton;
@@ -34,23 +35,19 @@ class BottomSheetToolbar extends StatelessWidget {
         ),
         Row(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 16.0),
-              child: IconButton(
-                onPressed: () {
-                  Navigator.of(context).pop(null);
-                },
-                icon: Icon(
-                  Icons.arrow_back_ios,
-                  color: ThemeHolder.of(context).main,
-                ),
+            IconButton(
+              onPressed: () {
+                Navigator.of(context).pop(null);
+              },
+              icon: Icon(
+                Icons.arrow_back_ios,
+                color: ThemeHolder.of(context).main,
               ),
             ),
             Expanded(
-              child: Text(
-                title,
-                textAlign: TextAlign.center,
-                style: ThemeHolder.of(context).textStyle.h2(),
+              child: DialogTitle(
+                title: title,
+                padding: EdgeInsets.zero,
               ),
             ),
             trailing ?? Container(width: 52),

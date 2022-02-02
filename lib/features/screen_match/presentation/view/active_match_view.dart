@@ -25,7 +25,7 @@ class ActiveMatchView extends StatelessWidget {
         iconTheme: IconThemeData(color: ThemeHolder.of(context).main),
         elevation: 2,
         shadowColor: ThemeHolder.of(context).cardShadow.withOpacity(0.3),
-        title: SportSelectorDropdown(
+        title: StatusSelectorDropdown(
           selectedStatus: match.status,
           onStatusChanged: (status) {
             BlocProvider.of<MatchScreenBloc>(context)

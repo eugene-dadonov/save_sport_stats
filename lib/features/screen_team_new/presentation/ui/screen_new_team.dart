@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_stats_live/core/base/bloc_widget/bloc_widget.dart';
+import 'package:sport_stats_live/core/widgets/bottom_sheet.dart';
 import 'package:sport_stats_live/core/base/domain/bloc/base_state.dart';
 import 'package:sport_stats_live/core/base/validators.dart';
 import 'package:sport_stats_live/core/base/views/loading_view.dart';
@@ -109,105 +110,104 @@ class _NewTeamContent extends StatelessWidget {
     return Scaffold(
       backgroundColor: ThemeHolder.of(context).card,
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            /// TopBar
-            Padding(
-              padding: const EdgeInsets.only(top: 16),
-              child: _TopBar(title: title, team: team),
-            ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Column(
+            children: [
+              /// TopBar
+              _TopBar(title: title, team: team),
 
-            /// Type of Sport
-            _Title(name: HelperLocale.of(context).titleSport),
-            Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: SportSelectorDropdown(
-                selectedSport: team.sport,
-                onSportChanged: (sport) {
-                  bloc.updateTeamSport(sport);
+              /// Type of Sport
+              _Title(name: HelperLocale.of(context).titleSport),
+              Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: SportSelectorDropdown(
+                  selectedSport: team.sport,
+                  onSportChanged: (sport) {
+                    bloc.updateTeamSport(sport);
+                  },
+                ),
+              ),
+
+              /// Team Name
+              Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: _Title(
+                  name: HelperLocale.of(context).titleName,
+                ),
+              ),
+              const SizedBox(height: 10),
+              DecoratedInputView(
+                hint: HelperLocale.of(context).hintEnterName,
+                text: team.name,
+                onValueChanged: (newName) {
+                  bloc.updateName(newName);
+                },
+                validator: (value) {
+                  return isNotNullOrEmpty(context, value);
                 },
               ),
-            ),
 
-            /// Team Name
-            Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: _Title(
-                name: HelperLocale.of(context).titleName,
+              /// Team City
+              _Title(name: HelperLocale.of(context).titleCity),
+              const SizedBox(height: 10),
+              DecoratedInputView(
+                text: team.city,
+                hint: HelperLocale.of(context).hintEnterCity,
+                onValueChanged: (newCity) {
+                  bloc.updateCity(newCity);
+                },
+                validator: (value) {
+                  return isNotNullOrEmpty(context, value);
+                },
               ),
-            ),
-            const SizedBox(height: 10),
-            DecoratedInputView(
-              hint: HelperLocale.of(context).hintEnterName,
-              text: team.name,
-              onValueChanged: (newName) {
-                bloc.updateName(newName);
-              },
-              validator: (value) {
-                return isNotNullOrEmpty(context, value);
-              },
-            ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10, top: 6),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: _Title(
+                        name: HelperLocale.of(context).titleLogo,
+                      ),
+                    ),
+                    const SizedBox(width: 24),
+                    Expanded(
+                      child: _Title(
+                        name: HelperLocale.of(context).titleColor,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
 
-            /// Team City
-            _Title(name: HelperLocale.of(context).titleCity),
-            const SizedBox(height: 10),
-            DecoratedInputView(
-              text: team.city,
-              hint: HelperLocale.of(context).hintEnterCity,
-              onValueChanged: (newCity) {
-                bloc.updateCity(newCity);
-              },
-              validator: (value) {
-                return isNotNullOrEmpty(context, value);
-              },
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 10, top: 6),
-              child: Row(
+              Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(
-                    child: _Title(
-                      name: HelperLocale.of(context).titleLogo,
-                    ),
+                  _LogoSelector(
+                    team: team,
+                    onLogoSelected: (logo) {
+                      bloc.updateTeamLogo(logo);
+                    },
                   ),
                   const SizedBox(width: 24),
-                  Expanded(
-                    child: _Title(
-                      name: HelperLocale.of(context).titleColor,
-                    ),
+                  _ColorSelector(
+                    team: team,
+                    onColorSelected: (color) {
+                      bloc.updateTeamColor(color);
+                    },
                   ),
                 ],
               ),
-            ),
-
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                _LogoSelector(
-                  team: team,
-                  onLogoSelected: (logo) {
-                    bloc.updateTeamLogo(logo);
-                  },
-                ),
-                const SizedBox(width: 24),
-                _ColorSelector(
-                  team: team,
-                  onColorSelected: (color) {
-                    bloc.updateTeamColor(color);
-                  },
-                ),
-              ],
-            ),
-            _OperationButtons(
-              onSave: () {
-                bloc.saveTeam();
-              },
-            )
-          ],
+              _OperationButtons(
+                onSave: () {
+                  bloc.saveTeam();
+                },
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -256,32 +256,32 @@ class _TopBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final title = this.title ?? HelperLocale.of(context).titleNewTeam;
-    final isNewTeam = title == null;
+    final bool isNewTeam = title == null;
 
-    return Row(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        if (isNewTeam)
-          const SizedBox(
-            height: 45,
-            width: 45,
-          ),
-        Expanded(
-          flex: 1,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            child: Text(
-              title,
-              textAlign: TextAlign.center,
-              style: ThemeHolder.of(context)
-                  .textStyle
-                  .h1(color: ThemeHolder.of(context).main),
-            ),
-          ),
-        ),
-        if (!isNewTeam)
-          DeleteButton(
+    return BottomSheetToolbar(
+      title: title,
+      trailing: DeleteSwitcher(
+        team: team,
+        withButton: isNewTeam,
+      ),
+    );
+  }
+}
+
+class DeleteSwitcher extends StatelessWidget {
+  final Team team;
+  final bool withButton;
+
+  const DeleteSwitcher({
+    Key? key,
+    required this.team,
+    this.withButton = true,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return withButton
+        ? DeleteButton(
             onTap: () {
               showDialog(
                 context: context,
@@ -310,9 +310,8 @@ class _TopBar extends StatelessWidget {
                 },
               );
             },
-          ),
-      ],
-    );
+          )
+        : Container(width: 52);
   }
 }
 

@@ -7,8 +7,8 @@ import 'package:sport_stats_live/core/widgets/mappers/status_mapper.dart';
 import 'package:sport_stats_live/features/match/domain/bloc/state.dart';
 import 'package:sport_stats_live/features/match/domain/entity/match.dart';
 
-class SportSelectorDropdown extends StatefulWidget {
-  const SportSelectorDropdown({
+class StatusSelectorDropdown extends StatefulWidget {
+  const StatusSelectorDropdown({
     Key? key,
     required this.selectedStatus,
     required this.onStatusChanged,
@@ -18,10 +18,10 @@ class SportSelectorDropdown extends StatefulWidget {
   final ValueChanged<Status> onStatusChanged;
 
   @override
-  State<SportSelectorDropdown> createState() => _SportSelectorDropdownState();
+  State<StatusSelectorDropdown> createState() => _StatusSelectorDropdownState();
 }
 
-class _SportSelectorDropdownState extends State<SportSelectorDropdown> {
+class _StatusSelectorDropdownState extends State<StatusSelectorDropdown> {
   late Status selectedStatus;
 
   @override
