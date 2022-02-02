@@ -19,7 +19,7 @@ class ParameterEditState extends ViewState {
 }
 
 class CubitParametersDialog extends CubitCell<ViewState> {
-  late InteractorParameters _interactorParameters;
+  final InteractorParameters _interactorParameters;
   late Parameter parameter;
   late bool isNew;
 

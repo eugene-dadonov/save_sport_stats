@@ -30,11 +30,4 @@ class ThemeBuilder extends WidgetBloc<BlocTheme> {
   Widget buildUI(BuildContext context, BlocTheme bloc) {
     return ThemeHolder(child: child, theme: themes[AppTheme.light]!);
   }
-
-// @override
-// Widget buildUI(BuildContext context, BlocTheme bloc) {
-//   return BlocBuilder<BlocTheme, OnNewTheme>(builder: (context, state) {
-//     return ThemeHolder(child: child, theme: themes[AppTheme.light]!);
-//   });
-// }
 }
