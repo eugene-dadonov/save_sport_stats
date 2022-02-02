@@ -13,7 +13,7 @@ import 'package:sport_stats_live/core/widgets/input_view/input_layout.dart';
 import 'package:sport_stats_live/core/widgets/logo/logo.dart';
 import 'package:sport_stats_live/core/widgets/menu_button.dart';
 import 'package:sport_stats_live/core/widgets/sport_selector/sport_selector_drop.dart';
-import 'package:sport_stats_live/features/screen_dialog_parameter_new/presentation/dialog/dialog_new_parameter.dart';
+import 'package:sport_stats_live/features/screen_dialog_configuration_edit/presentation/view/new_configuration_view.dart';
 import 'package:sport_stats_live/features/screen_team_new/presentation/bloc/cubit_new_team_screen.dart';
 import 'package:sport_stats_live/features/screen_team_new/presentation/dialog/delete_view.dart';
 import 'package:sport_stats_live/features/screen_team_new/presentation/dialog/selector_color_view.dart';

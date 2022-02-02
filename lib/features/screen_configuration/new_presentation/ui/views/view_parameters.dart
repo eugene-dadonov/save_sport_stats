@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_stats_live/core/base/bloc_widget/bloc_widget.dart';
 import 'package:sport_stats_live/core/base/domain/bloc/base_state.dart';
 import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
+import 'package:sport_stats_live/features/dialog_parameter_edit/presentation_edit/ui/dialog_parameter_edit.dart';
 import 'package:sport_stats_live/features/screen_configuration/new_presentation/bloc/view_cubit_configurations.dart';
 import 'package:sport_stats_live/features/screen_configuration/new_presentation/bloc/view_cubit_parameters.dart';
 import 'package:sport_stats_live/features/screen_configuration/new_presentation/ui/widget/configurations_list.dart';
@@ -31,7 +32,14 @@ class ViewParameters extends WidgetBloc<CubitParametersView> {
         } else if (state is ParametersState) {
           return ParametersListView(
             parameters: state.parameters,
-            onTap: (configuration) {},
+            onTap: (configuration) {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return const DialogParameterEdit();
+                },
+              );
+            },
             horizontalPadding: horizontalPadding,
             verticalPadding: verticalPadding,
             cardGap: teamsGap,

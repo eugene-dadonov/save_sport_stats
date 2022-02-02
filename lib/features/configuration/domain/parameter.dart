@@ -9,7 +9,7 @@ class Parameter extends Equatable {
   final StandardParameter standardParameter;
   final Sport sport;
 
-  Parameter({
+  const Parameter({
     required this.id,
     required this.name,
     this.isEternal = false,

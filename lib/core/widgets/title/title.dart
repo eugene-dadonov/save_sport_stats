@@ -23,3 +23,24 @@ class StyledTitle extends StatelessWidget {
     );
   }
 }
+
+class SelectionTitle extends StatelessWidget {
+  const SelectionTitle({
+    Key? key,
+    required this.name,
+  }) : super(key: key);
+  final String name;
+
+  @override
+  Widget build(BuildContext context) {
+    final color = ThemeHolder.of(context).secondary2;
+    return Padding(
+      padding: const EdgeInsets.only(top: 16, bottom: 2),
+      child: Text(
+        name.toUpperCase(),
+        textAlign: TextAlign.center,
+        style: ThemeHolder.of(context).textStyle.t1(color: color),
+      ),
+    );
+  }
+}

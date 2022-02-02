@@ -19,7 +19,7 @@ class AppDialog extends StatelessWidget {
       ),
       elevation: 0,
       backgroundColor: backgroundColor,
-      child: child,
+      child: SingleChildScrollView(child: child),
     );
   }
 }

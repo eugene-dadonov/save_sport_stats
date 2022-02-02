@@ -12,8 +12,8 @@ class InteractorParameters {
   Future<Transporter<Parameter>> getById(String id) =>
       _repository.getParameterById(id);
 
-  Future<Transporter<bool>> save(Parameter configuration) =>
-      _repository.saveParameter(configuration);
+  Future<Transporter<bool>> save(Parameter parameter) =>
+      _repository.saveParameter(parameter);
 
   Future<Transporter<bool>> delete(String id) => _repository.delete(id);
 }
