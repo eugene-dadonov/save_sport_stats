@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_stats_live/core/base/bloc_widget/bloc_widget.dart';
+import 'package:sport_stats_live/core/base/dialog/bottom_sheet.dart';
 import 'package:sport_stats_live/core/base/domain/bloc/base_state.dart';
 import 'package:sport_stats_live/core/base/views/error_view.dart';
 import 'package:sport_stats_live/core/base/views/loading_view.dart';
@@ -25,10 +26,7 @@ class ScreenConfigurationEdit extends WidgetBloc<CubitConfigurationEditScreen> {
           if (state is LoadingState) {
             return const LoadingStubView(height: _defaultHeight);
           } else if (state is ConfigurationEditState) {
-            return const ErrorStubView(
-              height: _defaultHeight,
-              errorMessage: "Неизвестная ошибка",
-            );
+            return ContentView();
           } else if (state is ErrorState) {
             return ErrorStubView(
               errorMessage: state.errorMessage,
@@ -41,6 +39,19 @@ class ScreenConfigurationEdit extends WidgetBloc<CubitConfigurationEditScreen> {
             );
           }
         },
+      ),
+    );
+  }
+}
+
+class ContentView extends StatelessWidget {
+  const ContentView({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: BottomSheetToolbar(
+        title: 'Новый набор',
       ),
     );
   }

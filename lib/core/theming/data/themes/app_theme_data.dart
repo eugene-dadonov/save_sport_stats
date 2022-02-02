@@ -183,23 +183,6 @@ class TeamsColors {
   Color darkSlate;
   Color gunMetalGrey;
 
-  // Color redDark;
-  // Color red;
-  // Color orange;
-  // Color yellow;
-  // Color green;
-  // Color greenLight;
-  // Color cyan;
-  // Color azure;
-  // Color blue;
-  // Color purple;
-  // Color raspberry;
-  // Color pink;
-  // Color greyLight;
-  // Color grey;
-  // Color greyDark;
-  // Color black;
-
   TeamsColors.dark()
       : redDark = DarkTeamColorsUpdated.redDark,
         red = DarkTeamColorsUpdated.red,
