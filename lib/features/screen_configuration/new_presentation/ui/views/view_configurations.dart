@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:sport_stats_live/core/base/bloc_widget/bloc_widget.dart';
 import 'package:sport_stats_live/core/base/domain/bloc/base_state.dart';
 import 'package:sport_stats_live/core/theming/domain/presentation/app_theme.dart';
+import 'package:sport_stats_live/features/configuration/domain/configuration.dart';
+import 'package:sport_stats_live/features/dialog_configuration_edit/presentation/ui/screen_configuration_edit.dart';
 import 'package:sport_stats_live/features/screen_configuration/new_presentation/bloc/view_cubit_configurations.dart';
 import 'package:sport_stats_live/features/screen_configuration/new_presentation/ui/widget/configurations_list.dart';
 
@@ -29,7 +32,12 @@ class ViewConfigurations extends WidgetBloc<CubitConfigurationsView> {
         } else if (state is ConfigurationsState) {
           return ConfigurationsListView(
             configurations: state.configurations,
-            onTap: (configuration) {},
+            onTap: (configuration) {
+              openNewConfigurationDialog(
+                context: context,
+                configuration: configuration,
+              );
+            },
             horizontalPadding: horizontalPadding,
             verticalPadding: verticalPadding,
             cardGap: teamsGap,
@@ -52,6 +60,20 @@ class ViewConfigurations extends WidgetBloc<CubitConfigurationsView> {
             verticalPadding: verticalPadding,
           );
         }
+      },
+    );
+  }
+
+  Future<T?> openNewConfigurationDialog<T>({
+    required BuildContext context,
+    required Configuration configuration,
+  }) {
+    return showCupertinoModalBottomSheet(
+      topRadius: const Radius.circular(30),
+      context: context,
+      expand: true,
+      builder: (BuildContext context) {
+        return ScreenConfigurationEdit(configuration: configuration);
       },
     );
   }

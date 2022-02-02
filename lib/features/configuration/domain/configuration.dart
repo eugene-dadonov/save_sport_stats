@@ -10,7 +10,7 @@ class Configuration extends Equatable {
   final List<Parameter> parameters;
   final Sport sport;
 
-  Configuration({
+  const Configuration({
     required this.id,
     required this.name,
     required this.parameters,
@@ -22,6 +22,26 @@ class Configuration extends Equatable {
     required this.sport,
     required this.parameters,
   }) : id = const Uuid().v1();
+
+  Configuration.blank()
+      : id = const Uuid().v1(),
+        name = "",
+        sport = Sport.other,
+        parameters = [];
+
+  Configuration copyWith({
+    String? name,
+    String? city,
+    Sport? sport,
+    List<Parameter>? parameters,
+  }) {
+    return Configuration(
+      id: id,
+      name: name ?? this.name,
+      sport: sport ?? this.sport,
+      parameters: parameters ?? this.parameters,
+    );
+  }
 
   @override
   List<Object?> get props => [id, name, parameters, sport];

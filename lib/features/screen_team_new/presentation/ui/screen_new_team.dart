@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_stats_live/core/base/bloc_widget/bloc_widget.dart';
 import 'package:sport_stats_live/core/base/domain/bloc/base_state.dart';
 import 'package:sport_stats_live/core/base/validators.dart';
+import 'package:sport_stats_live/core/base/views/loading_view.dart';
 import 'package:sport_stats_live/core/design/logos/icons.dart';
 import 'package:sport_stats_live/core/design/logos/logos.dart';
 import 'package:sport_stats_live/core/theming/data/themes/app_theme_data.dart';
@@ -39,7 +40,7 @@ class ScreenNewTeam extends WidgetBloc<CubitNewTeamScreen> {
     return BlocBuilder<CubitNewTeamScreen, ViewState>(
       builder: (context, state) {
         if (state is LoadingState) {
-          return const _LoadingView();
+          return const LoadingStubView(height: _defaultHeight);
         } else if (state is NewTeamState) {
           return _NewTeamContent(
             team: state.team,
@@ -51,20 +52,6 @@ class ScreenNewTeam extends WidgetBloc<CubitNewTeamScreen> {
           return const _ErrorView(errorMessage: "Неизвестная ошибка");
         }
       },
-    );
-  }
-}
-
-class _LoadingView extends StatelessWidget {
-  const _LoadingView({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const SizedBox(
-      height: _defaultHeight,
-
-      /// TODO: Заменить на нормальную загрузку
-      child: CircularProgressIndicator(),
     );
   }
 }

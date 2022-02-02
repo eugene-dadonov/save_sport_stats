@@ -35,6 +35,7 @@ import 'configuration/data/storage/configuration_hive_storage.dart';
 import 'configuration/data/storage/configuration_storage.dart';
 import 'configuration/data/storage/parameter_hive_storage.dart';
 import 'configuration/data/storage/parameter_storage.dart';
+import 'dialog_configuration_edit/presentation/cubit/cubit_configurations_view.dart';
 import 'dialog_parameter_edit/presentation_edit/cubit/cubit_dialog_parameter_edit.dart';
 import 'match/data/repository/match_repository.dart';
 import 'match/data/storage/hive_match_storage.dart';
@@ -143,6 +144,11 @@ class DependencyInjector {
     _singleton<CubitParametersDialog>(() => CubitParametersDialog(
           dependencies(),
           app: dependencies(),
+        ));
+
+    _singleton<CubitConfigurationEditScreen>(() => CubitConfigurationEditScreen(
+          app: dependencies(),
+          interactor: dependencies(),
         ));
   }
 
